@@ -1,4 +1,4 @@
-import { gridToScreen } from './isoMath.js';
+import { gridToScreen } from "./isoMath.js";
 import {
   BUBBLER_DRINK_LINE,
   COFFEE_SIP_LINE,
@@ -77,11 +77,28 @@ function buildUsePcTarget(piece) {
   };
 }
 
+function buildDoorTarget(piece) {
+  const label = piece.exitLabel || "Use the door";
+
+  return {
+    kind: InteractKind.USE_DOOR,
+    pieceId: piece.id,
+    staffId: null,
+    prompt: `Press E — ${label}`,
+    toastText: null,
+    toRoomId: piece.toRoomId,
+    toSpawn: piece.toSpawn || null,
+    exitLabel: piece.exitLabel || null,
+  };
+}
+
 export function findNearbyInteractable(
   player,
   office,
-  staffLookup
+  staffLookup,
+  options = {}
 ) {
+  const allowDeskPc = options.allowDeskPc !== false;
   const playerX = Math.round(player.gridX);
   const playerY = Math.round(player.gridY);
   let bestTarget = null;
@@ -99,31 +116,11 @@ export function findNearbyInteractable(
       continue;
     }
 
-    let target = null;
-
-    if (piece.kind === FurnitureKind.BUBBLER) {
-      target = buildDrinkTarget(piece);
-    }
-
-    if (piece.kind === FurnitureKind.COFFEE) {
-      target = buildCoffeeTarget(piece);
-    }
-
-    if (piece.kind === FurnitureKind.WHITEBOARD) {
-      target = buildWhiteboardTarget(piece);
-    }
-
-    if (piece.kind === FurnitureKind.DESK) {
-      if (piece.isPlayerDesk) {
-        target = buildUsePcTarget(piece);
-      } else if (piece.staffId) {
-        const person = staffLookup[piece.staffId];
-
-        if (person) {
-          target = buildTalkTarget(piece, person);
-        }
-      }
-    }
+    const target = buildInteractTargetForPiece(
+      piece,
+      staffLookup,
+      { allowDeskPc }
+    );
 
     if (!target) {
       continue;
@@ -138,6 +135,16 @@ export function findNearbyInteractable(
   return bestTarget;
 }
 
+export function findFurnitureById(office, pieceId) {
+  for (const piece of office.furniture) {
+    if (piece.id === pieceId) {
+      return piece;
+    }
+  }
+
+  return null;
+}
+
 export function findFurnitureAt(office, gridX, gridY) {
   for (const piece of office.furniture) {
     if (piece.gridX === gridX && piece.gridY === gridY) {
@@ -150,8 +157,11 @@ export function findFurnitureAt(office, gridX, gridY) {
 
 export function buildInteractTargetForPiece(
   piece,
-  staffLookup
+  staffLookup,
+  options = {}
 ) {
+  const allowDeskPc = options.allowDeskPc !== false;
+
   if (piece.kind === FurnitureKind.BUBBLER) {
     return buildDrinkTarget(piece);
   }
@@ -164,11 +174,19 @@ export function buildInteractTargetForPiece(
     return buildWhiteboardTarget(piece);
   }
 
+  if (piece.kind === FurnitureKind.DOOR) {
+    return buildDoorTarget(piece);
+  }
+
   if (piece.kind !== FurnitureKind.DESK) {
     return null;
   }
 
   if (piece.isPlayerDesk) {
+    if (!allowDeskPc) {
+      return null;
+    }
+
     return buildUsePcTarget(piece);
   }
 
@@ -191,6 +209,7 @@ const FURNITURE_HIT_BOUNDS = {
   bubbler: { left: -13, right: 17, top: -65, bottom: 3 },
   coffee: { left: -22, right: 27, top: -48, bottom: 8 },
   whiteboard: { left: -30, right: 30, top: -61, bottom: 5 },
+  door: { left: -28, right: 28, top: -70, bottom: 10 },
 };
 
 export function findFurnitureAtScreen(office, screenX, screenY) {

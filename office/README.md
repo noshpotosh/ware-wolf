@@ -4,10 +4,17 @@ Internal isometric pixel office for Warewolf.
 
 ## Status
 
-**On hold** (2026-09-06): active product priority is the honest AI
-studio tycoon thesis —
-[`../docs/decisions/007-honest-ai-studio-tycoon.md`](../docs/decisions/007-honest-ai-studio-tycoon.md).
-Loft remains runnable; no new office feature work until reopened.
+**Active shipping web client** (2026-09-06): honest AI studio
+tycoon under
+[`../docs/decisions/007-honest-ai-studio-tycoon.md`](../docs/decisions/007-honest-ai-studio-tycoon.md);
+vehicle is Phaser 3 on this folder per
+[`../docs/decisions/008-ai-studio-product-contract.md`](../docs/decisions/008-ai-studio-product-contract.md).
+Desk OS stays DOM; loft canvas migrates to Phaser.
+
+**Next product lock** (2026-09-06): loft × visual-novel hybrid —
+Founder’s Office + shared loft, player-only walk, flash reseat for
+crew, VN flavor panels separate from Teams. See
+[`../docs/office/decisions/002-loft-vn-hybrid.md`](../docs/office/decisions/002-loft-vn-hybrid.md).
 
 Plan complete through Phase 6 polish:
 
@@ -21,26 +28,28 @@ Plan complete through Phase 6 polish:
 
 ## Run
 
-Serve this folder over HTTP (ES modules + `fetch` need it):
-
 ```bash
 cd office
+npm install
 python3 -m http.server 8765
 ```
 
 Open [http://127.0.0.1:8765](http://127.0.0.1:8765).
 
+Phaser 3 owns the loft canvas; the desk OS stays DOM.
+
 ### Controls
 
 - Click floor to walk
-- Click a desk / prop to walk over, then interact
-- `E` — interact when prompted
+- Click a desk / prop / door to walk over, then interact
+- `E` — interact when prompted (doors change rooms)
 - `M` — mute / unmute UI blips
-- Desk PC → desktop apps (Teams, Directory, Goals, Loft)
+- Desk PC (Founder's Office only) → Teams, Directory, Goals, Loft
 - `Esc` — close window / leave desk
 
-`prefers-reduced-motion: reduce` snaps walks and disables character bobbing.
-The camera fits the full room, including walls, to the viewport.
+`prefers-reduced-motion: reduce` snaps walks, disables character
+bobbing, and shortens room-flash transitions. The camera fits the
+full room, including walls, to the viewport.
 
 ## Visual implementation
 

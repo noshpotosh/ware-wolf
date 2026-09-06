@@ -1,7 +1,8 @@
 # Virtual Office — Asset pipeline
 
-**Status:** Phase 0 convention lock  
-**Date:** 2026-09-05
+**Status:** Active for Phaser loft (`office/`)  
+**Date:** 2026-09-05  
+**Vehicle:** Phaser 3 + DOM desk OS ([ADR 008](../decisions/008-ai-studio-product-contract.md))
 
 ## Folders
 

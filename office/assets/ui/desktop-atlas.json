@@ -1,0 +1,213 @@
+{
+  "symbols": {
+    "texture": "desktop-symbols.png",
+    "cell_size": [
+      40,
+      40
+    ],
+    "regions": {
+      "teams": [
+        0,
+        0,
+        40,
+        40
+      ],
+      "directory": [
+        40,
+        0,
+        40,
+        40
+      ],
+      "loft": [
+        80,
+        0,
+        40,
+        40
+      ],
+      "book": [
+        120,
+        0,
+        40,
+        40
+      ],
+      "search": [
+        160,
+        0,
+        40,
+        40
+      ],
+      "person": [
+        200,
+        0,
+        40,
+        40
+      ],
+      "people": [
+        240,
+        0,
+        40,
+        40
+      ],
+      "building": [
+        280,
+        0,
+        40,
+        40
+      ],
+      "star": [
+        320,
+        0,
+        40,
+        40
+      ],
+      "available": [
+        360,
+        0,
+        40,
+        40
+      ],
+      "chevron": [
+        400,
+        0,
+        40,
+        40
+      ],
+      "wifi": [
+        440,
+        0,
+        40,
+        40
+      ],
+      "sound": [
+        480,
+        0,
+        40,
+        40
+      ]
+    }
+  },
+  "chrome": {
+    "texture": "desktop-theme.png",
+    "cell_size": [
+      32,
+      32
+    ],
+    "nine_slice_margins": [
+      5,
+      5,
+      5,
+      5
+    ],
+    "regions": {
+      "window": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "paper": [
+        32,
+        0,
+        32,
+        32
+      ],
+      "selected": [
+        64,
+        0,
+        32,
+        32
+      ],
+      "button": [
+        96,
+        0,
+        32,
+        32
+      ],
+      "input": [
+        128,
+        0,
+        32,
+        32
+      ]
+    },
+    "margin_overrides": {
+      "window": [
+        10,
+        10,
+        10,
+        10
+      ]
+    }
+  },
+  "bucks_chip": {
+    "texture": "bucks-chip.png",
+    "regions": {
+      "chip": [
+        0,
+        0,
+        298,
+        77
+      ]
+    }
+  },
+  "window_chrome": {
+    "texture": "window-chrome.png",
+    "nine_slice_margins": [
+      19,
+      40,
+      71,
+      15
+    ],
+    "content_insets": [
+      19,
+      40,
+      71,
+      15
+    ],
+    "regions": {
+      "frame": [
+        0,
+        0,
+        276,
+        211
+      ]
+    },
+    "controls": [
+      [
+        205,
+        10,
+        20,
+        18
+      ],
+      [
+        226,
+        10,
+        20,
+        18
+      ],
+      [
+        247,
+        10,
+        20,
+        18
+      ]
+    ]
+  },
+  "taskbar": {
+    "texture": "taskbar.png",
+    "nine_slice_margins": [
+      16,
+      10,
+      16,
+      10
+    ],
+    "regions": {
+      "bar": [
+        0,
+        0,
+        483,
+        161
+      ]
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "founders-office",
+  "displayName": "Founder's Office",
+  "gridWidth": 7,
+  "gridHeight": 6,
+  "floorTile": "carpet",
+  "borderTile": "wood",
+  "furniture": [
+    {
+      "id": "desk-nosh",
+      "kind": "desk",
+      "gridX": 3,
+      "gridY": 2,
+      "blocksWalk": true,
+      "isPlayerDesk": true,
+      "staffId": "nosh"
+    },
+    {
+      "id": "door-to-loft",
+      "kind": "door",
+      "gridX": 3,
+      "gridY": 5,
+      "blocksWalk": true,
+      "interactable": true,
+      "toRoomId": "shared-loft",
+      "toSpawn": { "gridX": 2, "gridY": 3 },
+      "exitLabel": "Exit to loft"
+    }
+  ]
+}

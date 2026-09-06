@@ -1,17 +1,30 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { FurnitureKind, InteractKind } from '../js/constants.js';
 import {
   buildRoomView, measureRoomBounds, gridToScreen, screenToGrid,
 } from '../js/isoMath.js';
-import { findFurnitureAtScreen } from '../js/interact.js';
+import {
+  buildInteractTargetForPiece,
+  findFurnitureAtScreen,
+} from '../js/interact.js';
 import {
   buildWalkMap, findAdjacentWalkable, findSpawnNearPlayerDesk,
+  isWalkable,
 } from '../js/walkMap.js';
 import { findPath } from '../js/pathfind.js';
 
+function chebyshevDistance(ax, ay, bx, by) {
+  return Math.max(Math.abs(ax - bx), Math.abs(ay - by));
+}
+
 const viewports = [[1280, 720], [1920, 1080], [390, 844], [720, 480]];
-for (const layout of ['starter-office', 'pack-office']) {
+for (const layout of [
+  'starter-office',
+  'pack-office',
+  'founders-office',
+]) {
   const url = new URL(`../data/${layout}.json`, import.meta.url);
   const office = JSON.parse(await readFile(url, 'utf8'));
   test(`${layout}: walls and floor fit with room for the HUD`, () => {
@@ -64,3 +77,81 @@ for (const layout of ['starter-office', 'pack-office']) {
     }
   });
 }
+
+const roomsUrl = new URL('../data/rooms.json', import.meta.url);
+const roomsGraph = JSON.parse(await readFile(roomsUrl, 'utf8'));
+const layoutById = {
+  'founders-office': JSON.parse(await readFile(
+    new URL('../data/founders-office.json', import.meta.url), 'utf8')),
+  'starter-loft': JSON.parse(await readFile(
+    new URL('../data/starter-office.json', import.meta.url), 'utf8')),
+  'pack-loft': JSON.parse(await readFile(
+    new URL('../data/pack-office.json', import.meta.url), 'utf8')),
+};
+
+test('room exits: toSpawn tiles are walkable and inland from doors', () => {
+  for (const room of roomsGraph.rooms) {
+    for (const exit of room.exits || []) {
+      const destRoom = roomsGraph.rooms.find(
+        (entry) => entry.id === exit.toRoomId
+      );
+      assert.ok(destRoom, `dest room ${exit.toRoomId}`);
+
+      const destLayouts = destRoom.layoutSource === 'economy'
+        ? [layoutById['starter-loft'], layoutById['pack-loft']]
+        : [layoutById[destRoom.layoutId]];
+
+      for (const layout of destLayouts) {
+        const walkMap = buildWalkMap(layout);
+        const spawn = exit.toSpawn;
+        assert.ok(
+          isWalkable(walkMap, spawn.gridX, spawn.gridY),
+          `${exit.doorId} → ${layout.id} spawn walkable`
+        );
+
+        const door = layout.furniture.find(
+          (piece) => piece.kind === FurnitureKind.DOOR
+        );
+        assert.ok(door, `${layout.id} has a door`);
+        const distance = chebyshevDistance(
+          spawn.gridX,
+          spawn.gridY,
+          door.gridX,
+          door.gridY
+        );
+        assert.ok(
+          distance > 1,
+          `${exit.doorId} spawn inland of ${layout.id} door`
+        );
+      }
+    }
+  }
+});
+
+test('desk PC interact: founders only, loft never', () => {
+  const founders = layoutById['founders-office'];
+  const loft = layoutById['starter-loft'];
+  const playerDesk = founders.furniture.find(
+    (piece) => piece.isPlayerDesk
+  );
+  assert.ok(playerDesk);
+
+  const allowed = buildInteractTargetForPiece(
+    playerDesk,
+    {},
+    { allowDeskPc: true }
+  );
+  assert.equal(allowed?.kind, InteractKind.USE_PC);
+
+  const blocked = buildInteractTargetForPiece(
+    playerDesk,
+    {},
+    { allowDeskPc: false }
+  );
+  assert.equal(blocked, null);
+
+  const loftPlayerDesk = loft.furniture.find(
+    (piece) => piece.isPlayerDesk
+  );
+  assert.equal(loftPlayerDesk, undefined);
+});

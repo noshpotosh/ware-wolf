@@ -30,13 +30,21 @@ button:focus-visible, input:focus-visible {
   outline-offset: 3px;
 }
 .stage { position: relative; width: 100%; height: 100%; }
-#office-canvas {
+#office-phaser {
   display: block;
   width: 100%;
   height: 100%;
-  image-rendering: pixelated;
   cursor: pointer;
 }
+#office-phaser canvas {
+  image-rendering: pixelated;
+}
+body.desktop-open .loft-chrome,
+body.desktop-open .office-controls,
+body.desktop-open .interact-prompt {
+  visibility: hidden;
+}
+
 .loft-chrome {
   position: absolute;
   top: 18px;
@@ -100,6 +108,20 @@ button:focus-visible, input:focus-visible {
   pointer-events: none;
 }
 .office-toast { bottom: 92px; z-index: 20; border-color: var(--sage); }
+.room-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  background: var(--bone);
+  opacity: 0;
+  transition: opacity 80ms linear;
+}
+.room-flash.is-on { opacity: 1; }
+.room-flash.is-off { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .room-flash { transition: none; }
+}
 [hidden] { display: none !important; }
 @media (max-width: 640px) {
   .loft-chrome { left: 12px; right: 12px; align-items: flex-start; }

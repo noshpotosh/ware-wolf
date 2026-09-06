@@ -1,42 +1,29 @@
-# Warewolf AI Studio — Godot client
+# Warewolf AI Studio — archived Godot P1 spike
 
-**Engine:** Godot **4.7.2** (ADR 008)  
-**Slice:** P1 loft walk-to-desk
+**Status:** Archived (2026-09-06). Shipping vehicle is **Phaser 3**
+on [`office/`](../office/) per
+[ADR 008](../docs/decisions/008-ai-studio-product-contract.md).
+Do **not** invest new feature work here. Keep the tree for
+provenance / reference art only.
 
-**Adding art:** read the [Godot asset pipeline](../docs/game-asset-pipeline.md)
-and [runtime manifest](assets/MANIFEST.md). Rebuild exported art with
-`bash game/tools/export_art.sh` (set `GODOT_BIN` if Godot is not on PATH).
+**Engine (historical):** Godot **4.7.2**  
+**Slice (historical):** P1 loft walk-to-desk
 
-## Run (exact steps)
+**Active client:** [`../office/README.md`](../office/README.md)  
+**Art for new work:** [`../docs/office/asset-pipeline.md`](../docs/office/asset-pipeline.md)
+and [`../docs/office/how-to-run.md`](../docs/office/how-to-run.md).
 
-1. Install **Godot 4.7.2** stable (standard build, not .NET / Mono):
-   https://godotengine.org/download
-2. In the Project Manager, click **Import**.
-3. Choose this file — not the repo root:
+Historical Godot art notes remain in
+[`../docs/game-asset-pipeline.md`](../docs/game-asset-pipeline.md)
+(archived spike only).
 
-   `game/project.godot`
+## Run (historical)
 
-4. Open the project. First open reimports textures (a few seconds).
-5. Press Play (`F5`). Window is 1280×720.
+1. Install **Godot 4.7.2** stable (standard build, not .NET / Mono).
+2. Import `game/project.godot` (not the repo root).
+3. Play (`F5`). Window is 1280×720.
 
-### Do not
-
-- Open / import the **repo root** (`ware-wolf/`). There is no
-  `project.godot` there — Godot will fail or hang looking for one.
-- Use Godot 4.3 / 4.4 / 4.5 / 4.6. This project tags `4.7` features.
-- Use the **.NET** Godot build unless you know you need C# (we don’t).
-
-## If import / open fails
-
-| Symptom | Fix |
-| --- | --- |
-| “No project.godot” / import does nothing | Select `game/project.godot`, not the parent folder |
-| Version / features warning | Install Godot **4.7.2** and open with that binary |
-| Pink textures / missing assets | Delete `game/.godot/` (local cache), reopen project |
-| Scripts show errors on first open | Wait for import to finish; then **Project → Reload Current Project** |
-| Still broken after that | From `game/`: run headless smoke (below) and paste the log |
-
-### Headless smoke
+### Headless smoke (historical)
 
 ```bash
 godot --headless --path game -s res://scripts/smoke_check.gd
@@ -45,23 +32,21 @@ godot --headless --path game -s res://scripts/animation_check.gd
 
 Expect `SMOKE_OK` and `ANIMATION_OK`.
 
-## P1 proof
+## What this spike proved
 
 - Starter loft floor from tile PNGs
-- Click or tap a floor cell to walk (shared input path); Nosh uses an
-  idle/run sprite sheet with mirrored left-facing art
-- Click/tap the desk (or walk beside it) to open **desk desktop OS**
-  (wallpaper, Teams/Directory icons, taskbar, loft bucks chrome)
-- Esc or Leave desk to return to the loft
-- Nearest-neighbor filtering; y-sorted actors
+- Click/tap floor walk; Nosh idle/run sheet
+- Desk opens a desktop HUD chrome
+- Nearest-neighbor filtering; depth-sorted actors
 
 ## Layout
 
 | Path | Role |
 | --- | --- |
-| `assets/` | Art pack from Maeve’s P1 brief |
-| `data/starter_loft.json` | 10×8 loft (crew desks, bubbler, coffee, whiteboard) |
+| `assets/` | Runtime PNGs from the P1 cut |
+| `art-source/` | Editable source + provenance |
+| `data/starter_loft.json` | 10×8 loft layout |
 | `scenes/main.tscn` | Main scene |
 | `scripts/` | Iso math, loft world, player, HUD |
 
-No save, economy, or task provider yet (P2+).
+No save, economy, or task provider (never reached P2 here).

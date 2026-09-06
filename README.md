@@ -12,13 +12,12 @@ Brand · Culture · Coding standards · Meetings · Decisions · Core memories �
 **Active direction:** honest AI studio tycoon (investigating) —
 [`docs/decisions/007-honest-ai-studio-tycoon.md`](docs/decisions/007-honest-ai-studio-tycoon.md).
 
-**Godot client:** [`game/`](game/) — P1 loft slice. Open
-`game/project.godot` in **Godot 4.7.2** (not the repo root). See
-[`game/README.md`](game/README.md).
-
-**Virtual office:** [`office/`](office/) — isometric loft sim
-(**on hold**; still runnable). See
+**Web client:** [`office/`](office/) — Phaser loft + DOM desk OS
+(active shipping vehicle under ADR 008). See
 [`docs/office/how-to-run.md`](docs/office/how-to-run.md).
+
+**Archived Godot spike:** [`game/`](game/) — P1 loft reference only.
+See [`game/README.md`](game/README.md).
 
 **#1 principle:** easy-to-read, easy-to-understand code. Keep it stupid simple (KISS).
 

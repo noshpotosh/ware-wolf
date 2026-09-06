@@ -1,9 +1,10 @@
 # ADR 008 — AI studio product contract (P0)
 
-**Status:** Locked  
+**Status:** Locked (engine/client reopened 2026-09-06)  
 **Date:** 2026-09-06  
 **Deciders:** Nosh + Fabrizio Cortell  
 **Meeting:** [`../meetings/2026-09-06-ai-studio-p0-contract.md`](../meetings/2026-09-06-ai-studio-p0-contract.md)  
+**Reopen meeting:** [`../meetings/2026-09-06-phaser-vehicle-reopen.md`](../meetings/2026-09-06-phaser-vehicle-reopen.md)  
 **Thesis:** [`007-honest-ai-studio-tycoon.md`](007-honest-ai-studio-tycoon.md)  
 **Plan:** [`../ai-studio-game-plan.md`](../ai-studio-game-plan.md)
 
@@ -14,15 +15,15 @@
    They receive verified build state, consequences, and rewards.
    It is not a coding service and must be described that way
    wherever it is sold or pitched.
-2. **Engine and client.** Shipping vehicle is **Godot 4.7.2**
-   stable with **GDScript**. Desktop-first at **1280×720**. Click
-   and tap share one interaction path; management controls stay
-   touch-safe. There is **no** separate web management prototype
-   before Godot.
-3. **Build authorization.** This ADR authorizes creating the
-   Godot project in **P1**. It does not include that project. No
-   live-agent backend, monetization, or App Store work is
-   authorized here.
+2. **Engine and client.** Shipping vehicle is **Phaser 3** inside
+   [`office/`](../../office/). Desktop-first UX target remains
+   **1280×720**. Click and tap share one interaction path;
+   management controls stay touch-safe. The loft canvas is Phaser;
+   the desk OS stays DOM (`desktopOs.js` and related). Distribution
+   is **web** (no App Store / Play requirement for the first ship).
+3. **Build authorization.** This ADR authorizes Phaser work on
+   `office/` as the active client. It does not authorize live-agent
+   backend, monetization, or store packaging.
 4. **Cast.** Warewolf crew names and personas stay **internal
    demo cast only**. Public builds use fictional role archetypes
    unless a later lock makes the crew part of the public brand.
@@ -33,7 +34,7 @@
    project type is **greenfield web-app** only.
 7. **Live-agent cost.** Hard **per-session** cost ceiling. Exact
    dollar amount is a named constant locked before **P5**. The
-   Godot client never holds provider credentials and never
+   web client never holds provider credentials and never
    executes generated code.
 8. **Retained evidence.** Keep only structured game state:
    - User-approved brief and milestones
@@ -46,27 +47,29 @@
 
 ## Why
 
-ADR 007 locked the thesis and parked the loft. Open vehicle and
-trust questions blocked P1. Nosh chose Godot desktop-first over a
-web prototype, accepted immediate source deletion, and locked the
-first project type and evidence boundary so trust and scope are
-settled before any engine project lands.
+ADR 007 locked the thesis. An earlier version of this ADR chose
+Godot 4.7.2 desktop-first. Nosh reopened the engine clause for
+HTML/JS familiarity and web distribution without store cut.
+Trust, cast, source deletion, first project type, and evidence
+boundary stay locked. [`game/`](../../game/) remains an archived
+Godot P1 spike, not the keep-building path.
 
 ## Non-goals (this ADR)
 
-- Creating the Godot project (that is P1)
-- Reopening virtual-office feature work in `office/`
+- Migrating the full loft into Phaser in this ADR (that is build
+  work after the lock)
+- Deleting the Godot `game/` tree
 - Exact `$` session cost (name before P5)
 - App Store / phone layout commitment
 - Multiple project types, currencies, or life-sim staff systems
 - Keeping or selling generated source
+- Rewriting the desk OS into Phaser UI
 
 ## Consequences
 
-- Implementation plan follows ADR 008; P1 may start after merge
-- ADR 007 thesis remains; its “web first / no engine” build
-  guidance is superseded here
-- Loft stays **on hold** as a web toy; P1 may migrate accepted
-  art into Godot with provenance intact
+- Implementation plan follows ADR 008; Phaser loft work may start
+  after this reopen merges
+- ADR 007 thesis remains; loft is the shipping web client
+- Godot `game/` is archived reference / provenance only
 - Game API / disposable workers (P5+) must enforce deletion and
   the evidence list above

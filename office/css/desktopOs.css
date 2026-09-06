@@ -7,17 +7,31 @@
 }
 
 .desktop-os {
-  --desktop-paper: #f8edcf;
+  --desktop-paper: #f4efe6;
+  --desktop-paper-warm: #f8edcf;
+  --desktop-sidebar: #f0dfbb;
   --desktop-trim: #ad9469;
-  --desktop-ink: #262d2c;
-  --desktop-light: #e4d2a6;
+  --desktop-clay: #c4a484;
+  --desktop-ink: #3e3531;
+  --desktop-charcoal: #1a1714;
+  --desktop-amber: #d97706;
+  --desktop-teams: #68518f;
+  --desktop-available: #496b37;
+  --symbol-sheet: url("../assets/ui/desktop-symbols.png");
+  --symbol-sheet-w: 520px;
+  --symbol-cell: 40px;
+  --symbol-size: 28px;
+  --controls-sheet: url("../assets/ui/window-controls.svg");
   position: absolute;
   inset: 0;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  color: #2d291f;
-  background: var(--desktop-paper) url("../assets/ui/wallpaper.svg");
+  color: var(--desktop-ink);
+  background:
+    var(--desktop-paper-warm) url("../assets/ui/wallpaper.svg");
+  background-size: 80px 80px;
+  image-rendering: pixelated;
   font-family: "Pixelify Sans", monospace;
   font-size: 22px;
   font-weight: 400;
@@ -31,8 +45,24 @@
 
 .desktop-os button:focus-visible,
 .desktop-os input:focus-visible {
-  outline: 3px solid #bd802d;
+  outline: 3px solid var(--desktop-amber);
   outline-offset: 3px;
+}
+
+/* Shared 40px-cell strip from desktop-symbols.png */
+.symbol-glyph,
+.tray-glyph,
+.directory-search-icon,
+.directory-nav-icon,
+.directory-presence-badge,
+.window-title::before {
+  background-image: var(--symbol-sheet);
+  background-repeat: no-repeat;
+  background-size:
+    calc(var(--symbol-sheet-w) * var(--symbol-size)
+      / var(--symbol-cell))
+    var(--symbol-size);
+  image-rendering: pixelated;
 }
 
 .desktop-wallpaper {
@@ -41,7 +71,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
+  gap: 18px;
   padding: 30px 40px;
 }
 
@@ -72,54 +102,60 @@
 }
 
 .teams-glyph { background-image: url("../assets/ui/icon-teams.svg"); }
-.directory-glyph { background-image: url("../assets/ui/icon-directory.svg"); }
+.directory-glyph {
+  background-image: url("../assets/ui/icon-directory.svg");
+}
 .goals-glyph { background-image: url("../assets/ui/icon-goals.svg"); }
 .loft-glyph { background-image: url("../assets/ui/icon-loft.svg"); }
 
 .desktop-icon-label {
-  padding: 0 9px 2px;
-  border: 2px solid #c2ac80;
-  background: var(--desktop-paper);
-  box-shadow: inset 2px 2px #fff8e2;
-  font-size: 24px;
+  padding: 2px 10px 3px;
+  border: 1px solid #e8dfd0;
+  border-radius: 4px;
+  background: #fffaf0;
+  color: var(--desktop-ink);
+  box-shadow: 0 1px 0 #dccfba;
+  font-size: 22px;
   line-height: 1.1;
 }
 
 .desktop-window {
   position: absolute;
   top: 5.5%;
-  left: 25%;
+  left: 18%;
   z-index: 2;
   display: flex;
   flex-direction: column;
-  width: 71%;
-  height: calc(85% - 78px);
+  width: 64%;
+  height: calc(85% - 56px);
   min-height: 0;
-  border: 6px solid var(--desktop-ink);
-  outline: 2px solid #161d1c;
-  background: var(--desktop-paper);
-  box-shadow: 2px 2px #111918, -2px -2px #9f987d,
-    5px 6px #766e5340;
+  border: 4px solid var(--desktop-charcoal);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 2px var(--desktop-trim),
+    0 4px 0 #0f0d0b;
+  image-rendering: pixelated;
+  background: var(--desktop-paper-warm);
+  overflow: hidden;
 }
 
 .desktop-window.is-maximized {
   top: 12px;
   left: 12px;
   width: calc(100% - 24px);
-  height: calc(100% - 104px);
+  height: calc(100% - 88px);
 }
 
 .window-chrome {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex: 0 0 58px;
+  flex: 0 0 44px;
   gap: 12px;
-  padding: 5px 8px 7px 12px;
-  border-top: 2px solid #8b8974;
-  border-bottom: 3px solid #161d1c;
-  background: var(--desktop-ink);
+  padding: 6px 10px 6px 14px;
+  background: var(--desktop-charcoal);
   color: var(--desktop-paper);
+  border-bottom: 2px solid var(--desktop-trim);
 }
 
 .window-title {
@@ -127,80 +163,90 @@
   align-items: center;
   gap: 10px;
   min-width: 0;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 600;
   line-height: 1;
+  color: var(--desktop-paper);
 }
 
 .window-title::before {
   content: "";
-  width: 36px;
-  height: 36px;
-  flex: 0 0 36px;
-  background-size: contain;
-  image-rendering: pixelated;
+  width: var(--symbol-size);
+  height: var(--symbol-size);
+  flex: 0 0 var(--symbol-size);
+  --symbol-size: 32px;
 }
 
 [data-active-app="teams"] .window-title::before {
   background-image: url("../assets/ui/icon-teams.svg");
+  background-size: contain;
+  background-position: center;
 }
+
 [data-active-app="directory"] .window-title::before {
-  background-image: url("../assets/ui/icon-directory.svg");
+  /* book cell at x=120 */
+  background-position: calc(-3 * var(--symbol-size)) 0;
 }
+
 [data-active-app="goals"] .window-title::before {
   background-image: url("../assets/ui/icon-goals.svg");
+  background-size: contain;
+  background-position: center;
 }
+
 [data-active-app="loft"] .window-title::before {
   background-image: url("../assets/ui/icon-loft.svg");
+  background-size: contain;
+  background-position: center;
 }
 
-.window-controls { display: flex; gap: 8px; }
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
 
-.window-controls button,
-#desktop-exit,
-.taskbar-app,
-.desktop-sound {
-  border: 2px solid #a89168;
-  outline: 2px solid #171e1c;
-  background: #323937;
+.window-minimize,
+.window-maximize,
+.window-close {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--desktop-trim);
+  border-radius: 2px;
+  background: #2a2522;
   color: var(--desktop-paper);
-  box-shadow: inset 2px 2px #ded0aa, inset -2px -2px #635b47;
+  box-shadow: none;
 }
 
-.window-controls button {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  padding: 3px;
-  font-size: 38px;
-  line-height: 0.6;
+.window-minimize:hover,
+.window-maximize:hover,
+.window-close:hover {
+  background: #3e3531;
 }
 
-.window-controls button:hover,
-#desktop-exit:hover,
-.taskbar-app:hover,
-.desktop-sound:hover { background-color: #514c38; }
-
-.window-minimize span {
-  width: 20px;
-  height: 4px;
-  margin-top: 16px;
-  background: currentColor;
+.window-controls span {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  position: relative;
+  background-image: var(--controls-sheet);
+  background-repeat: no-repeat;
+  background-size: 48px 16px;
+  image-rendering: pixelated;
 }
 
-.window-maximize span {
-  width: 21px;
-  height: 20px;
-  border: 3px solid currentColor;
-}
+.window-minimize span { background-position: 0 0; }
+.window-maximize span { background-position: -16px 0; }
+.window-close span { background-position: -32px 0; }
 
 .window-body {
   flex: 1;
   min-height: 0;
   overflow: hidden;
-  border: 2px solid #807456;
-  background: var(--desktop-paper);
+  background: var(--desktop-paper-warm);
 }
 
 .desktop-taskbar {
@@ -208,28 +254,53 @@
   z-index: 3;
   display: flex;
   align-items: center;
-  gap: 16px;
-  min-height: 86px;
-  padding: 10px 18px;
-  border: 4px solid #171e1d;
-  border-top-color: #797b6d;
-  box-shadow: 0 -2px #242c29, inset 0 2px #b8aa86;
-  background: #252d2e;
+  gap: 12px;
+  min-height: 68px;
+  height: 68px;
+  padding: 8px 16px;
+  border: 0;
+  border-top: 2px solid var(--desktop-trim);
+  border-image: none;
+  image-rendering: pixelated;
+  background: var(--desktop-charcoal);
   color: var(--desktop-paper);
 }
 
 #desktop-exit {
-  flex: 0 0 62px;
-  height: 58px;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
   padding: 4px;
+  border: 2px solid var(--desktop-trim);
+  border-radius: 3px;
+  outline: none;
+  background: #2a2522;
+  box-shadow:
+    inset 0 0 0 1px var(--desktop-amber),
+    0 1px 0 #0f0d0b;
+  color: var(--desktop-paper);
 }
 
-.exit-glyph { font-size: 42px; color: #e8ae55; line-height: 1; }
+#desktop-exit:hover {
+  background: #3e3531;
+}
+
+.exit-glyph {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: auto;
+  image-rendering: pixelated;
+  background:
+    url("../assets/ui/icon-start-cube.svg") center / 28px 28px
+      no-repeat;
+}
+
 .exit-label { display: none; }
 
 .taskbar-apps {
   display: flex;
-  gap: 14px;
+  gap: 10px;
   min-width: 0;
   margin-right: auto;
 }
@@ -239,49 +310,99 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  height: 58px;
+  height: 48px;
   padding: 6px 12px;
-  font-size: 24px;
+  border: 1px solid #3e3531;
+  border-radius: 3px;
+  outline: none;
+  background: #2a2522;
+  color: var(--desktop-paper);
+  box-shadow: none;
+  font-size: 22px;
+}
+
+.taskbar-app:hover {
+  background: #3e3531;
+  border-color: var(--desktop-trim);
 }
 
 .taskbar-app[aria-pressed="true"] {
-  border-color: #f0bc64;
-  background: #4d4938;
-  box-shadow: inset 2px 2px #806945, inset -2px -2px #e2c88f;
+  border-color: var(--desktop-trim);
+  background: #3e3531;
+  box-shadow: inset 0 0 0 1px var(--desktop-trim);
+}
+
+.taskbar-app[data-app="teams"][aria-pressed="true"] {
+  background: var(--desktop-teams);
+  border-color: var(--desktop-trim);
+  box-shadow: inset 0 0 0 1px #8a6fbb;
 }
 
 .taskbar-icon {
-  flex: 0 0 40px;
-  width: 40px;
-  height: 40px;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
   background-size: contain;
   image-rendering: pixelated;
 }
 
-.desktop-sound {
-  flex: 0 0 42px;
-  height: 44px;
-  font-size: 32px;
-  padding: 0;
+.taskbar-tray {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 4px;
 }
 
-.desktop-sound span {
+.tray-glyph {
   display: block;
-  width: 28px;
-  height: 28px;
-  margin: auto;
-  background: url("../assets/ui/icon-sound.svg") center / contain;
-  image-rendering: pixelated;
+  width: var(--symbol-size);
+  height: var(--symbol-size);
+  --symbol-size: 24px;
+  opacity: 0.95;
+  filter: brightness(1.15);
 }
-.desktop-sound[aria-pressed="true"] span { opacity: 0.4; }
+
+.tray-chevron {
+  background-position: calc(-10 * var(--symbol-size)) 0;
+}
+
+.tray-wifi {
+  background-position: calc(-11 * var(--symbol-size)) 0;
+}
+
+.tray-sound {
+  background-position: calc(-12 * var(--symbol-size)) 0;
+}
+
+.desktop-sound {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--desktop-paper);
+}
+
+.desktop-sound:hover {
+  background: #3e353188;
+  border-radius: 3px;
+}
+
+.desktop-sound[aria-pressed="true"] .tray-sound {
+  opacity: 0.4;
+}
 
 .taskbar-clock {
   flex-shrink: 0;
-  min-width: 150px;
-  font-size: 25px;
-  text-align: center;
+  min-width: 120px;
+  font-size: 18px;
+  text-align: right;
   white-space: pre-line;
-  line-height: 1.2;
+  line-height: 1.25;
+  color: var(--desktop-paper);
 }
 
 .teams-layout,
@@ -297,25 +418,105 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 10px;
+  padding: 12px;
   overflow: auto;
-  border-right: 3px double var(--desktop-trim);
-  background: #f0dfbb;
+  border-right: 2px solid var(--desktop-clay);
+  background: var(--desktop-sidebar);
 }
 
-.roster-heading { margin: 0 0 5px; padding: 2px 6px; font-size: 25px; }
+.roster-heading {
+  margin: 0 0 4px;
+  padding: 2px 4px;
+  font-size: 22px;
+  color: var(--desktop-ink);
+}
+
+.directory-list .roster-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.directory-list .roster-heading::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  background-image: var(--symbol-sheet);
+  background-repeat: no-repeat;
+  background-size:
+    calc(var(--symbol-sheet-w) * 22px / var(--symbol-cell)) 22px;
+  background-position: calc(-4 * 22px) 0;
+  image-rendering: pixelated;
+}
+
+.directory-search-wrap {
+  position: relative;
+  margin-bottom: 6px;
+}
+
+.directory-search-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  --symbol-size: 20px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  background-position: calc(-4 * var(--symbol-size)) 0;
+  opacity: 0.75;
+}
 
 .directory-search,
 .teams-compose-input {
   min-width: 0;
   padding: 8px;
-  border: 2px solid var(--desktop-trim);
-  box-shadow: inset 2px 2px #d9c59b, 1px 1px #fff7de;
-  background: #fff3d8;
+  border: 1px solid var(--desktop-clay);
+  border-radius: 3px;
+  box-shadow: inset 1px 1px #e8d9b8;
+  background: #fff8e8;
   color: inherit;
 }
 
-.directory-search { width: 100%; margin-bottom: 8px; font-size: 21px; }
+.directory-search {
+  width: 100%;
+  padding-left: 34px;
+  margin-bottom: 0;
+  font-size: 20px;
+}
+
+.directory-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 2px 0 8px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--desktop-ink);
+  font-size: 20px;
+  text-align: left;
+}
+
+.directory-nav-row.is-selected {
+  background: var(--desktop-clay);
+  border-color: #a88968;
+  color: #2a221c;
+}
+
+.directory-nav-icon {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  --symbol-size: 22px;
+}
+
+.directory-nav-row.is-selected .directory-nav-icon {
+  background-position: calc(-5 * var(--symbol-size)) 0;
+}
 
 .teams-roster-row,
 .directory-row {
@@ -325,7 +526,8 @@
   align-items: center;
   width: 100%;
   padding: 10px 8px;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
   background: transparent;
   color: inherit;
   text-align: left;
@@ -336,14 +538,18 @@
 
 .directory-row[aria-pressed="true"],
 .teams-roster-row[aria-pressed="true"] {
-  border-color: #ba914f;
-  box-shadow: inset 2px 2px #f2d399;
-  background: #ddb575;
+  border-color: #a88968;
+  background: var(--desktop-clay);
+  box-shadow: none;
 }
 
 .directory-row-name,
 .teams-roster-name { font-size: 21px; line-height: 1.05; }
-.teams-roster-status { grid-column: 2; color: #726446; font-size: 17px; }
+.teams-roster-status {
+  grid-column: 2;
+  color: #726446;
+  font-size: 17px;
+}
 
 .presence-dot {
   width: 10px;
@@ -358,43 +564,85 @@
 .directory-detail {
   min-width: 0;
   overflow: auto;
-  margin: 10px;
-  padding: 20px;
-  border: 3px double var(--desktop-trim);
-  box-shadow: inset 2px 2px #fff8e4;
+  margin: 0;
+  padding: 24px;
+  border: 0;
+  box-shadow: none;
+  background: var(--desktop-paper);
 }
 
 .directory-portrait {
   float: left;
-  width: 168px;
-  height: 168px;
-  margin: 0 24px 20px 0;
-  border: 4px solid #725635;
-  outline: 2px solid #392a1c;
+  width: 148px;
+  height: 148px;
+  margin: 0 22px 18px 0;
+  border: 3px solid var(--desktop-charcoal);
+  outline: 2px solid var(--desktop-trim);
+  border-radius: 2px;
   image-rendering: pixelated;
-  box-shadow: 2px 2px #ceb27e;
+  box-shadow: none;
+  background: #ebe0d0;
 }
 
 .directory-name {
-  margin: 10px 0 8px;
-  font-size: 39px;
+  margin: 6px 0 6px;
+  font-size: 36px;
   font-weight: 600;
   line-height: 1.05;
+  color: var(--desktop-ink);
 }
-.directory-role { margin: 0 0 12px; font-size: 24px; line-height: 1.2; }
+.directory-role {
+  margin: 0 0 10px;
+  font-size: 22px;
+  line-height: 1.2;
+  color: #5a4e45;
+}
+
 .directory-presence {
-  margin: 12px 0 16px;
-  padding: 10px 0 0;
-  border-top: 2px solid #c3ad7e;
-  font-size: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 16px;
+  padding: 0;
+  border: 0;
+  font-size: 20px;
   text-transform: capitalize;
 }
-.directory-presence::before { content: "✓ "; font-weight: 700; }
-.directory-presence.is-available { color: #496b37; }
-.directory-presence.is-away { color: #836125; }
-.directory-presence.is-away::before { content: "– "; }
-.directory-about-title { clear: both; margin: 12px 0 8px; font-size: 27px; }
-.directory-about { margin: 0; font-size: 25px; line-height: 1.4; }
+
+.directory-presence-badge {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  --symbol-size: 22px;
+  flex: 0 0 22px;
+  background-position: calc(-9 * var(--symbol-size)) 0;
+}
+
+.directory-presence.is-available {
+  color: var(--desktop-available);
+}
+
+.directory-presence.is-away {
+  color: #836125;
+}
+
+.directory-presence.is-away .directory-presence-badge {
+  background-image: none;
+  border-radius: 50%;
+  background-color: #b0843c;
+  box-shadow: inset 0 0 0 2px #fff8e8;
+}
+
+.directory-about-title {
+  clear: both;
+  margin: 12px 0 8px;
+  font-size: 24px;
+}
+.directory-about {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.4;
+}
 .directory-placeholder,
 .teams-placeholder { margin: 0; color: #716349; font-size: 23px; }
 
@@ -404,8 +652,9 @@
   min-width: 0;
   min-height: 0;
   padding: 18px;
+  background: var(--desktop-paper);
 }
-.teams-thread-title { margin: 0 0 12px; font-size: 30px; }
+.teams-thread-title { margin: 0 0 12px; font-size: 28px; }
 .teams-thread-log {
   flex: 1;
   min-height: 0;
@@ -420,7 +669,8 @@
   max-width: 90%;
   margin: 0;
   padding: 10px 12px;
-  border: 2px solid #bba579;
+  border: 1px solid var(--desktop-clay);
+  border-radius: 3px;
   font-size: 22px;
   line-height: 1.3;
 }
@@ -447,6 +697,7 @@
   height: 100%;
   min-height: 0;
   padding: 18px;
+  background: var(--desktop-paper);
 }
 .goals-summary,
 .loft-summary { margin: 0; font-size: 26px; }
@@ -464,7 +715,8 @@
 .goal-card,
 .loft-card {
   padding: 14px;
-  border: 3px double #b9a174;
+  border: 2px solid var(--desktop-clay);
+  border-radius: 3px;
   background: #f3e3bf;
   box-shadow: inset 2px 2px #fff4d6;
 }
@@ -515,14 +767,14 @@
 .loft-history-row { margin: 0 0 6px; font-size: 18px; color: #726446; }
 
 @media (max-width: 1100px) {
-  .desktop-window { left: 21%; width: 76%; }
+  .desktop-window { left: 14%; width: 72%; }
   .desktop-wallpaper { padding-left: 18px; }
   .taskbar-app { padding: 6px 9px; }
-  .taskbar-apps { gap: 10px; }
+  .taskbar-apps { gap: 8px; }
   .taskbar-label { display: none; }
-  .directory-name { font-size: 32px; }
+  .directory-name { font-size: 30px; }
   .directory-portrait { width: 120px; height: 120px; margin-right: 18px; }
-  .directory-about { font-size: 23px; }
+  .directory-about { font-size: 21px; }
 }
 
 @media (max-width: 720px) {
@@ -532,16 +784,17 @@
     top: 12px;
     left: 12px;
     width: calc(100% - 24px);
-    height: calc(100% - 98px);
+    height: calc(100% - 92px);
     min-height: 0;
   }
-  .window-chrome { gap: 6px; padding: 5px; flex-basis: 48px; }
-  .window-title { gap: 6px; font-size: 24px; }
-  .window-title::before { width: 24px; height: 24px; flex-basis: 24px; }
-  .window-controls { gap: 5px; }
-  .window-controls button { width: 30px; height: 30px; font-size: 30px; }
-  .window-minimize span { width: 16px; margin-top: 12px; }
-  .window-maximize span { width: 16px; height: 16px; }
+  .window-chrome { gap: 6px; padding: 5px 8px; flex-basis: 40px; }
+  .window-title { gap: 6px; font-size: 22px; }
+  .window-title::before {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+    --symbol-size: 24px;
+  }
   .teams-layout,
   .directory-layout {
     grid-template-columns: 1fr;
@@ -550,7 +803,7 @@
   .teams-roster,
   .directory-list {
     border-right: 0;
-    border-bottom: 3px double var(--desktop-trim);
+    border-bottom: 2px solid var(--desktop-clay);
     padding: 8px;
   }
   .directory-list {
@@ -559,34 +812,43 @@
     align-content: start;
   }
   .directory-list .roster-heading,
-  .directory-search { grid-column: 1 / -1; }
+  .directory-search-wrap,
+  .directory-nav-row { grid-column: 1 / -1; }
   .directory-row { padding: 8px 4px; gap: 6px; }
   .directory-row-name { font-size: 20px; }
-  .directory-detail { margin: 7px; padding: 14px; }
+  .directory-detail { margin: 0; padding: 14px; }
   .directory-portrait { width: 104px; height: 104px; margin: 0 16px 16px 0; }
-  .directory-name { font-size: 30px; }
+  .directory-name { font-size: 28px; }
   .directory-role,
-  .directory-presence { font-size: 21px; }
-  .directory-about { font-size: 22px; }
-  .desktop-taskbar { min-height: 74px; padding: 9px; gap: 10px; }
-  #desktop-exit { flex-basis: 42px; height: 44px; }
-  .exit-glyph { font-size: 32px; }
-  .taskbar-app { height: 44px; padding: 4px; }
+  .directory-presence { font-size: 20px; }
+  .directory-about { font-size: 20px; }
+  .desktop-taskbar {
+    min-height: 56px;
+    height: 56px;
+    padding: 6px 10px;
+    gap: 8px;
+  }
+  #desktop-exit { flex-basis: 40px; width: 40px; height: 40px; }
+  .exit-glyph { width: 26px; height: 26px; }
+  .taskbar-app { height: 40px; padding: 4px; }
   .taskbar-icon { width: 28px; height: 28px; flex-basis: 28px; }
-  .taskbar-apps { gap: 7px; }
-  .desktop-sound { display: none; }
-  .taskbar-clock { min-width: 92px; font-size: 18px; }
+  .taskbar-apps { gap: 6px; }
+  .taskbar-tray { gap: 4px; }
+  .desktop-sound { width: 28px; height: 28px; }
+  .taskbar-clock { min-width: 88px; font-size: 15px; }
 }
 
 @media (max-width: 430px) {
-  .window-title { font-size: 20px; }
+  .window-title { font-size: 18px; }
   .window-title::before { display: none; }
   .window-maximize { display: none !important; }
-  .desktop-taskbar { gap: 7px; }
-  .taskbar-apps { gap: 6px; }
-  .taskbar-clock { min-width: 82px; font-size: 16px; }
+  .desktop-taskbar { gap: 6px; }
+  .taskbar-apps { gap: 4px; }
+  .tray-chevron,
+  .tray-wifi { display: none; }
+  .taskbar-clock { min-width: 76px; font-size: 14px; }
   .directory-portrait { width: 80px; height: 80px; }
-  .directory-name { font-size: 26px; }
+  .directory-name { font-size: 24px; }
   .teams-thread { padding: 12px; }
   .teams-compose-input { width: 0; }
 }
@@ -595,8 +857,8 @@
   .desktop-wallpaper { flex-wrap: wrap; align-content: flex-start; gap: 4px; }
   .desktop-icon { width: 108px; }
   .desktop-icon-glyph { width: 56px; height: 56px; }
-  .desktop-icon-label { font-size: 20px; }
-  .desktop-window { height: calc(100% - 120px); }
+  .desktop-icon-label { font-size: 18px; }
+  .desktop-window { height: calc(100% - 100px); }
 }
 
 @media (max-height: 620px) {
@@ -613,7 +875,7 @@
   .teams-roster,
   .directory-list {
     display: flex;
-    border-right: 3px double var(--desktop-trim);
+    border-right: 2px solid var(--desktop-clay);
     border-bottom: 0;
   }
 }

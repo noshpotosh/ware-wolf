@@ -253,13 +253,21 @@ function renderDirectoryApp(body, desktop) {
     detail.appendChild(
       createEl("p", "directory-role", person.role)
     );
-    detail.appendChild(
-      createEl(
-        "p",
-        `directory-presence ${presenceClass(status)}`,
-        status
-      )
+
+    const presence = createEl(
+      "p",
+      `directory-presence ${presenceClass(status)}`
     );
+    const badge = createEl(
+      "span",
+      "directory-presence-badge"
+    );
+    badge.setAttribute("aria-hidden", "true");
+    presence.appendChild(badge);
+    presence.appendChild(
+      document.createTextNode(status)
+    );
+    detail.appendChild(presence);
     detail.appendChild(createEl('h3', 'directory-about-title', 'About'));
     detail.appendChild(
       createEl("p", "directory-about", person.about)
@@ -273,18 +281,44 @@ function renderDirectoryApp(body, desktop) {
     }
   }
 
-  list.appendChild(createEl("h2", "roster-heading", "Directory"));
-  const search = createEl('input', 'directory-search');
-  search.type = 'search';
-  search.placeholder = 'Search people…';
-  search.setAttribute('aria-label', 'Search people');
-  search.addEventListener('input', () => {
+  list.appendChild(
+    createEl("h2", "roster-heading", "Directory")
+  );
+
+  const searchWrap = createEl("div", "directory-search-wrap");
+  const searchIcon = createEl(
+    "span",
+    "directory-search-icon"
+  );
+  searchIcon.setAttribute("aria-hidden", "true");
+  const search = createEl("input", "directory-search");
+  search.type = "search";
+  search.placeholder = "Search people…";
+  search.setAttribute("aria-label", "Search people");
+  search.addEventListener("input", () => {
     const query = search.value.trim().toLowerCase();
-    for (const row of list.querySelectorAll('.directory-row')) {
-      row.hidden = !row.textContent.toLowerCase().includes(query);
+    for (const row of list.querySelectorAll(".directory-row")) {
+      row.hidden = !row.textContent.toLowerCase()
+        .includes(query);
     }
   });
-  list.appendChild(search);
+  searchWrap.appendChild(searchIcon);
+  searchWrap.appendChild(search);
+  list.appendChild(searchWrap);
+
+  // Decorative selected nav chrome to match mock sidebar
+  const allEmployees = createEl(
+    "div",
+    "directory-nav-row is-selected"
+  );
+  allEmployees.setAttribute("aria-hidden", "true");
+  allEmployees.appendChild(
+    createEl("span", "directory-nav-icon")
+  );
+  allEmployees.appendChild(
+    document.createTextNode("All Employees")
+  );
+  list.appendChild(allEmployees);
 
   for (const person of staffList) {
     const status = presenceForPerson(person, desktop, occupancy);
@@ -316,6 +350,8 @@ function renderDirectoryApp(body, desktop) {
   layout.appendChild(detail);
   body.appendChild(layout);
   const initialProfile = staffList.find(
+    (person) => person.id === "maeve-quinn"
+  ) || staffList.find(
     (person) => !person.isPlayer
   ) || staffList[0];
   if (initialProfile) {
@@ -595,6 +631,7 @@ export function openDesktopOs(desktop) {
 
   desktop.isOpen = true;
   desktop.root.hidden = false;
+  document.body.classList.add("desktop-open");
   desktop.closeWindow();
   desktop.refreshTaskbar();
   desktop.clockTimerId = window.setInterval(() => {
@@ -620,6 +657,7 @@ export function closeDesktopOs(desktop) {
   desktop.isOpen = false;
   desktop.closeWindow();
   desktop.root.hidden = true;
+  document.body.classList.remove("desktop-open");
 
   if (desktop.clockTimerId !== null) {
     window.clearInterval(desktop.clockTimerId);

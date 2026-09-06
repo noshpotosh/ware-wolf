@@ -1,11 +1,22 @@
-export const TILE_WIDTH_PX = 64;
-export const TILE_HEIGHT_PX = 32;
+export const TILE_WIDTH_PX = 128;
+export const TILE_HEIGHT_PX = 64;
 
 export const FurnitureKind = {
   DESK: "desk",
   BUBBLER: "bubbler",
   COFFEE: "coffee",
   WHITEBOARD: "whiteboard",
+  DOOR: "door",
+};
+
+export const RoomId = {
+  FOUNDERS_OFFICE: "founders-office",
+  SHARED_LOFT: "shared-loft",
+};
+
+export const LayoutSource = {
+  FIXED: "fixed",
+  ECONOMY: "economy",
 };
 
 export const PLAYER_STAFF_ID = "nosh";
@@ -43,7 +54,14 @@ export const InteractKind = {
   SIP_COFFEE: "sip-coffee",
   READ_BOARD: "read-board",
   USE_PC: "use-pc",
+  USE_DOOR: "use-door",
 };
+
+// ADR 002: brief flash while swapping rooms (~150–300ms).
+export const ROOM_FLASH_MS = 220;
+export const ROOM_FLASH_REDUCED_MS = 40;
+// Minimum fade-out so the overlay always clears after mid-swap.
+export const ROOM_FLASH_FADE_OUT_MIN_MS = 40;
 
 // Distinct jackets so staff read apart from amber Nosh.
 export const NpcJacketFill = {
@@ -147,6 +165,10 @@ export const UpgradeId = {
 };
 
 export const STARTER_OFFICE_ID = "starter-loft";
+
+// ADR 002: player walks; crew stay seated until station-snap.
+export const NPC_LOFT_MOTION_ENABLED = false;
+
 export const NPC_BUBBLER_VISIT_SECONDS = 18;
 export const NPC_BUBBLER_DWELL_SECONDS = 2.5;
 export const NPC_MOVE_TILES_PER_SECOND = 2.4;
@@ -163,3 +185,62 @@ export const PresenceStatus = {
 
 export const ECONOMY_STORAGE_KEY = "warewolf-office-economy-v1";
 export const STARTING_COMPANY_BUCKS = 0;
+
+// Desk kit + floor island (mock fidelity): layout offsets in loft px.
+export const CHAIR_TEXTURE_KEY = "chair-pixellab";
+export const NOSH_MAT_TEXTURE_KEY = "desk-nosh-mat";
+
+export const FloorTexture = {
+  WOOD: "floor-wood",
+  CARPET: "floor-carpet",
+  ISLAND: "floor-island",
+};
+
+export const WALL_TEXTURE_KEY = "wall-bone";
+export const WALL_DISPLAY_WIDTH = 128;
+export const WALL_DISPLAY_HEIGHT = 176;
+export const WALL_ORIGIN_X = 0.5;
+export const WALL_ORIGIN_Y = 1;
+// Sit the wall foot on the far half of the floor diamond.
+export const WALL_SCREEN_OFFSET_Y = -40;
+export const WALL_DEPTH_BIAS = -1.2;
+
+export const SPRITE_ORIGIN_CENTER_X = 0.5;
+export const SPRITE_ORIGIN_FOOT_Y = 0.92;
+export const SPRITE_NO_BOB_Y = 0;
+
+export const ISLAND_INSET_TILES = 2;
+
+export const CHAIR_SCREEN_OFFSET_X = 18;
+export const CHAIR_SCREEN_OFFSET_Y = 36;
+export const CHAIR_DEPTH_BIAS = -0.35;
+export const CHAIR_DISPLAY_SIZE = 96;
+
+export const NAMEPLATE_SCREEN_OFFSET_X = 0;
+export const NAMEPLATE_SCREEN_OFFSET_Y = -8;
+export const NAMEPLATE_DEPTH_BIAS = 0.45;
+export const NAMEPLATE_FONT_PX = 11;
+export const NAMEPLATE_COLOR = "#1A1714";
+export const NAMEPLATE_BG = "#F4EFE6";
+export const NAMEPLATE_STROKE = "#1A1714";
+export const NAMEPLATE_PAD_X = 4;
+export const NAMEPLATE_PAD_Y = 2;
+export const NAMEPLATE_STROKE_WIDTH = 2;
+export const NAMEPLATE_ORIGIN_X = 0.5;
+export const NAMEPLATE_ORIGIN_Y = 1;
+
+export const NOSH_MAT_SCREEN_OFFSET_X = 0;
+export const NOSH_MAT_SCREEN_OFFSET_Y = 22;
+export const NOSH_MAT_DEPTH_BIAS = -0.2;
+export const NOSH_MAT_DISPLAY_SIZE = 96;
+
+// First-name plates — mock uses short labels, not full legal names.
+export const STAFF_NAMEPLATE = {
+  nosh: "Nosh",
+  "fabrizio-cortell": "Fabrizio",
+  "maeve-quinn": "Maeve",
+  "dex-harlan": "Dex",
+  "cal-rook": "Cal",
+  "reed-mallory": "Reed",
+};
+

@@ -8,20 +8,21 @@ One map. Not a pile of READMEs.
 | [`coding-standards.md`](coding-standards.md) | How we write code |
 | [`pr-discipline.md`](pr-discipline.md) | Scoped PRs + who merges |
 | [`brand.md`](brand.md) | Name, logo, visual system |
-| [`decisions/007-honest-ai-studio-tycoon.md`](decisions/007-honest-ai-studio-tycoon.md) | Active product thesis (office on hold) |
-| [`decisions/008-ai-studio-product-contract.md`](decisions/008-ai-studio-product-contract.md) | P0 product / trust / Godot vehicle lock |
+| [`decisions/007-honest-ai-studio-tycoon.md`](decisions/007-honest-ai-studio-tycoon.md) | Active product thesis |
+| [`decisions/008-ai-studio-product-contract.md`](decisions/008-ai-studio-product-contract.md) | P0 product / trust / Phaser vehicle lock |
 | [`decisions/010-128px-world-art-standard.md`](decisions/010-128px-world-art-standard.md) | Loft tiles 128×64 / props 128×128 |
 | [`decisions/011-ehlenbachs-shopify.md`](decisions/011-ehlenbachs-shopify.md) | Ehlenbach's redesign ships on Shopify (Liquid) |
 | [`ai-studio-game-plan.md`](ai-studio-game-plan.md) | Implementation plan under ADR 008 |
-| [`../game/`](../game/) | Godot AI studio game (P1+) — see [`../game/README.md`](../game/README.md) |
-| [`game-asset-pipeline.md`](game-asset-pipeline.md) | Godot art authoring, sprite sheets, exports, and validation |
-| [`office/`](office/) | Virtual office art bible, ADRs, pipeline (**on hold**) |
+| [`../office/`](../office/) | Phaser web client (active) — see [`../office/README.md`](../office/README.md) |
+| [`office/`](office/) | Virtual office art bible, ADRs, pipeline |
+| [`office/decisions/002-loft-vn-hybrid.md`](office/decisions/002-loft-vn-hybrid.md) | Loft × VN hybrid: two rooms, player-only walk, Teams vs VN |
+| [`game-asset-pipeline.md`](game-asset-pipeline.md) | World art: Phaser/`office/` active; Godot section archived |
+| [`../game/`](../game/) | Archived Godot P1 spike — see [`../game/README.md`](../game/README.md) |
 | [`meetings/`](meetings/) | Meeting / conversation summaries |
 | [`decisions/`](decisions/) | Locked calls (ADRs-lite) |
 | [`core-memories/`](core-memories/) | Memorable / crazy moments (agents write proactively) |
-| [`clients/`](clients/) | Client packs — e.g. [`ehlenbachs/`](clients/ehlenbachs/) (Shopify build plan; mocks in pack README) |
+| [`clients/`](clients/) | Client packs (briefs + mockups + build plans) — e.g. [`ehlenbachs/`](clients/ehlenbachs/) |
 | [`../brand/`](../brand/) | Logo image assets |
-| [`../office/`](../office/) | Virtual office app + reference mocks (**on hold**) |
 
 ## Rules of the house
 

@@ -2,7 +2,7 @@
   {
     "id": "starter-loft",
     "displayName": "Starter Loft",
-    "description": "The first cozy pack loft. Six desks, bubbler, coffee, board.",
+    "description": "The first cozy pack loft. Crew desks, bubbler, coffee, board.",
     "costBucks": 0,
     "layoutUrl": "./data/starter-office.json",
     "thumbnailLabel": "10×8"

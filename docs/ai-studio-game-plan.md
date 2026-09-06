@@ -197,74 +197,66 @@ An individual task moves through:
 Every transition must have a visible cause. Random failure without an
 understandable reason is not strategy.
 
-## Godot implementation direction
+## Phaser implementation direction
 
-Engine path is Godot 4.7.2 stable with GDScript, locked in ADR 008.
-P0 authorizes the Godot project in P1; this plan does not create it.
+Engine path is **Phaser 3** inside `office/`, locked in ADR 008.
+The loft canvas is Phaser; the desk OS stays DOM (`desktopOs.js`).
 
 Start desktop-first at 1280x720. Make click and tap share the same interaction
-path, and keep management controls touch-safe. Do not commit to phone layouts
-until the text-heavy management loop has been proven on desktop.
+path, and keep management controls touch-safe. Ship on the web; do not commit
+to store packaging until the management loop is proven.
 
-### Scene shape
+### Client shape
 
 ```text
-Main
-  World / IsometricOffice
-    FloorLayer / TileMapLayer
-    FurnitureLayer / TileMapLayer and props
-    Actors / Node2D with y-sorting
-    InteractionMarkers / Node2D
-  Hud / CanvasLayer
-  Desktop / Control
+office/
+  Phaser loft scene
+    Floor / furniture sprites (iso depth sort)
+    Player / NPC actors
+    Pointer input -> walk / interact
+  DOM desk OS overlay
+    Teams / Directory / Goals / Loft
 ```
 
-### Autoload services
+### Domain modules (reuse)
 
-- `GameState` owns projects, staff, economy, and progression
-- `SaveStore` owns versioned local persistence
-- `TaskProvider` exposes the local simulator or remote game API
-- `EventBus` carries explicit domain signals
-- `ContentCatalog` loads and validates staff and project data
+Keep existing office domain modules (walk map, pathfind, economy, agent bus)
+and replace only the canvas draw/input shell as Phaser lands.
 
 ### Pathfinding
 
-Use `AStarGrid2D` over a logical occupancy map for the first loft. The rooms are
-small fixed grids, and the existing web prototype already proves that model.
-
-Do not couple actor movement to `TileMapLayer` navigation. Godot documents
-practical limitations in TileMap navigation, and a baked navigation mesh is
-unnecessary until layouts become irregular or substantially larger.
+Keep the logical occupancy map already proven in `office/`. Phaser does not
+require a different pathing model for the first loft.
 
 ### Art and UI
 
 Carry forward the existing contracts:
 
 - Classic 2:1 isometric projection
-- 64x32 logical tiles
-- Characters approximately 48 to 64 pixels tall
+- 128x64 floor tiles / 128x128 props (ADR 010)
 - Nearest-neighbor texture filtering
 - Warm bone, clay, amber, sage, and ink palette
 - Pixel art for the world
-- Normal readable text controls for management UI
+- Normal readable HTML/CSS for management UI
 
-Reference mocks remain references. Accepted runtime sprites may be migrated
-into the Godot project with their provenance intact.
+Reference mocks remain references. Accepted runtime sprites stay under
+`office/assets` with provenance intact. The archived Godot `game/` tree is
+reference only.
 
 ## Live-agent boundary
 
-The Godot client must never contain provider credentials or execute generated
+The web client must never contain provider credentials or execute generated
 code.
 
 ```text
-Godot client
+Phaser + DOM client (office/)
   -> Game API and task orchestrator
   -> Disposable execution worker
   -> Structured evidence response
   -> Game-state update
 ```
 
-### Godot client
+### Web client
 
 Owns the office, management UI, local save, and deterministic simulator.
 
@@ -319,20 +311,19 @@ Each phase is one concern and lands through its own branch and PR.
 
 **Done in ADR 008.** Player promise, source-deletion policy, retained
 evidence, target platform, first project type, live-agent cost
-ceiling shape, and Godot 4.7.2 vehicle are locked.
+ceiling shape, and Phaser 3 / `office/` vehicle are locked.
 
 **Proof:** locked decision removes the open product and trust
 questions.
 
 **Owners:** Nosh and Fabrizio
 
-### P1 - Build the Godot office vertical slice
+### P1 - Phaser loft vertical slice
 
-Create the Godot project and migrate only the art needed for one existing loft.
-Add crisp rendering, click or tap movement, y-sorting, one desk, and one
-interaction.
+Wire Phaser 3 into `office/`, keep the DOM desk OS, and prove walk /
+desk interact for the starter loft.
 
-**Proof:** the full room loads at 1280x720 and the player can reach and use the
+**Proof:** the loft loads in the browser and the player can reach and use the
 desk without visual or pathing errors.
 
 **Sequence:** Maeve shapes, Dex builds, Cal verifies, Reed checks readability.
@@ -439,9 +430,10 @@ be locked after observing the first playable build.
 5. Hard per-session live-agent cost ceiling (`$` named before P5)
 6. Retained evidence: structured summaries (counts + sanitized
    outcomes); no raw logs or source
-7. Engine: Godot 4.7.2 + GDScript; no separate web prototype
+7. Engine: Phaser 3 on `office/`; loft canvas Phaser, desk OS DOM;
+   web distribution
 
 ## Next move
 
-Maeve defines the P1 vertical-slice experience and asset cut. Then
-Dex creates the Godot project and migrates one loft’s accepted art.
+Dex wires the Phaser loft spike in `office/` (walk + desk → DOM OS).
+Maeve keeps scope tight: hybrid proof only, no desk-OS rewrite.

@@ -1,15 +1,23 @@
 # ADR 001 — Virtual office product scope
 
-**Status:** On hold (superseded for active product priority by
-[`../../decisions/007-honest-ai-studio-tycoon.md`](../../decisions/007-honest-ai-studio-tycoon.md))  
+**Status:** Active as shipping web client (vehicle amended by
+[`../../decisions/008-ai-studio-product-contract.md`](../../decisions/008-ai-studio-product-contract.md))  
 **Date:** 2026-09-05  
 **Deciders:** Nosh + Fabrizio Cortell  
-**Hold note:** 2026-09-06 — loft stays in repo; no new feature work
-until Nosh reopens it.
+**Reopen note:** 2026-09-06 — loft unparked; Phaser 3 owns the
+canvas, DOM desk OS stays (ADR 007 §4 / ADR 008).  
+**Reopen note:** 2026-09-06 — rooms, movement, and talk surfaces
+amended by
+[`002-loft-vn-hybrid.md`](002-loft-vn-hybrid.md)
+(Founder’s Office + loft; player-only walk; VN panels; desk OS in
+founder office only).
 
 ## Decision
 
-Build an internal **Warewolf Virtual Office** as a **static vanilla HTML** app under [`office/`](../../office/). No framework, no bundler required for day-one play.
+Build an internal **Warewolf Virtual Office** under
+[`office/`](../../office/). Day-one was vanilla HTML; shipping
+vehicle is now **Phaser 3** for the loft canvas with DOM desk OS
+(ADR 008).
 
 ### Locked choices
 

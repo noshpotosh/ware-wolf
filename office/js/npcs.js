@@ -3,6 +3,7 @@ import {
   FurnitureKind,
   NPC_BUBBLER_DWELL_SECONDS,
   NPC_BUBBLER_VISIT_SECONDS,
+  NPC_LOFT_MOTION_ENABLED,
   NPC_MOVE_TILES_PER_SECOND,
   NPC_VISIT_JITTER_BASE,
   NPC_VISIT_JITTER_SPAN,
@@ -108,6 +109,12 @@ function seatNpcAtDesk(npc) {
 }
 
 export function updateNpcs(npcs, office, walkMap, deltaSeconds) {
+  // ADR 002 Phase B: static poses only. Bubbler walks return
+  // with station-snap (Phase C).
+  if (!NPC_LOFT_MOTION_ENABLED) {
+    return;
+  }
+
   const bubbler = findFurnitureByKind(
     office,
     FurnitureKind.BUBBLER

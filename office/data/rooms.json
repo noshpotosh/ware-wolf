@@ -1,0 +1,32 @@
+{
+  "startRoomId": "founders-office",
+  "rooms": [
+    {
+      "id": "founders-office",
+      "displayName": "Founder's Office",
+      "layoutSource": "fixed",
+      "layoutId": "founders-office",
+      "exits": [
+        {
+          "doorId": "door-to-loft",
+          "gridX": 3,
+          "gridY": 5,
+          "toRoomId": "shared-loft",
+          "toSpawn": { "gridX": 2, "gridY": 3 }
+        }
+      ]
+    },
+    {
+      "id": "shared-loft",
+      "displayName": "Shared Loft",
+      "layoutSource": "economy",
+      "exits": [
+        {
+          "doorId": "door-to-office",
+          "toRoomId": "founders-office",
+          "toSpawn": { "gridX": 3, "gridY": 3 }
+        }
+      ]
+    }
+  ]
+}

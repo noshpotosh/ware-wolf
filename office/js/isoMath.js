@@ -2,7 +2,7 @@ import { TILE_HEIGHT_PX, TILE_WIDTH_PX } from "./constants.js";
 
 // Furniture draws above tile centers (monitors, bubbler bottle).
 // Nudge vertical centering so the room doesn't sit too low.
-export const FURNITURE_TOP_OVERHANG_PX = 96;
+export const FURNITURE_TOP_OVERHANG_PX = 192;
 
 // Convert grid coords to canvas coords (2:1 isometric).
 export function gridToScreen(gridX, gridY) {

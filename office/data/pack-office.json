@@ -31,13 +31,15 @@
       "interactable": true
     },
     {
-      "id": "desk-nosh",
-      "kind": "desk",
-      "gridX": 10,
-      "gridY": 8,
+      "id": "door-to-office",
+      "kind": "door",
+      "gridX": 0,
+      "gridY": 3,
       "blocksWalk": true,
-      "isPlayerDesk": true,
-      "staffId": "nosh"
+      "interactable": true,
+      "toRoomId": "founders-office",
+      "toSpawn": { "gridX": 3, "gridY": 3 },
+      "exitLabel": "Enter office"
     },
     {
       "id": "desk-fabrizio",

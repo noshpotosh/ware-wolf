@@ -22,6 +22,8 @@ export async function loadOfficeBundle() {
   const [
     starter,
     pack,
+    founders,
+    rooms,
     staff,
     goals,
     upgrades,
@@ -30,6 +32,8 @@ export async function loadOfficeBundle() {
   ] = await Promise.all([
     loadJson("./data/starter-office.json"),
     loadJson("./data/pack-office.json"),
+    loadJson("./data/founders-office.json"),
+    loadJson("./data/rooms.json"),
     loadJson("./data/staff.json"),
     loadJson("./data/goals.json"),
     loadJson("./data/upgrades.json"),
@@ -40,11 +44,13 @@ export async function loadOfficeBundle() {
   const layouts = {
     [starter.id]: starter,
     [pack.id]: pack,
+    [founders.id]: founders,
   };
 
   return {
     layouts,
     office: starter,
+    rooms,
     staff,
     goals,
     upgrades,
@@ -59,6 +65,7 @@ export async function loadStarterOfficeBundle() {
 
   return {
     office: bundle.office,
+    rooms: bundle.rooms,
     staff: bundle.staff,
     goals: bundle.goals,
     upgrades: bundle.upgrades,

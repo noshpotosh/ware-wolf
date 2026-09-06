@@ -1,101 +1,52 @@
-# Godot game art pipeline
+# World art pipeline (Phaser active / Godot archived)
 
-This is the contributor entry point for art in `game/`. The parked `office/`
-project has a separate pipeline. Its accepted art and mockups may inform new
-assets, but the Godot runtime must be self-contained.
+**Active shipping client:** Phaser 3 under [`office/`](../office/).
+Author and ship loft art through
+[`office/asset-pipeline.md`](office/asset-pipeline.md) and
+[`office/art-direction.md`](office/art-direction.md).
 
-## Choose the right asset
+**Archived:** the Godot P1 spike under [`game/`](../game/) and the
+export scripts below. Keep them for provenance. Do not add new
+Godot feature art unless a later ADR reopens that vehicle.
 
-PNG is our lossless runtime image format. A sprite sheet is a PNG containing
-multiple frames; an atlas contains named regions, often with different sizes.
-Neither requires replacing every individual image with a sheet.
+## Active contract (Phaser / `office/`)
 
-- Characters: transparent, fixed-size frame sheets and native Godot
-  `SpriteFrames` resources, played by `AnimatedSprite2D`.
-- Related UI icons: atlas regions, with names at the point of consumption.
-- Window and button borders: a theme sheet sliced with `StyleBoxTexture`.
-  Nine-slice borders keep their authored corners when a panel grows.
-- Wallpaper: a separate seamless repeating tile.
-- World tiles: **128×64** isometric diamonds ([ADR 010](decisions/010-128px-world-art-standard.md)).
-  Standalone tiles remain valid; migrate to `TileSetAtlasSource` when
-  tile authoring needs it. Furniture/props: **128×128** canvases.
-- Text, buttons, lists, layout, and state: live Godot Controls. Never bake
-  the desktop screenshot, names, balances, or body text into a texture.
+- Classic 2:1 isometric projection
+- World authoring target: **128×64** floors / **128×128** props
+  ([ADR 010](decisions/010-128px-world-art-standard.md))
+- Nearest-neighbor filtering; no image smoothing
+- Desk OS stays DOM CSS/HTML; loft sprites load from
+  `office/assets/`
+- Runtime atlases currently live as cropped sheets under
+  `office/assets/{characters,furniture}/` (see `office/js/sprites.js`)
 
-These choices use Godot's standard [sprite animation][animation],
-[nine-slice styling][nine-slice], and [image import][import] facilities.
-Keep sheets grouped by purpose; a giant universal atlas complicates editing
-and does not guarantee faster rendering.
+## Archived Godot spike notes
 
-## Source, export, runtime
+The remainder of this file documents the historical Godot
+`art-source` → `assets` export path. Use it only when copying
+provenance into `office/` or inspecting the archived spike.
 
-- `game/art-source/`: editable source artwork and generation provenance.
-  Its `.gdignore` keeps source images out of the import/runtime asset tree.
-- `game/tools/export_*_art.gd`: deterministic source-to-runtime exports.
-- `game/assets/`: committed runtime PNGs, `.tres` resources, fonts/licenses,
-  and `.import` settings. `assets/MANIFEST.md` records provenance and use.
-- `game/.godot/`: disposable local import cache; never commit it.
-- Reference mocks and rejected generations are never runtime dependencies.
-  Existing `_screenshot-crops` and `_pixellab-attempts` are ignored by Godot.
+### Choose the right asset (historical)
 
-Use kebab-case filenames that describe the subject and purpose. Preserve
-editable SVG for the existing UI pixel-art system; use Aseprite or another
-layered pixel-art source for hand-authored character work when available.
-Generated PNG source is acceptable with its prompt and reference recorded.
-Do not call a flattened generated image a layered source file.
+PNG is the lossless runtime image format. A sprite sheet is a PNG
+containing multiple frames; an atlas contains named regions.
 
-## Pixel and animation contract
+- Characters: transparent fixed-size frame sheets
+- World tiles: **128×64** isometric diamonds (ADR 010)
+- Furniture/props: **128×128** canvases
+- Management UI for the active product is HTML/CSS in `office/`,
+  not Godot Controls
 
-Author at the logical pixel size. Export without smoothing; set texture import
-compression to Lossless, mipmaps off, and size limit to zero. Use nearest
-filtering in the project and on sprite/UI consumers. Retain alpha; an image
-with a painted checkerboard fails even if it looks transparent in a preview.
+### Source, export, runtime (historical)
 
-Keep coordinates and crop rectangles integral. Do not rotate packed sprites.
-Do not trim animation frames independently at runtime. Each frame has the
-same cell dimensions and origin; changing limbs must not move the actor's
-pathfinding origin. Keep clear padding inside cell edges and enable
-`AtlasTexture.filter_clip` to prevent neighboring cells leaking into a frame.
-If a future asset needs linear filtering or mipmaps, define edge extrusion
-and revalidate it as a separate import contract.
+- `game/art-source/`: editable source artwork and generation
+  provenance
+- `game/tools/export_*_art.gd`: deterministic source-to-runtime
+  exports
+- `game/assets/`: committed runtime PNGs and `.import` settings
+- `game/.godot/`: disposable local import cache; never commit it
 
-Nosh uses 48×96 cells with foot pivot `(24, 74)`, one idle frame and six
-running frames at 10 fps. The current art provides a left-facing view mirrored
-for rightward travel, including diagonal routes. It does not claim four
-distinct directional drawings. Running is driven by actual route movement;
-arrival restores idle immediately. Preserve the loop across tile boundaries.
-The taller transparent cells retain the generated source's faint alpha fringe
-without clipping. The visible character remains approximately 60 pixels tall.
-
-The legacy desk/chair sprites still shrink larger accepted images into loft
-sizes. Packing them would not remove that pixel-density debt. Replace them
-only when properly authored art is available, with matched pivots and scale.
-
-World tiles and props follow [ADR 010](decisions/010-128px-world-art-standard.md):
-**128×64** floor diamonds and **128×128** furniture canvases, displayed 1:1
-with `IsoMath` at those sizes.
-
-## Add or replace an asset
-
-1. Read this document, the asset manifest, and the relevant runtime consumer.
-   Pick an existing category and preserve its scale, palette, and pivot.
-2. Save editable source under `art-source/`. Record author/tool, reference,
-   prompt if generated, license/permission where applicable, and crop rules.
-3. Add or update the smallest relevant exporter. Exports must work without
-   a network service or paid editor. If using Aseprite, also retain exported
-   frames and describe the exact Aseprite CLI export command/version.
-4. Export the PNG and resource. Use native `SpriteFrames` for animation,
-   `AtlasTexture` for named sprites, and nine-slice margins for UI borders.
-   Keep the native resource or exporter as the single owner of frame order
-   and timing; avoid duplicate crop arrays in gameplay code.
-5. Update `assets/MANIFEST.md` with source, output, dimensions, frames,
-   pivot/timing, and consumer. Leave reference art out of runtime paths.
-6. Run export and validation, inspect the imported image at native size and
-   an integer zoom, and test its real scene. Repeat export and ensure outputs
-   are unchanged. Commit source, output, resources, and import settings
-   together in a scoped art change.
-
-## Rebuild and verify
+### Rebuild and verify (historical)
 
 From the repository root with Godot 4.7.2 on PATH:
 
@@ -105,33 +56,5 @@ godot --headless --path game --script res://scripts/animation_check.gd
 godot --headless --path game --script res://scripts/smoke_check.gd
 ```
 
-If the executable has another name or location:
-
-```bash
-GODOT_BIN=/path/to/godot bash game/tools/export_art.sh
-```
-
-`ART_OK` verifies imported texture settings, resource loading, frame bounds,
-and exclusion of source/reference dependencies. It is a structural check,
-not an art-quality approval. Export failures must exit nonzero.
-
-For desktop changes, capture the running game at 1280×720 with Directory
-open and compare with `office/assets/reference/desk-desktop-os-mock.png`.
-With a working graphical display (omit `--headless`), generate that view:
-
-```bash
-godot --path game --script res://tools/capture_desktop.gd -- /tmp/desktop.png
-```
-
-Check wallpaper density, icon scale, window position/borders, typography,
-portrait, and taskbar before calling the mock matched. Exercise close,
-minimize/restore, maximize, search/selection, Esc, and return to the loft.
-
-For character changes, inspect a complete loop in both facing directions,
-turns, stopping, and desk arrival. Check for matte backgrounds, clipped limbs,
-foot sliding, changes in body size, frame bleed, and ordering behind furniture.
-Screenshots and animation previews are review evidence, not runtime art.
-
-[animation]: https://docs.godotengine.org/en/stable/tutorials/2d/2d_sprite_animation.html
-[nine-slice]: https://docs.godotengine.org/en/stable/classes/class_styleboxtexture.html
-[import]: https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/importing_images.html
+`ART_OK` verifies imported texture settings for the archived spike.
+It is not the active product build gate.
