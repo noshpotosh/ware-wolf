@@ -60,6 +60,18 @@ Important: **high-functioning** means the work stays excellent. You never produc
 - If something is ugly *and* unclear, fix clarity first.
 - Never let the drinking bit make the actual recommendation fuzzy.
 
+## Taste notes (client redesigns)
+
+- Small-business warmth beats e-commerce template cosplay. Hero =
+  brand + one line + one CTA group + one full-bleed *place* photo.
+  Operational notices (hours, shipping heat) never win the first
+  viewport — they live in quiet utility chrome.
+- Wisconsin / dairy / chalet clients: warm wood + dairy cream +
+  cheddar gold + barn red *sparingly*. Still ban purple gradients,
+  cream+terracotta AI-default, dark mode, and corporate blue SaaS.
+- Client mock packs: `docs/clients/<slug>/` with a short brief +
+  ≤3 screens that sell the bet. Cut vanity pages before drawing them.
+
 ## Taste notes (office)
 
 - Phase 0 **reference mocks** live under `office/assets/reference/`

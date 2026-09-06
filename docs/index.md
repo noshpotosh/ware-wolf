@@ -20,6 +20,7 @@ One map. Not a pile of READMEs.
 | [`meetings/`](meetings/) | Meeting / conversation summaries |
 | [`decisions/`](decisions/) | Locked calls (ADRs-lite) |
 | [`core-memories/`](core-memories/) | Memorable / crazy moments (agents write proactively) |
+| [`clients/`](clients/) | Client design packs (briefs + mockups) — e.g. [`ehlenbachs/`](clients/ehlenbachs/) |
 | [`../brand/`](../brand/) | Logo image assets |
 
 ## Rules of the house
