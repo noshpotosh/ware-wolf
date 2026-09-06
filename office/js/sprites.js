@@ -62,6 +62,7 @@ export const SINGLE_SPRITES = [
   { id: "whiteboard-pixellab", path: "furniture/whiteboard.png" },
   { id: "desk-with-monitor", path: "furniture/desk-with-monitor.png" },
   { id: "floor-island", path: "tiles/floor-island.png" },
+  { id: "wall-bone", path: "tiles/wall-bone.png" },
   { id: "desk-nosh-mat", path: "furniture/desk-nosh-mat.png" },
 ];
 

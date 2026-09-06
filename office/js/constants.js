@@ -196,6 +196,15 @@ export const FloorTexture = {
   ISLAND: "floor-island",
 };
 
+export const WALL_TEXTURE_KEY = "wall-bone";
+export const WALL_DISPLAY_WIDTH = 128;
+export const WALL_DISPLAY_HEIGHT = 176;
+export const WALL_ORIGIN_X = 0.5;
+export const WALL_ORIGIN_Y = 1;
+// Sit the wall foot on the far half of the floor diamond.
+export const WALL_SCREEN_OFFSET_Y = -40;
+export const WALL_DEPTH_BIAS = -1.2;
+
 export const SPRITE_ORIGIN_CENTER_X = 0.5;
 export const SPRITE_ORIGIN_FOOT_Y = 0.92;
 export const SPRITE_NO_BOB_Y = 0;

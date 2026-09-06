@@ -1,5 +1,6 @@
 import {
   FloorTexture,
+  FurnitureKind,
   ISLAND_INSET_TILES,
   STAFF_NAMEPLATE,
 } from "./constants.js";
@@ -61,4 +62,40 @@ export function nameplateLabel(piece, shell) {
   }
 
   return null;
+}
+
+
+// Far iso edges (gridX/gridY == 0) frame the room; skip door cells.
+export function isBackWallCell(office, gridX, gridY) {
+  if (gridX !== 0 && gridY !== 0) {
+    return false;
+  }
+
+  for (const piece of office.furniture || []) {
+    if (piece.kind !== FurnitureKind.DOOR) {
+      continue;
+    }
+
+    if (piece.gridX === gridX && piece.gridY === gridY) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export function listBackWallCells(office) {
+  const cells = [];
+
+  for (let gridY = 0; gridY < office.gridHeight; gridY += 1) {
+    for (let gridX = 0; gridX < office.gridWidth; gridX += 1) {
+      if (!isBackWallCell(office, gridX, gridY)) {
+        continue;
+      }
+
+      cells.push({ gridX, gridY });
+    }
+  }
+
+  return cells;
 }

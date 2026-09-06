@@ -4,7 +4,9 @@ import test from "node:test";
 import { FloorTexture, FurnitureKind } from "../js/constants.js";
 import {
   floorTextureKey,
+  isBackWallCell,
   isIslandCell,
+  listBackWallCells,
   nameplateLabel,
 } from "../js/loftDecor.js";
 
@@ -64,4 +66,21 @@ test("every desk in starter + founders is ready for a chair plate", () => {
       assert.ok(label, `${desk.id} has a nameplate label`);
     }
   }
+});
+
+
+test("back walls hug far edges and skip door cells", () => {
+  assert.equal(isBackWallCell(starter, 0, 0), true);
+  assert.equal(isBackWallCell(starter, 3, 0), true);
+  assert.equal(isBackWallCell(starter, 0, 3), false); // door gap
+  assert.equal(isBackWallCell(starter, 4, 4), false);
+
+  const cells = listBackWallCells(starter);
+  assert.ok(cells.length > 0);
+  assert.ok(cells.every((cell) => cell.gridX === 0 || cell.gridY === 0));
+  assert.ok(
+    cells.every(
+      (cell) => !(cell.gridX === 0 && cell.gridY === 3)
+    )
+  );
 });

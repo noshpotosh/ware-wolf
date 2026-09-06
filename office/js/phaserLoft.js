@@ -25,6 +25,13 @@ import {
   SPRITE_NO_BOB_Y,
   SPRITE_ORIGIN_CENTER_X,
   SPRITE_ORIGIN_FOOT_Y,
+  WALL_DEPTH_BIAS,
+  WALL_DISPLAY_HEIGHT,
+  WALL_DISPLAY_WIDTH,
+  WALL_ORIGIN_X,
+  WALL_ORIGIN_Y,
+  WALL_SCREEN_OFFSET_Y,
+  WALL_TEXTURE_KEY,
   TILE_HEIGHT_PX,
   TILE_WIDTH_PX,
 } from "./constants.js";
@@ -37,6 +44,7 @@ import {
 } from "./sprites.js";
 import {
   floorTextureKey,
+  listBackWallCells,
   nameplateLabel,
 } from "./loftDecor.js";
 
@@ -137,6 +145,9 @@ function createLoftScene(Phaser, host) {
       this.worldRoot = this.add.container(0, 0);
       this.floorLayer = this.add.container(0, 0);
       this.worldRoot.add(this.floorLayer);
+      this.wallLayer = this.add.container(0, 0);
+      this.worldRoot.add(this.wallLayer);
+      this.wallSprites = [];
       this.pathMarker = this.add.graphics();
       this.worldRoot.add(this.pathMarker);
       this.entityLayer = this.add.container(0, 0);
@@ -180,6 +191,7 @@ function createLoftScene(Phaser, host) {
       }
 
       this.drawFloor(shell.office);
+      this.drawWalls(shell.office);
       this.syncEntities(shell);
       this.fitCamera(shell.office);
     }
@@ -207,6 +219,47 @@ function createLoftScene(Phaser, host) {
           this.floorTiles.push(tile);
         }
       }
+    }
+
+    drawWalls(office) {
+      for (const sprite of this.wallSprites) {
+        sprite.destroy();
+      }
+
+      this.wallSprites = [];
+
+      for (const cell of listBackWallCells(office)) {
+        const point = gridToScreen(cell.gridX, cell.gridY);
+        const wall = this.add.image(
+          point.screenX,
+          point.screenY + WALL_SCREEN_OFFSET_Y,
+          WALL_TEXTURE_KEY
+        );
+
+        wall.setOrigin(WALL_ORIGIN_X, WALL_ORIGIN_Y);
+        wall.setDisplaySize(WALL_DISPLAY_WIDTH, WALL_DISPLAY_HEIGHT);
+
+        // Flip the gridX==0 face so both far edges read as inward walls.
+        if (cell.gridX === 0 && cell.gridY !== 0) {
+          wall.setFlipX(true);
+        }
+
+        wall.setData(
+          "depth",
+          cell.gridX + cell.gridY + WALL_DEPTH_BIAS
+        );
+        this.wallLayer.add(wall);
+        this.wallSprites.push(wall);
+      }
+
+      const ordered = [...this.wallSprites].sort(
+        (left, right) =>
+          left.getData("depth") - right.getData("depth")
+      );
+
+      ordered.forEach((sprite, index) => {
+        this.wallLayer.moveTo(sprite, index);
+      });
     }
 
     fitCamera(office) {
