@@ -31,21 +31,31 @@ shipping notices.
 Theme tokens: wood, dairy cream, cheddar gold, sparse barn red.
 Expressive serif for brand/headlines — not Inter/Roboto.
 
+**Dex handoff (bets 1–3):** section names, settings, hero
+allow/ban list, tokens, and nav IA live in
+[`liquid-section-map.md`](liquid-section-map.md). Scaffold from
+that map — do not invent sections from the PNGs alone.
+
 ---
 
 ## PR-sized bets (ordered)
 
 1. **Shopify shell + design tokens**  
    Dev store, theme repo/scaffold, fonts/colors, base layout
-   (header/footer). No full catalog dump required.
+   (header/footer). Follow
+   [`liquid-section-map.md`](liquid-section-map.md)
+   shared chrome + tokens. No full catalog dump required.
 
 2. **Homepage + Visit page sections**  
-   Brand-led heroes per mocks. Hours / shipping live in quiet
-   utility or footer — never the first viewport.
+   Brand-led heroes per mocks / liquid map (`Home Hero`,
+   `Meet Us Story`, `Visit Hero`, `Visit Hours Strip`). Hours /
+   shipping live in quiet utility or footer — never the first
+   viewport.
 
 3. **Collection / Shop browse**  
-   Category filters + restrained product cards (photo, name,
-   price, Add). Match mock density; no filter-sidebar theater.
+   `Shop Intro` + `Category Filters` + `Product Grid` per liquid
+   map. Restrained product cards (photo, name, price, Add). Match
+   mock density; no filter-sidebar theater.
 
 4. **Catalog migration slice**  
    Import a real subset (cheddars, curds, smoked, blues, sausage,
@@ -91,8 +101,8 @@ Still needed from the mock pack — platform does not answer them:
 
 | Who | Job |
 | --- | --- |
-| Maeve | Section inventory for Liquid; PDP mock when we pull that bet |
-| Dex | Theme + store config on Shopify |
+| Maeve | Liquid map shipped ([`liquid-section-map.md`](liquid-section-map.md)); PDP mock when we pull that bet |
+| Dex | Theme + store config on Shopify — bets 1–3 from the liquid map |
 | Cal | First-viewport / cozy-vs-template adversarial pass on preview |
 | Reed | Theme code readability when Dex's slice is behavior-green |
 | Fabrizio | Keep bets scoped; no kitchen-sink “launch everything” PR |

@@ -4,7 +4,9 @@
 **Location:** DeForest, WI (near Madison)  
 **Prepared by:** Warewolf (Maeve Quinn, product & design)  
 **Date:** 2026-09-06  
-**Status:** Direction + mockups for founder → client review
+**Status:** Client approved mocks · Shopify locked (ADR 011) ·
+Liquid section map is the Dex handoff
+([`liquid-section-map.md`](liquid-section-map.md))
 
 ---
 
@@ -146,6 +148,15 @@ Suggested visit line (in mock):
 - Product detail page mock
 - Checkout / account flows
 - Game or Warewolf office product work
+
+---
+
+## Build handoff
+
+Platform and scoped bets:
+[`shopify-build.md`](shopify-build.md) · ADR 011.  
+Implementable Liquid templates/sections for Dex:
+[`liquid-section-map.md`](liquid-section-map.md).
 
 ---
 
