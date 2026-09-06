@@ -259,8 +259,10 @@ function createLoftScene(Phaser, host) {
 
       // Overlap into the floor diamond so fractional camera scale
       // cannot open a background strip under the baseboard.
-      leftY += WALL_FOOT_OVERLAP_PX;
-      rightY += WALL_FOOT_OVERLAP_PX;
+      leftX = Math.round(leftX);
+      rightX = Math.round(rightX);
+      leftY = Math.round(leftY + WALL_FOOT_OVERLAP_PX);
+      rightY = Math.round(rightY + WALL_FOOT_OVERLAP_PX);
 
       const graphics = this.add.graphics();
       const tipLeftY = leftY - WALL_FOOT_OVERLAP_PX;
@@ -288,13 +290,14 @@ function createLoftScene(Phaser, host) {
       graphics.closePath();
       graphics.fillPath();
 
-      // Stroke top + sides to the floor tip — not into the overlap.
+      // Stroke top + upper sides only. Ink at the floor tip reads as a
+      // hover gap against the stage and the tile diamond outline.
       graphics.lineStyle(2, WALL_INK_COLOR, 1);
       graphics.beginPath();
-      graphics.moveTo(leftX, tipLeftY);
+      graphics.moveTo(leftX, boardLeftY);
       graphics.lineTo(leftX, topLeftY);
       graphics.lineTo(rightX, topRightY);
-      graphics.lineTo(rightX, tipRightY);
+      graphics.lineTo(rightX, boardRightY);
       graphics.strokePath();
 
       graphics.lineStyle(1, WALL_INK_COLOR, 1);
