@@ -2,6 +2,15 @@ import {
   FloorTexture,
   FurnitureKind,
   ISLAND_INSET_TILES,
+  POSTER_COFFEE_HEIGHT_PX,
+  POSTER_COFFEE_TEXTURE,
+  POSTER_COFFEE_WIDTH_PX,
+  POSTER_IDEAS_HEIGHT_PX,
+  POSTER_IDEAS_TEXTURE,
+  POSTER_IDEAS_WIDTH_PX,
+  POSTER_WAREWOLF_HEIGHT_PX,
+  POSTER_WAREWOLF_TEXTURE,
+  POSTER_WAREWOLF_WIDTH_PX,
   STAFF_NAMEPLATE,
 } from "./constants.js";
 
@@ -165,4 +174,72 @@ function groupContiguous(cells, face, axisKey) {
 
   runs.push({ face, start, end: prev });
   return runs;
+}
+
+// Mock kit: WAREWOLF on SE back, mantra + ideas on SW (no Weekly Wins).
+export function listWallPosters(office) {
+  const posters = [];
+  const seMidX = Math.floor(office.gridWidth / 2);
+
+  pushPosterIfWall(
+    posters,
+    office,
+    {
+      id: "poster-warewolf",
+      textureKey: POSTER_WAREWOLF_TEXTURE,
+      face: "se",
+      gridX: seMidX,
+      gridY: 0,
+      widthPx: POSTER_WAREWOLF_WIDTH_PX,
+      heightPx: POSTER_WAREWOLF_HEIGHT_PX,
+    }
+  );
+
+  const swCells = listBackWallCells(office)
+    .filter((cell) => cell.face === "sw")
+    .sort((a, b) => a.gridY - b.gridY);
+
+  if (swCells.length >= 1) {
+    const ideasCell = swCells[0];
+    pushPosterIfWall(
+      posters,
+      office,
+      {
+        id: "poster-ideas",
+        textureKey: POSTER_IDEAS_TEXTURE,
+        face: "sw",
+        gridX: ideasCell.gridX,
+        gridY: ideasCell.gridY,
+        widthPx: POSTER_IDEAS_WIDTH_PX,
+        heightPx: POSTER_IDEAS_HEIGHT_PX,
+      }
+    );
+  }
+
+  if (swCells.length >= 2) {
+    const coffeeCell = swCells[swCells.length - 1];
+    pushPosterIfWall(
+      posters,
+      office,
+      {
+        id: "poster-coffee",
+        textureKey: POSTER_COFFEE_TEXTURE,
+        face: "sw",
+        gridX: coffeeCell.gridX,
+        gridY: coffeeCell.gridY,
+        widthPx: POSTER_COFFEE_WIDTH_PX,
+        heightPx: POSTER_COFFEE_HEIGHT_PX,
+      }
+    );
+  }
+
+  return posters;
+}
+
+function pushPosterIfWall(posters, office, poster) {
+  if (!isBackWallCell(office, poster.gridX, poster.gridY)) {
+    return;
+  }
+
+  posters.push(poster);
 }
