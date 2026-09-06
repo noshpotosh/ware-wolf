@@ -225,7 +225,17 @@ function createLoftScene(Phaser, host) {
 
     drawWalls(office) {
       for (const sprite of this.wallSprites) {
+        const textureKey = sprite.texture && sprite.texture.key;
+
         sprite.destroy();
+
+        if (
+          textureKey
+          && textureKey.startsWith("wall-run:")
+          && this.textures.exists(textureKey)
+        ) {
+          this.textures.remove(textureKey);
+        }
       }
 
       this.wallSprites = [];
@@ -257,14 +267,11 @@ function createLoftScene(Phaser, host) {
         leftY = end.screenY + tipY + TILE_HEIGHT_PX / 2;
       }
 
-      // Overlap into the floor diamond so fractional camera scale
-      // cannot open a background strip under the baseboard.
-      leftX = Math.round(leftX);
-      rightX = Math.round(rightX);
-      leftY = Math.round(leftY + WALL_FOOT_OVERLAP_PX);
-      rightY = Math.round(rightY + WALL_FOOT_OVERLAP_PX);
+      // Overlap into the floor diamond; bake to a bitmap so container
+      // scale uses nearest-neighbor like floor tiles (no Graphics seam).
+      leftY += WALL_FOOT_OVERLAP_PX;
+      rightY += WALL_FOOT_OVERLAP_PX;
 
-      const graphics = this.add.graphics();
       const tipLeftY = leftY - WALL_FOOT_OVERLAP_PX;
       const tipRightY = rightY - WALL_FOOT_OVERLAP_PX;
       const topLeftY = tipLeftY - WALL_HEIGHT_PX;
@@ -272,47 +279,63 @@ function createLoftScene(Phaser, host) {
       const boardLeftY = leftY - WALL_BASEBOARD_PX;
       const boardRightY = rightY - WALL_BASEBOARD_PX;
 
+      const pad = 2;
+      const minX = Math.floor(Math.min(leftX, rightX) - pad);
+      const maxX = Math.ceil(Math.max(leftX, rightX) + pad);
+      const minY = Math.floor(Math.min(topLeftY, topRightY) - pad);
+      const maxY = Math.ceil(Math.max(leftY, rightY) + pad);
+      const textureWidth = Math.max(1, maxX - minX);
+      const textureHeight = Math.max(1, maxY - minY);
+      const textureKey =
+        `wall-run:${run.face}:`
+        + `${run.start.gridX},${run.start.gridY}:`
+        + `${run.end.gridX},${run.end.gridY}:`
+        + `${textureWidth}x${textureHeight}`;
+
+      if (this.textures.exists(textureKey)) {
+        this.textures.remove(textureKey);
+      }
+
+      const graphics = this.make.graphics({ x: 0, y: 0, add: false });
+      const ox = -minX;
+      const oy = -minY;
+
       graphics.fillStyle(WALL_BONE_COLOR, 1);
       graphics.beginPath();
-      graphics.moveTo(leftX, leftY);
-      graphics.lineTo(rightX, rightY);
-      graphics.lineTo(rightX, topRightY);
-      graphics.lineTo(leftX, topLeftY);
+      graphics.moveTo(leftX + ox, leftY + oy);
+      graphics.lineTo(rightX + ox, rightY + oy);
+      graphics.lineTo(rightX + ox, topRightY + oy);
+      graphics.lineTo(leftX + ox, topLeftY + oy);
       graphics.closePath();
       graphics.fillPath();
 
       graphics.fillStyle(WALL_CLAY_COLOR, 1);
       graphics.beginPath();
-      graphics.moveTo(leftX, leftY);
-      graphics.lineTo(rightX, rightY);
-      graphics.lineTo(rightX, boardRightY);
-      graphics.lineTo(leftX, boardLeftY);
+      graphics.moveTo(leftX + ox, leftY + oy);
+      graphics.lineTo(rightX + ox, rightY + oy);
+      graphics.lineTo(rightX + ox, boardRightY + oy);
+      graphics.lineTo(leftX + ox, boardLeftY + oy);
       graphics.closePath();
       graphics.fillPath();
 
-      // Stroke top + upper sides only. Ink at the floor tip reads as a
-      // hover gap against the stage and the tile diamond outline.
+      // Top edge only — no foot ink (reads as hover under scale).
       graphics.lineStyle(2, WALL_INK_COLOR, 1);
       graphics.beginPath();
-      graphics.moveTo(leftX, boardLeftY);
-      graphics.lineTo(leftX, topLeftY);
-      graphics.lineTo(rightX, topRightY);
-      graphics.lineTo(rightX, boardRightY);
+      graphics.moveTo(leftX + ox, topLeftY + oy);
+      graphics.lineTo(rightX + ox, topRightY + oy);
       graphics.strokePath();
 
-      graphics.lineStyle(1, WALL_INK_COLOR, 1);
-      graphics.beginPath();
-      graphics.moveTo(leftX, boardLeftY);
-      graphics.lineTo(rightX, boardRightY);
-      graphics.strokePath();
+      graphics.generateTexture(textureKey, textureWidth, textureHeight);
+      graphics.destroy();
 
-      const depth =
-        run.start.gridX
-        + run.start.gridY
-        + WALL_DEPTH_BIAS;
-      graphics.setData("depth", depth);
-      this.wallLayer.add(graphics);
-      this.wallSprites.push(graphics);
+      const sprite = this.add.image(minX, minY, textureKey);
+      sprite.setOrigin(0, 0);
+      sprite.setData(
+        "depth",
+        run.start.gridX + run.start.gridY + WALL_DEPTH_BIAS
+      );
+      this.wallLayer.add(sprite);
+      this.wallSprites.push(sprite);
     }
 
     fitCamera(office) {
