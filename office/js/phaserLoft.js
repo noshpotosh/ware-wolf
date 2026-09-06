@@ -318,7 +318,15 @@ function createLoftScene(Phaser, host) {
       graphics.closePath();
       graphics.fillPath();
 
-      // Top edge only — no foot ink (reads as hover under scale).
+      // Seal the foot with clay ink — fillPath diagonals leave a dark
+      // fringe under container scale that reads as a hover gap.
+      graphics.lineStyle(4, WALL_CLAY_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX + ox, leftY + oy);
+      graphics.lineTo(rightX + ox, rightY + oy);
+      graphics.strokePath();
+
+      // Top edge only — no foot ink.
       graphics.lineStyle(2, WALL_INK_COLOR, 1);
       graphics.beginPath();
       graphics.moveTo(leftX + ox, topLeftY + oy);
