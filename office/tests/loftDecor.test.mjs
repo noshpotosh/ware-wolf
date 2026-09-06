@@ -8,6 +8,7 @@ import {
   isIslandCell,
   listBackWallCells,
   nameplateLabel,
+  wallFaceForCell,
 } from "../js/loftDecor.js";
 
 const starter = JSON.parse(
@@ -83,4 +84,12 @@ test("back walls hug far edges and skip door cells", () => {
       (cell) => !(cell.gridX === 0 && cell.gridY === 3)
     )
   );
+});
+
+
+test("wall faces: SE along Y=0, SW along X=0, corner both", () => {
+  assert.equal(wallFaceForCell(3, 0), "se");
+  assert.equal(wallFaceForCell(0, 4), "sw");
+  assert.equal(wallFaceForCell(0, 0), "corner");
+  assert.equal(wallFaceForCell(2, 2), null);
 });

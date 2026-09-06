@@ -26,12 +26,11 @@ import {
   SPRITE_ORIGIN_CENTER_X,
   SPRITE_ORIGIN_FOOT_Y,
   WALL_DEPTH_BIAS,
+  WALL_TEXTURE_SE,
+  WALL_TEXTURE_SW,
   WALL_DISPLAY_HEIGHT,
   WALL_DISPLAY_WIDTH,
-  WALL_ORIGIN_X,
-  WALL_ORIGIN_Y,
   WALL_SCREEN_OFFSET_Y,
-  WALL_TEXTURE_KEY,
   TILE_HEIGHT_PX,
   TILE_WIDTH_PX,
 } from "./constants.js";
@@ -229,27 +228,8 @@ function createLoftScene(Phaser, host) {
       this.wallSprites = [];
 
       for (const cell of listBackWallCells(office)) {
-        const point = gridToScreen(cell.gridX, cell.gridY);
-        const wall = this.add.image(
-          point.screenX,
-          point.screenY + WALL_SCREEN_OFFSET_Y,
-          WALL_TEXTURE_KEY
-        );
-
-        wall.setOrigin(WALL_ORIGIN_X, WALL_ORIGIN_Y);
-        wall.setDisplaySize(WALL_DISPLAY_WIDTH, WALL_DISPLAY_HEIGHT);
-
-        // Flip the gridX==0 face so both far edges read as inward walls.
-        if (cell.gridX === 0 && cell.gridY !== 0) {
-          wall.setFlipX(true);
-        }
-
-        wall.setData(
-          "depth",
-          cell.gridX + cell.gridY + WALL_DEPTH_BIAS
-        );
-        this.wallLayer.add(wall);
-        this.wallSprites.push(wall);
+        this.placeWallFace(cell, "se");
+        this.placeWallFace(cell, "sw");
       }
 
       const ordered = [...this.wallSprites].sort(
@@ -260,6 +240,39 @@ function createLoftScene(Phaser, host) {
       ordered.forEach((sprite, index) => {
         this.wallLayer.moveTo(sprite, index);
       });
+    }
+
+    placeWallFace(cell, face) {
+      const wantsSe = face === "se" && (
+        cell.face === "se" || cell.face === "corner"
+      );
+      const wantsSw = face === "sw" && (
+        cell.face === "sw" || cell.face === "corner"
+      );
+
+      if (!wantsSe && !wantsSw) {
+        return;
+      }
+
+      const point = gridToScreen(cell.gridX, cell.gridY);
+      const textureKey =
+        face === "se" ? WALL_TEXTURE_SE : WALL_TEXTURE_SW;
+      // Plant origin on the far diamond tip so SE/SW faces meet.
+      const originX = face === "se" ? 0 : 1;
+      const wall = this.add.image(
+        point.screenX,
+        point.screenY + WALL_SCREEN_OFFSET_Y,
+        textureKey
+      );
+
+      wall.setOrigin(originX, 1);
+      wall.setDisplaySize(WALL_DISPLAY_WIDTH, WALL_DISPLAY_HEIGHT);
+      wall.setData(
+        "depth",
+        cell.gridX + cell.gridY + WALL_DEPTH_BIAS
+      );
+      this.wallLayer.add(wall);
+      this.wallSprites.push(wall);
     }
 
     fitCamera(office) {

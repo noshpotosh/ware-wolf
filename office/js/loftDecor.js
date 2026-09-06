@@ -84,6 +84,22 @@ export function isBackWallCell(office, gridX, gridY) {
   return true;
 }
 
+export function wallFaceForCell(gridX, gridY) {
+  if (gridX === 0 && gridY === 0) {
+    return "corner";
+  }
+
+  if (gridY === 0) {
+    return "se";
+  }
+
+  if (gridX === 0) {
+    return "sw";
+  }
+
+  return null;
+}
+
 export function listBackWallCells(office) {
   const cells = [];
 
@@ -93,7 +109,11 @@ export function listBackWallCells(office) {
         continue;
       }
 
-      cells.push({ gridX, gridY });
+      cells.push({
+        gridX,
+        gridY,
+        face: wallFaceForCell(gridX, gridY),
+      });
     }
   }
 
