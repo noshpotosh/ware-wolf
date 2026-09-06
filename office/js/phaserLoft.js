@@ -33,6 +33,7 @@ import {
   WALL_BONE_DIM_COLOR,
   WALL_BONE_COLOR,
   WALL_BASEBOARD_PX,
+  WALL_FOOT_OVERLAP_PX,
   TILE_HEIGHT_PX,
   TILE_WIDTH_PX,
 } from "./constants.js";
@@ -256,9 +257,16 @@ function createLoftScene(Phaser, host) {
         leftY = end.screenY + tipY + TILE_HEIGHT_PX / 2;
       }
 
+      // Overlap into the floor diamond so fractional camera scale
+      // cannot open a background strip under the baseboard.
+      leftY += WALL_FOOT_OVERLAP_PX;
+      rightY += WALL_FOOT_OVERLAP_PX;
+
       const graphics = this.add.graphics();
-      const topLeftY = leftY - WALL_HEIGHT_PX;
-      const topRightY = rightY - WALL_HEIGHT_PX;
+      const tipLeftY = leftY - WALL_FOOT_OVERLAP_PX;
+      const tipRightY = rightY - WALL_FOOT_OVERLAP_PX;
+      const topLeftY = tipLeftY - WALL_HEIGHT_PX;
+      const topRightY = tipRightY - WALL_HEIGHT_PX;
       const boardLeftY = leftY - WALL_BASEBOARD_PX;
       const boardRightY = rightY - WALL_BASEBOARD_PX;
 
@@ -280,13 +288,13 @@ function createLoftScene(Phaser, host) {
       graphics.closePath();
       graphics.fillPath();
 
-      // Stroke top + sides only — bottom ink reads as a hover gap.
+      // Stroke top + sides to the floor tip — not into the overlap.
       graphics.lineStyle(2, WALL_INK_COLOR, 1);
       graphics.beginPath();
-      graphics.moveTo(leftX, leftY);
+      graphics.moveTo(leftX, tipLeftY);
       graphics.lineTo(leftX, topLeftY);
       graphics.lineTo(rightX, topRightY);
-      graphics.lineTo(rightX, rightY);
+      graphics.lineTo(rightX, tipRightY);
       graphics.strokePath();
 
       graphics.lineStyle(1, WALL_INK_COLOR, 1);

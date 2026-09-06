@@ -198,7 +198,8 @@ export const FloorTexture = {
 
 // Graphics-drawn far walls (continuous runs, foot on floor tip).
 export const WALL_HEIGHT_PX = 110;
-export const WALL_BASEBOARD_PX = 12;
+export const WALL_BASEBOARD_PX = 14;
+export const WALL_FOOT_OVERLAP_PX = 10;
 export const WALL_DEPTH_BIAS = -1.2;
 export const WALL_BONE_COLOR = 0xf4efe6;
 export const WALL_BONE_DIM_COLOR = 0xe6dfd2;
