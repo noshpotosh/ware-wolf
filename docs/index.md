@@ -11,6 +11,7 @@ One map. Not a pile of READMEs.
 | [`decisions/007-honest-ai-studio-tycoon.md`](decisions/007-honest-ai-studio-tycoon.md) | Active product thesis |
 | [`decisions/008-ai-studio-product-contract.md`](decisions/008-ai-studio-product-contract.md) | P0 product / trust / Phaser vehicle lock |
 | [`decisions/010-128px-world-art-standard.md`](decisions/010-128px-world-art-standard.md) | Loft tiles 128×64 / props 128×128 |
+| [`decisions/011-ehlenbachs-shopify.md`](decisions/011-ehlenbachs-shopify.md) | Ehlenbach's redesign ships on Shopify (Liquid) |
 | [`ai-studio-game-plan.md`](ai-studio-game-plan.md) | Implementation plan under ADR 008 |
 | [`../office/`](../office/) | Phaser web client (active) — see [`../office/README.md`](../office/README.md) |
 | [`office/`](office/) | Virtual office art bible, ADRs, pipeline |
@@ -20,7 +21,7 @@ One map. Not a pile of READMEs.
 | [`meetings/`](meetings/) | Meeting / conversation summaries |
 | [`decisions/`](decisions/) | Locked calls (ADRs-lite) |
 | [`core-memories/`](core-memories/) | Memorable / crazy moments (agents write proactively) |
-| [`clients/`](clients/) | Client design packs (briefs + mockups) — e.g. [`ehlenbachs/`](clients/ehlenbachs/) |
+| [`clients/`](clients/) | Client packs (briefs + mockups + build plans) — e.g. [`ehlenbachs/`](clients/ehlenbachs/) |
 | [`../brand/`](../brand/) | Logo image assets |
 
 ## Rules of the house
