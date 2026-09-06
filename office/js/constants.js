@@ -196,13 +196,15 @@ export const FloorTexture = {
   ISLAND: "floor-island",
 };
 
-export const WALL_TEXTURE_SE = "wall-bone-se";
-export const WALL_TEXTURE_SW = "wall-bone-sw";
-export const WALL_DISPLAY_WIDTH = 80;
-export const WALL_DISPLAY_HEIGHT = 160;
-// Foot on the far tip of the floor diamond so faces seam along the edge.
-export const WALL_SCREEN_OFFSET_Y = -32;
+// Graphics-drawn far walls (continuous runs, foot on floor tip).
+export const WALL_HEIGHT_PX = 110;
+export const WALL_BASEBOARD_PX = 12;
 export const WALL_DEPTH_BIAS = -1.2;
+export const WALL_BONE_COLOR = 0xf4efe6;
+export const WALL_BONE_DIM_COLOR = 0xe6dfd2;
+export const WALL_INK_COLOR = 0x1a1714;
+export const WALL_CLAY_COLOR = 0xc4a484;
+export const WALL_CLAY_DARK_COLOR = 0x967658;
 
 export const SPRITE_ORIGIN_CENTER_X = 0.5;
 export const SPRITE_ORIGIN_FOOT_Y = 0.92;

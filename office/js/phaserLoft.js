@@ -26,11 +26,13 @@ import {
   SPRITE_ORIGIN_CENTER_X,
   SPRITE_ORIGIN_FOOT_Y,
   WALL_DEPTH_BIAS,
-  WALL_TEXTURE_SE,
-  WALL_TEXTURE_SW,
-  WALL_DISPLAY_HEIGHT,
-  WALL_DISPLAY_WIDTH,
-  WALL_SCREEN_OFFSET_Y,
+  WALL_INK_COLOR,
+  WALL_HEIGHT_PX,
+  WALL_CLAY_DARK_COLOR,
+  WALL_CLAY_COLOR,
+  WALL_BONE_DIM_COLOR,
+  WALL_BONE_COLOR,
+  WALL_BASEBOARD_PX,
   TILE_HEIGHT_PX,
   TILE_WIDTH_PX,
 } from "./constants.js";
@@ -43,7 +45,7 @@ import {
 } from "./sprites.js";
 import {
   floorTextureKey,
-  listBackWallCells,
+  listBackWallRuns,
   nameplateLabel,
 } from "./loftDecor.js";
 
@@ -227,52 +229,79 @@ function createLoftScene(Phaser, host) {
 
       this.wallSprites = [];
 
-      for (const cell of listBackWallCells(office)) {
-        this.placeWallFace(cell, "se");
-        this.placeWallFace(cell, "sw");
+      for (const run of listBackWallRuns(office)) {
+        this.drawWallRun(run);
       }
-
-      const ordered = [...this.wallSprites].sort(
-        (left, right) =>
-          left.getData("depth") - right.getData("depth")
-      );
-
-      ordered.forEach((sprite, index) => {
-        this.wallLayer.moveTo(sprite, index);
-      });
     }
 
-    placeWallFace(cell, face) {
-      const wantsSe = face === "se" && (
-        cell.face === "se" || cell.face === "corner"
-      );
-      const wantsSw = face === "sw" && (
-        cell.face === "sw" || cell.face === "corner"
-      );
+    drawWallRun(run) {
+      const start = gridToScreen(run.start.gridX, run.start.gridY);
+      const end = gridToScreen(run.end.gridX, run.end.gridY);
+      // Far tip of each tile diamond.
+      const tipY = -TILE_HEIGHT_PX / 2;
+      let leftX;
+      let leftY;
+      let rightX;
+      let rightY;
 
-      if (!wantsSe && !wantsSw) {
-        return;
+      if (run.face === "se") {
+        leftX = start.screenX;
+        leftY = start.screenY + tipY;
+        rightX = end.screenX + TILE_WIDTH_PX / 2;
+        rightY = end.screenY + tipY + TILE_HEIGHT_PX / 2;
+      } else {
+        rightX = start.screenX;
+        rightY = start.screenY + tipY;
+        leftX = end.screenX - TILE_WIDTH_PX / 2;
+        leftY = end.screenY + tipY + TILE_HEIGHT_PX / 2;
       }
 
-      const point = gridToScreen(cell.gridX, cell.gridY);
-      const textureKey =
-        face === "se" ? WALL_TEXTURE_SE : WALL_TEXTURE_SW;
-      // Plant origin on the far diamond tip so SE/SW faces meet.
-      const originX = face === "se" ? 0 : 1;
-      const wall = this.add.image(
-        point.screenX,
-        point.screenY + WALL_SCREEN_OFFSET_Y,
-        textureKey
-      );
+      const graphics = this.add.graphics();
+      const topLeftY = leftY - WALL_HEIGHT_PX;
+      const topRightY = rightY - WALL_HEIGHT_PX;
+      const boardLeftY = leftY - WALL_BASEBOARD_PX;
+      const boardRightY = rightY - WALL_BASEBOARD_PX;
 
-      wall.setOrigin(originX, 1);
-      wall.setDisplaySize(WALL_DISPLAY_WIDTH, WALL_DISPLAY_HEIGHT);
-      wall.setData(
-        "depth",
-        cell.gridX + cell.gridY + WALL_DEPTH_BIAS
-      );
-      this.wallLayer.add(wall);
-      this.wallSprites.push(wall);
+      graphics.fillStyle(WALL_BONE_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX, leftY);
+      graphics.lineTo(rightX, rightY);
+      graphics.lineTo(rightX, topRightY);
+      graphics.lineTo(leftX, topLeftY);
+      graphics.closePath();
+      graphics.fillPath();
+
+      graphics.fillStyle(WALL_CLAY_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX, leftY);
+      graphics.lineTo(rightX, rightY);
+      graphics.lineTo(rightX, boardRightY);
+      graphics.lineTo(leftX, boardLeftY);
+      graphics.closePath();
+      graphics.fillPath();
+
+      // Stroke top + sides only — bottom ink reads as a hover gap.
+      graphics.lineStyle(2, WALL_INK_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX, leftY);
+      graphics.lineTo(leftX, topLeftY);
+      graphics.lineTo(rightX, topRightY);
+      graphics.lineTo(rightX, rightY);
+      graphics.strokePath();
+
+      graphics.lineStyle(1, WALL_INK_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX, boardLeftY);
+      graphics.lineTo(rightX, boardRightY);
+      graphics.strokePath();
+
+      const depth =
+        run.start.gridX
+        + run.start.gridY
+        + WALL_DEPTH_BIAS;
+      graphics.setData("depth", depth);
+      this.wallLayer.add(graphics);
+      this.wallSprites.push(graphics);
     }
 
     fitCamera(office) {
