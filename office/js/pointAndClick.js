@@ -1,4 +1,4 @@
-import { createRoomEffects, polygonPoints, svgElement } from "./roomEffects.js";
+import { createRoomEffects, polygonPoints, svgElement } from "./roomEffects.js?v=steam-v1";
 import { describeTime } from "./worldClock.js";
 import { createDesktop } from "./desktopOS.js";
 import {
@@ -64,20 +64,26 @@ function createHotspot(hotspot) {
   const polygon = svgElement("g", {
     class: "hotspot",
     tabindex: "0", role: "button",
-    "aria-label": `Inspect ${hotspot.label}`,
-    "aria-haspopup": "dialog", "data-hotspot": hotspot.id,
+    "aria-label": hotspot.action === "exit"
+      ? hotspot.label : `Inspect ${hotspot.label}`,
+    "data-hotspot": hotspot.id,
   });
   polygon.append(svgElement("polygon", {
     points: polygonPoints(hotspot.points), class: "hotspot-target",
   }));
-  for (const edge of ["outline-shadow", "outline-amber", "outline-light"]) {
+  const outlineEdges = hotspot.highlight === false ? []
+    : ["outline-shadow", "outline-amber", "outline-light"];
+  for (const edge of outlineEdges) {
     polygon.append(svgElement("path", {
       d: hotspot.outline, class: `object-outline ${edge}`,
       "fill-rule": "evenodd",
     }));
   }
   for (const event of ["pointerenter", "focus"]) {
-    polygon.addEventListener(event, () => showObjectLabel(hotspot.label, polygon));
+    polygon.addEventListener(event, () => {
+      if (hotspot.showLabel === false) showObjectLabel();
+      else showObjectLabel(hotspot.label, polygon);
+    });
   }
   for (const event of ["pointerleave", "blur"]) {
     polygon.addEventListener(event, () => showObjectLabel());
@@ -103,7 +109,14 @@ function createPickupPatch(pickup) {
   const defs = svgElement("defs");
   const mask = svgElement("mask", { id: maskId,
     maskUnits: "userSpaceOnUse", ...pickup.patch });
-  mask.append(svgElement("rect", { ...pickup.patch, fill: "white" }));
+  // Soften the patch seam without changing surrounding painted geometry.
+  const feather = svgElement("filter", { id: `${maskId}-feather` });
+  feather.append(svgElement("feGaussianBlur", { stdDeviation: "1" }));
+  defs.append(feather);
+  mask.append(svgElement("polygon", {
+    points: polygonPoints(pickup.maskPoints), fill: "white",
+    filter: `url(#${maskId}-feather)`,
+  }));
   defs.append(mask);
   const image = backgroundImage(pickup.emptyImage);
   image.setAttribute("mask", `url(#${maskId})`);
@@ -144,10 +157,19 @@ function refreshPickupVisibility() {
     const patch = room.querySelector(`[data-patch="${pickup.id}"]`);
     if (hotspot) hotspot.style.display = collected ? "none" : "";
     if (patch) patch.style.display = collected ? "" : "none";
+    for (const effect of room.querySelectorAll(
+      `[data-pickup-effect="${pickup.id}"]`
+    )) {
+      effect.style.display = collected ? "none" : "";
+    }
   }
 }
 
 function inspect(hotspot) {
+  if (hotspot.action === "exit") {
+    leaveRoom();
+    return;
+  }
   if (hotspot.id === "computer") {
     showObjectLabel();
     desktop.open();
@@ -182,7 +204,7 @@ function renderInventory() {
     button.type = "button";
     const icon = svgElement("svg", {
       class: "inventory-icon", "aria-hidden": "true",
-      viewBox: "784 265 72 72",
+      viewBox: pickup.iconViewBox.join(" "),
     });
     icon.append(backgroundImage(definition.background));
     const text = document.createElement("span");
@@ -229,15 +251,15 @@ function leaveRoom() {
   const menu = document.createElement("section");
   menu.className = "room-menu";
   const heading = document.createElement("h2");
-  heading.textContent = "You stepped out of the office.";
+  heading.textContent = "You stepped out of the bedroom.";
   const enter = document.createElement("button");
-  enter.textContent = "Return to Founder’s Office";
+  enter.textContent = "Return to Bedroom Office";
   enter.addEventListener("click", () => {
     inOffice = true;
     renderRoom();
     document.getElementById("leave-room").hidden = false;
 
-    document.getElementById("open-menu").focus();
+    room.querySelector('[data-hotspot="door"]').focus();
     announce("Welcome back.");
   });
   menu.append(heading, enter);
@@ -280,8 +302,8 @@ async function startRoom() {
       if (id === "journal") {
         document.getElementById("journal-note").textContent =
           state.items.includes("coffee")
-            ? "The office is quiet. I picked up my coffee mug."
-            : "My first office. A computer, a little sunlight, and an idea.";
+            ? "The house is quiet. I picked up my coffee mug."
+            : "My bedroom, my first office. A borrowed corner of the house and an idea.";
       }
       panel.showModal();
       syncMotion();

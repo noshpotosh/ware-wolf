@@ -7,6 +7,22 @@ The accepted PNG is the runtime asset. There is no sprite exporter, palette
 reduction, tile assembly, atlas build, or ImageMagick dependency in this path.
 Serve `office/` directly and run `npm test` for the active asset checks.
 
+## Starting bedroom
+
+The active room uses `assets/rooms/founders-bedroom-v1.png`, copied without
+raster changes from the approved bedroom-exit mockup. Its mug-removal state
+is `assets/rooms/founders-bedroom-empty-desk-v1.png`. Matching provenance
+records live under `art-source/` with the same filenames and `.json` suffix.
+The room definition names its background provenance and each pickup's icon
+viewBox, so neither validation nor inventory rendering assumes old geometry.
+
+The exterior clip follows each row's colored-pixel extents (RGB maximum at
+least 24, channel range at least 8, two pixels of padding), keeping all
+interior pixels and floor thickness. The computer and window effects are
+remapped to the bedroom; there is no water cooler in this room. The door exit uses the existing interaction system. Existing mug saves survive.
+The mug patch uses an object-shaped polygon with a one-pixel feathered edge
+to avoid exposing unrelated generated desk changes. The bed is scenery only, with no hotspot, label, outline, or hand cursor.
+
 ## Retained art and provenance
 
 Paths below are relative to `office/`:

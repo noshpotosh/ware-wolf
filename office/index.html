@@ -4,21 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#151714" />
-  <title>Warewolf · Founder’s Office</title>
+  <title>Warewolf · Bedroom Office</title>
   <link rel="stylesheet" href="css/pointAndClick.css?v=portrait-medallion-v3" />
-  <link rel="stylesheet" href="css/roomEffects.css" />
+  <link rel="stylesheet" href="css/roomEffects.css?v=bedroom-steam-v1" />
   <link rel="stylesheet" href="css/desktopOS.css" />
 </head>
 <body>
   <header class="room-heading">
-    <div><h1><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22S4 13 4 8a8 8 0 0 1 16 0c0 5-8 14-8 14Z"/><circle cx="12" cy="8" r="3"/></svg> Founder’s Office</h1>
-      <p>Your first day.</p></div>
+    <div><h1><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22S4 13 4 8a8 8 0 0 1 16 0c0 5-8 14-8 14Z"/><circle cx="12" cy="8" r="3"/></svg> Bedroom Office</h1>
+      <p>Small beginnings.</p></div>
     <div class="clock-panel" aria-label="Local date and time">
       <span class="clock-caption">LOCAL TIME</span>
       <time id="clock-time"></time><span id="day-label"></span>
     </div>
   </header>
-  <main id="room" aria-label="Founder’s office">
+  <main id="room" aria-label="Bedroom office">
     <p id="room-status">Opening the office…</p>
   </main>
   <div id="object-label" class="object-label" hidden></div>
@@ -74,7 +74,7 @@
   </dialog>
   <dialog id="journal-panel" aria-labelledby="journal-title">
     <form method="dialog"><h2 id="journal-title">Journal</h2>
-      <h3>Founder’s Office</h3><p id="journal-note"></p>
+      <h3>Bedroom Office</h3><p id="journal-note"></p>
       <button>Close journal</button></form>
   </dialog>
   <dialog id="menu-panel" aria-labelledby="menu-title">
@@ -86,6 +86,6 @@
       <button id="leave-room" type="button">Leave office</button>
       <button>Return to game</button></form>
   </dialog>
-  <script type="module" src="js/pointAndClick.js"></script>
+  <script type="module" src="js/pointAndClick.js?v=bedroom-steam-v1"></script>
 </body>
 </html>

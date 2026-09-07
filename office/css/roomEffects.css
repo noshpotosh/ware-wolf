@@ -14,16 +14,16 @@
 @keyframes scan-pass { to { transform: translateY(76px); } }
 @keyframes terminal-cursor { 55% { opacity: 0; } }
 
-.sunlight { animation: passing-cloud 16s ease-in-out infinite; }
+.sunlight { animation: passing-cloud 13s ease-in-out infinite; }
 .sun-pane {
   fill: #fff2c8;
-  opacity: .28;
-  filter: drop-shadow(0 0 9px #ffe0a0bb);
+  opacity: .42;
+  filter: drop-shadow(0 0 12px #ffe0a0cc);
 }
-.sun-slat { fill: #fff6dc; opacity: .22; }
+.sun-slat { fill: #fff6dc; opacity: .34; }
 .sun-ray { filter: blur(3px); }
 @keyframes passing-cloud {
-  0%, 100% { opacity: .65; }
+  0%, 100% { opacity: .62; }
   40% { opacity: 1; }
   70% { opacity: .8; }
 }
@@ -43,10 +43,25 @@
   45%, 100% { transform: translate(0, -77px); opacity: 0; }
 }
 
+.coffee-steam {
+  fill: none;
+  stroke: #fff2d8;
+  stroke-width: 1.7;
+  stroke-linejoin: round;
+  opacity: 0;
+  animation: steam-rise 4.8s ease-out infinite;
+}
+@keyframes steam-rise {
+  0% { opacity: 0; transform: translate(0, 0); }
+  18% { opacity: .36; }
+  55% { opacity: .24; }
+  90%, 100% { opacity: 0; transform: translate(4px, -22px); }
+}
+
 #room[data-paused="true"] .ambient-effects *,
 body[data-away="true"] .ambient-effects * { animation-play-state: paused; }
 
 @media (prefers-reduced-motion: reduce) {
   .ambient-effects * { animation: none !important; }
-  .crt-scan, .water-bubble { display: none; }
+  .crt-scan, .water-bubble, .coffee-steam { display: none; }
 }

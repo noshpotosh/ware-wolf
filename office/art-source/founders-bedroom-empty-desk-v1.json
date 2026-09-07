@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "source": "assets/rooms/founders-bedroom-v1.png",
+  "sourceSha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc",
+  "runtime": "assets/rooms/founders-bedroom-empty-desk-v1.png",
+  "runtimeSha256": "b4897c8a1b9362862062b08aac3c62f6851175aa8e70bbb88df0c97d38724f88",
+  "size": [
+    1774,
+    887
+  ],
+  "provider": "OpenAI built-in imagegen",
+  "prompt": "Precise object removal edit. Remove ONLY the green coffee mug with handle on desk immediately right of CRT (approximately x744..803,y246..304 in this 1774x887 image), including its small shadow. Reconstruct matching wooden desk grain beneath it. Preserve exact 1774x887 dimensions, camera, framing, and all other room details and lighting. No other changes, no labels. This will be revealed only as a small localized pickup patch in a game.",
+  "referenceCatalogVersion": 1,
+  "review": "Base is approved mockup without raster transforms. Mug-removal state is revealed only within its local patch."
+}

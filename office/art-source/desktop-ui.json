@@ -7,5 +7,12 @@
     1672,
     941
   ],
-  "usage": "Unmodified approved Directory mockup used as an SVG viewBox atlas for icons and portraits. UI frames, text, wallpaper and interactions are DOM/CSS. Other crew portraits use the small mockup thumbnails; these are provisional character art."
+  "usage": "Unmodified approved Directory mockup supplies icons and portraits through SVG viewBox crops. Icon silhouettes in js/desktopArt.js clip away the surrounding mockup background; portrait backdrops are retained. UI frames, text, wallpaper and interactions are DOM/CSS. Other crew portraits use provisional small mockup thumbnails.",
+  "font": {
+    "family": "Pixel Operator",
+    "source": "https://www.dafont.com/pixel-operator.font",
+    "runtime": "assets/fonts/pixel-operator.ttf",
+    "license": "assets/fonts/PixelOperator-LICENSE.txt"
+  },
+  "construction": "1672 by 941 HTML design canvas, uniformly scaled to fit the viewport. Vector wallpaper and nine-slice frame assets are code-authored; all text remains live HTML."
 }

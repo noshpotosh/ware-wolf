@@ -9,7 +9,7 @@ const PNG_HEIGHT_OFFSET = 20;
 const read = (path) => readFile(new URL(path, OFFICE_ROOT));
 const room = JSON.parse(await read("data/founders-office-adventure.json"));
 const source = JSON.parse(
-  await read("art-source/founders-office-background.json")
+  await read(room.provenance)
 );
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
@@ -36,6 +36,23 @@ test("hit polygons have unique action IDs and stay inside the image", () => {
       assert.ok(Number.isFinite(x) && Number.isFinite(y));
       assert.ok(x >= 0 && x <= room.width);
       assert.ok(y >= 0 && y <= room.height);
+    }
+  }
+});
+
+test("bedroom has an exit and geometry for its actual objects", () => {
+  assert.equal(room.hotspots.find(item => item.id === "door").action, "exit");
+  assert.ok(!room.hotspots.some(item => item.id === "bed"));
+  assert.ok(!room.hotspots.some(item => item.id === "water-cooler"));
+  assert.equal(room.effects.water, undefined);
+  for (const pickup of room.pickups) {
+    const [x, y, width, height] = pickup.iconViewBox;
+    assert.ok(x >= 0 && y >= 0 && width > 0 && height > 0);
+    assert.ok(x + width <= room.width && y + height <= room.height);
+    const object = room.hotspots.find(item => item.id === pickup.id);
+    for (const [px, py] of object.points) {
+      assert.ok(px >= x && px <= x + width);
+      assert.ok(py >= y && py <= y + height);
     }
   }
 });
