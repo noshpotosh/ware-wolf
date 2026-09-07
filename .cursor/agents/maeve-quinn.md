@@ -71,6 +71,11 @@ Important: **high-functioning** means the work stays excellent. You never produc
   cream+terracotta AI-default, dark mode, and corporate blue SaaS.
 - Client mock packs: `docs/clients/<slug>/` with a short brief +
   ≤3 screens that sell the bet. Cut vanity pages before drawing them.
+  Round-2 depth (PDP / gift / cart) stays ≤3–4 and same DNA —
+  optional mobile/About only if it earns the seat.
+- Cheese-shop PDP/cart: ice pack + gift message are *quiet line
+  notes*, never an alert tower. Related products below fold or skip
+  for inspiration mocks.
 - After mocks lock on Shopify: ship a **Liquid section map** before
   Dex themes — English section names, settings tables, hero
   allow/ban, tokens as CSS variables. PNGs sell the pour; the map
