@@ -1,0 +1,151 @@
+/* Local face so the gate does not depend on desktopOS.css order. */
+@font-face {
+  font-family: StartMenuPixel;
+  src: url("../assets/fonts/pixelify-sans.ttf") format("truetype");
+  font-display: swap;
+}
+
+.start-menu {
+  --start-ink: #0b0b0c;
+  --start-bone: #f4f0e8;
+  --start-amber: #f59e0b;
+  /* Keep in sync with DISMISS_MS in startMenu.js. */
+  --start-dismiss-ms: 280ms;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: end center;
+  padding: 0 1.5rem 12vh;
+  font-family: StartMenuPixel, Georgia, serif;
+  color: var(--start-bone);
+  pointer-events: auto;
+}
+
+.start-menu[hidden] {
+  display: none !important;
+}
+
+.start-menu-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      #0b0b0c55 0%,
+      #0b0b0caa 42%,
+      #0b0b0ce8 72%,
+      #0b0b0cf2 100%
+    );
+  pointer-events: none;
+}
+
+.start-menu-band {
+  position: relative;
+  z-index: 1;
+  width: min(28rem, 100%);
+  display: grid;
+  gap: 0.85rem;
+  justify-items: start;
+  text-align: left;
+}
+
+.start-menu-lockup {
+  width: min(16rem, 72vw);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 2px 12px #0008);
+}
+
+.start-menu-tagline {
+  margin: 0.35rem 0 0;
+  font-size: clamp(1.35rem, 3.4vw, 1.85rem);
+  letter-spacing: 0.02em;
+  color: var(--start-bone);
+}
+
+.start-menu-support {
+  margin: 0;
+  max-width: 22rem;
+  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--start-bone) 72%, transparent);
+}
+
+.start-menu-enter {
+  margin-top: 0.55rem;
+  border: 1px solid var(--start-amber);
+  border-radius: 2px;
+  padding: 0.7rem 1.35rem;
+  background: color-mix(in srgb, var(--start-ink) 78%, #1a1408);
+  color: var(--start-bone);
+  font: inherit;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px #0006;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.start-menu-enter:hover {
+  background: color-mix(in srgb, var(--start-amber) 22%, #1a1408);
+  border-color: color-mix(
+    in srgb,
+    var(--start-amber) 80%,
+    white
+  );
+  transform: translateY(-1px);
+}
+
+.start-menu-enter:focus-visible {
+  outline: 2px solid var(--start-amber);
+  outline-offset: 3px;
+}
+
+.start-menu-enter:disabled {
+  opacity: 0.72;
+  cursor: wait;
+  transform: none;
+}
+
+.start-menu.is-open {
+  opacity: 1;
+}
+
+.start-menu.is-leaving {
+  opacity: 0;
+  transition: opacity var(--start-dismiss-ms) ease;
+  pointer-events: none;
+}
+
+body.at-title .game-chrome {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+body.at-title #room {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .start-menu-enter {
+    transition: none;
+  }
+
+  .start-menu-enter:hover {
+    transform: none;
+  }
+
+  .start-menu.is-leaving {
+    transition: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .start-menu {
+    padding-bottom: 18vh;
+  }
+}

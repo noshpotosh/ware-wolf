@@ -4,6 +4,7 @@ import { createDesktop } from "./desktopOS.js";
 import {
   loadAdventure, saveAdventure, setItemCollected,
 } from "./adventureState.js";
+import { openStartMenu } from "./startMenu.js";
 
 const ROOM_PATH = "data/founders-office-adventure.json";
 const ACTIVATE_KEYS = new Set(["Enter", " "]);
@@ -77,7 +78,9 @@ function createHotspot(hotspot) {
     }));
   }
   for (const event of ["pointerenter", "focus"]) {
-    polygon.addEventListener(event, () => showObjectLabel(hotspot.label, polygon));
+    polygon.addEventListener(event, () => {
+      showObjectLabel(hotspot.label, polygon);
+    });
   }
   for (const event of ["pointerleave", "blur"]) {
     polygon.addEventListener(event, () => showObjectLabel());
@@ -148,6 +151,10 @@ function refreshPickupVisibility() {
 }
 
 function inspect(hotspot) {
+  if (document.body.classList.contains("at-title")) {
+    return;
+  }
+
   if (hotspot.id === "computer") {
     showObjectLabel();
     desktop.open();
@@ -255,18 +262,7 @@ async function preloadImage(path) {
   }
 }
 
-async function startRoom() {
-  const response = await fetch(ROOM_PATH, { cache: "no-cache" });
-  if (!response.ok) throw new Error(`Room failed to load: ${response.status}`);
-  definition = await response.json();
-  await Promise.all([
-    preloadImage(definition.background),
-    ...definition.pickups.map(item => preloadImage(item.emptyImage)),
-  ]);
-  state = loadAdventure(storage());
-  renderRoom();
-  renderInventory();
-  startClock();
+function wireShellControls() {
   itemAction.addEventListener("click", changeItem);
   dialog.addEventListener("close", syncMotion);
   document.getElementById("leave-room").addEventListener("click", leaveRoom);
@@ -290,7 +286,53 @@ async function startRoom() {
   }
 }
 
+function revealOfficeAfterTitle() {
+  const firstHotspot = room.querySelector("[data-hotspot]");
+  firstHotspot?.focus();
+  announce("Welcome to the Founder’s Office.");
+}
+
+async function paintOfficeUnderGate() {
+  const response = await fetch(ROOM_PATH, { cache: "no-cache" });
+  if (!response.ok) throw new Error(`Room failed to load: ${response.status}`);
+  definition = await response.json();
+
+  await Promise.all([
+    preloadImage(definition.background),
+    ...definition.pickups.map(item => preloadImage(item.emptyImage)),
+  ]);
+
+  state = loadAdventure(storage());
+  renderRoom();
+  renderInventory();
+  startClock();
+  wireShellControls();
+}
+
+async function startRoom() {
+  let markReady;
+  const untilReady = new Promise((resolve) => {
+    markReady = resolve;
+  });
+
+  const titleGate = openStartMenu({ untilReady });
+
+  try {
+    await paintOfficeUnderGate();
+    markReady();
+  } catch (error) {
+    // Still unlock Enter; outer catch tears the gate down.
+    markReady();
+    throw error;
+  }
+
+  await titleGate;
+  revealOfficeAfterTitle();
+}
+
 startRoom().catch((error) => {
   console.error(error);
+  document.body.classList.remove("at-title");
+  document.getElementById("start-menu")?.remove();
   room.textContent = "The office could not load. Refresh to try again.";
 });
