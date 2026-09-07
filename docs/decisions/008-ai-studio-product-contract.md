@@ -8,6 +8,10 @@
 **Thesis:** [`007-honest-ai-studio-tycoon.md`](007-honest-ai-studio-tycoon.md)  
 **Plan:** [`../ai-studio-game-plan.md`](../ai-studio-game-plan.md)
 
+**2026-09-07 amendment:** [ADR 013](013-founder-room-godot-restart.md)
+reopens `game/` for Nosh’s founder-office asset and assembly slice.
+The original product contract below remains historical context.
+
 ## Decision
 
 1. **Player promise.** This is an honest AI studio tycoon — a game

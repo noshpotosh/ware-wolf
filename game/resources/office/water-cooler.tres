@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="OfficePropArt" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/office/prop_art.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/office/water-cooler.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"water-cooler"
+display_name = "Water cooler"
+texture = ExtResource("2")
+draw_size = Vector2(80, 172)
+ground_anchor = Vector2(0.5, 0.95)
+footprint = Vector2(0.8, 0.8)
+floor_decoration = false
+casts_shadow = true

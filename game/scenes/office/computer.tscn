@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/office/computer.png" id="1"]
+
+[ext_resource type="Script" path="res://scripts/office/hover_target.gd" id="2"]
+
+[node name="Computer" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1")
+offset = Vector2(0, -48.0)
+
+[node name="HoverTarget" type="Node" parent="."]
+script = ExtResource("2")
+sprite_path = NodePath("..")

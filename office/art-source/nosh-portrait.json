@@ -1,0 +1,7 @@
+{
+  "provider": "OpenAI built-in imagegen",
+  "runtime": "assets/ui/nosh-portrait.png",
+  "runtimeSha256": "2e8c3ef55fb319f1c8ba72bc0edcec2409773801424953ff91f50507c2c498bf",
+  "reference": "Blended exploration mockup, exec-11944990-32ee-45c9-8d57-d23696aef5b4.png",
+  "prompt": "Extract/recreate ONLY the exact illustrated Nosh portrait from the lower left of this UI reference: same young adult man dark wavy hair, orange jacket over dark charcoal shirt, same face and warm detailed pixel-painted illustration, facing slightly right. Standalone waist/chest-up bust with genuinely transparent background. No frame, no text, no nameplate, no room, no shadow outside body. Preserve reference character style closely. This is a runtime visual-novel character portrait and inventory avatar, not a new character design."
+}

@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "pathBase": "repository root",
+  "policy": "These references are scoped anchors selected from the accepted direction. Candidates do not become anchors automatically. Change an anchor only after Nosh selects the new direction; increment the catalog version and record why.",
+  "references": [
+    {
+      "id": "founder-room",
+      "path": "office/assets/rooms/founders-office-background.png",
+      "sha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+      "size": [
+        1774,
+        887
+      ],
+      "scope": "Primary environment anchor: pixel treatment, camera, materials, lighting and architectural thickness."
+    },
+    {
+      "id": "nosh-portrait",
+      "path": "office/assets/ui/nosh-portrait.png",
+      "sha256": "2e8c3ef55fb319f1c8ba72bc0edcec2409773801424953ff91f50507c2c498bf",
+      "size": [
+        1312,
+        1199
+      ],
+      "scope": "Character rendering and Nosh identity; not an environment camera reference."
+    },
+    {
+      "id": "computer-highlight",
+      "path": "docs/office/mockups/round-01/ui-01-classic-adventure.png",
+      "sha256": "eef11043983015d8585b71a55ccd666065746433614f6bac8424fa66c8c2086a",
+      "size": [
+        1672,
+        941
+      ],
+      "scope": "Computer highlight crispness only; not the overall shell layout."
+    },
+    {
+      "id": "dialogue-treatment",
+      "path": "docs/office/mockups/round-01/ui-02-visual-novel.png",
+      "sha256": "f4fecd68b26075e11146a510a72a7fd0d1211ce77f259147870720aa03cfaf51",
+      "size": [
+        1672,
+        941
+      ],
+      "scope": "Dialogue panel and nameplate treatment only; not inventory layout or clock behavior."
+    }
+  ],
+  "shellLayout": {
+    "authority": "Current implemented shell, interpreted by docs/office/art-direction.md",
+    "sources": [
+      "office/index.html",
+      "office/css/pointAndClick.css"
+    ]
+  }
+}

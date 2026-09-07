@@ -1,0 +1,11 @@
+{
+  "provider": "OpenAI built-in imagegen",
+  "source": "docs/office/mockups/desktop-os/09-employee-directory.png",
+  "runtime": "assets/desktop/directory-art.png",
+  "sha256": "bfd0c34f5996a867db293a20bb64fc98d1070d4794ea0c2741837e573e81b7d5",
+  "size": [
+    1672,
+    941
+  ],
+  "usage": "Unmodified approved Directory mockup used as an SVG viewBox atlas for icons and portraits. UI frames, text, wallpaper and interactions are DOM/CSS. Other crew portraits use the small mockup thumbnails; these are provisional character art."
+}

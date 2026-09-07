@@ -1,0 +1,17 @@
+---
+description: Shared style contract for office game art and animation
+alwaysApply: true
+---
+
+# Office art consistency
+
+When generating, editing, reviewing, or integrating art or animation for the
+office game, read the canonical guidance before working:
+
+- `docs/office/art-direction.md`
+- `docs/office/asset-pipeline.md`
+- `docs/office/art-prompts.md`
+
+Open the actual images in `office/art-source/style-reference.json`, respecting
+each reference's scope. Use the work order and review process in those docs.
+Keep this adapter thin; update the canonical documents for process changes.

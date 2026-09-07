@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/office/desk.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/office/computer.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/office/keyboard.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/office/coffee-cup.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/office/desk-lamp.tscn" id="5"]
+
+[node name="Workstation" instance=ExtResource("1")]
+metadata/_edit_group_ = false
+
+[node name="Tabletop" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Computer" parent="Tabletop" instance=ExtResource("2")]
+position = Vector2(-8, -97)
+
+[node name="Keyboard" parent="Tabletop" instance=ExtResource("3")]
+position = Vector2(25, -77)
+
+[node name="CoffeeCup" parent="Tabletop" instance=ExtResource("4")]
+position = Vector2(62, -94)
+
+[node name="Lamp" parent="Tabletop" instance=ExtResource("5")]
+position = Vector2(-76, -88)

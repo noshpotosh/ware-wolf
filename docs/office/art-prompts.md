@@ -1,8 +1,70 @@
-# Runtime pixel art — September 2026
+# Office art work orders and prompt templates
 
-Built with the built-in image generation tool, using the existing reference
-mockups as style guides. The accepted PNGs live in `office/assets/`, outside
-`reference/`. No reference image is loaded by the app.
+These templates implement [the art contract](art-direction.md) and
+[the pipeline](asset-pipeline.md). Replace bracketed fields before use.
+The historical prompts below are retained as history, not generation defaults.
+
+## Shared prefix — attach images as inputs
+
+> Create [asset type] for the same pixel-painted adventure as reference A,
+> the accepted founder office. Reference B is [exact edit target / accepted
+> character / recurring object]. Match A’s pixel clusters, edge treatment,
+> camera elevation and wall angles, object scale, warm walnut and cream
+> materials, sage accents, and grounded lighting. This belongs in the same
+> game, not a reinterpretation in a new style. No added UI, labels, characters,
+> or objects beyond the brief. Allowed change: [specific delta]. Preserve:
+> [explicit invariants]. Output: [dimensions, alpha requirement, framing].
+
+## New room
+
+> Design [room purpose and contents] using reference A as the visual anchor.
+> Keep its camera and material/rendering language. Room dimensions/layout may
+> change according to [brief]. Include full wall thickness and floor sides.
+> Keep interactable silhouettes legible at [display size]. Do not add a
+> walking character. This is a complete painted environment, not a sprite kit.
+
+## Existing room upgrade or object state
+
+> Edit reference B only: [change]. Keep its exact canvas, framing, furniture
+> positions, light direction, and every unrelated object. Reconstruct only
+> [revealed region] where necessary. Do not redesign the room or improve
+> unrelated details. The approved reference A remains the style authority.
+
+## Portrait / expression
+
+> Reference B is the identity anchor. Change only [expression or pose].
+> Preserve face, hair, age, clothing, proportions, pixel treatment, and light.
+> Transparent background; no lettering, frame, scene, or baked UI. Preserve
+> [canvas and bust anchor] across all requested expressions.
+
+## Animated object frames — only after choosing a layer approach
+
+> Animate only [isolated object] from the approved object reference B.
+> Motion: [precise movement]. Fixed canvas [size], anchor [x,y], camera,
+> palette, lighting, and stationary base. Sequence [frame count/order] with
+> [timing and loop intent]. Transparent surroundings. No texture changes or
+> unrelated motion. Return a consistent sequence, not separate redesigns.
+
+## Agent handoff — copy into a task
+
+> Follow docs/office/art-direction.md, asset-pipeline.md, and art-prompts.md.
+> Open the approved images in office/art-source/style-reference.json.
+> Task: [asset and purpose]. Allowed delta: [changes]. Preserve: [invariants].
+> Deliver [mockups only / reviewed runtime integration]. Start with one
+> candidate, compare directly against the approved references, and record
+> provenance plus visual and runtime verification. Do not promote this
+> candidate into a new style anchor or revive retired systems.
+
+---
+
+# Historical office art prompts — September 2026
+
+These prompts record the retired separate-sprite prototype. Their output
+paths below are historical: the obsolete office raster kit was backed up and
+removed under [ADR 014](../decisions/014-painted-room-point-and-click.md).
+Do not use these historical prompts as the active generation plan.
+Current painted-room provenance lives in the JSON records linked from
+the [asset pipeline](asset-pipeline.md). Godot keeps its independent copies.
 
 ## Desk
 
@@ -149,3 +211,39 @@ picking in `office/js/loftDecor.js`. No generated wall atlas is needed.
 Seated staff reuse the established atlas with cropped lower bodies,
 mirrored faces toward their monitors, and chair/person/desk depth order.
 Walking figures retain their complete silhouette.
+
+## Cozy wall materials and fittings — September 2026
+
+PixelLab generated these 128×128 source assets for the warm plaster,
+walnut timber, framed artwork, books, and greenery in the office mocks:
+
+- `tiles/wall-plaster-warm.png`: evenly distributed low-contrast
+  limewash grain, full-bleed repeating material. Job
+  `4801efa9-7346-49fb-b14c-0a3940a462c0`. An earlier blank-centered
+  sample was rejected.
+- `furniture/door-timber.png`: frontal walnut door, recessed panels,
+  sage glass, brass handle. Job
+  `50a556fa-0413-4dcf-abf3-abbc647890fe`.
+- `furniture/window-timber.png`: timber frame and sill, leafy view,
+  small sill plant. Job `29884c77-f19a-431c-869d-d64a402be2c1`.
+- `furniture/wall-shelf-books.png`: walnut shelf, muted books, and
+  trailing pothos. Job `7c4c8c9b-f5e0-4e0b-8c19-ed23dbc7e767`.
+- `furniture/wall-landscape.png`: framed sage hills and gold sky.
+  Job `1f230e4b-b7d7-42aa-9588-0a963b83dc85`.
+- `furniture/wall-sconce.png`: brass fitting and warm opal globe.
+  Job `0898a54a-1ddb-4ef0-80ad-43857d8de43f`.
+
+Prompts requested frontal, isolated artwork without lettering, walls,
+or floors. The plaster prompt requested uniform tileable texture
+without borders or large blank areas. Runtime crops omit transparent
+margins and unwanted side rails on the door. Window and painting
+interiors receive opaque sky backing where generated art is transparent.
+
+`wallArt.js` records source crops and maps artwork onto the same angled
+planes used by walls and door picking. `wallDraw.js` bakes the plaster,
+trim, and doors. `wallDecorDraw.js` creates separate raised décor objects
+with timber return faces and silhouette shadows. The shelf has room
+for upright books and foliage; the window has a projecting wooden sill.
+Generated textures use nearest filtering and are replaced on room change.
+The source mockups remain reference-only. Desk plaques use code-native
+wood-colored frames and live text so names stay readable and editable.

@@ -6,18 +6,21 @@ Startup agent fleet. Co-founded 50/50 by the user and **Fabrizio Cortell**.
 
 <img src="brand/warewolf-logo.png" alt="Warewolf logo" width="240" />
 
-**Docs home:** [`docs/index.md`](docs/index.md)  
+**Docs home:** [`docs/index.md`](docs/index.md)
 Brand · Culture · Coding standards · Meetings · Decisions · Core memories · Virtual office docs live there — not as a pile of root READMEs.
 
 **Active direction:** honest AI studio tycoon (investigating) —
 [`docs/decisions/007-honest-ai-studio-tycoon.md`](docs/decisions/007-honest-ai-studio-tycoon.md).
 
-**Web client:** [`office/`](office/) — Phaser loft + DOM desk OS
-(active shipping vehicle under ADR 008). See
-[`docs/office/how-to-run.md`](docs/office/how-to-run.md).
+**Main room system:** [`office/`](office/) — painted rooms with
+point-and-click hotspots ([ADR 014](docs/decisions/014-painted-room-point-and-click.md)).
+Run the founder’s office via [`docs/office/how-to-run.md`](docs/office/how-to-run.md).
+The former Phaser renderer and gameplay systems have been removed from
+`office/`; the current single room is the baseline for new development.
 
-**Archived Godot spike:** [`game/`](game/) — P1 loft reference only.
-See [`game/README.md`](game/README.md).
+**Preserved Godot work:** [`game/`](game/) — the separate founder-room
+assembly slice ([ADR 013](docs/decisions/013-founder-room-godot-restart.md)).
+See [`game/README.md`](game/README.md) for that implementation’s commands.
 
 **#1 principle:** easy-to-read, easy-to-understand code. Keep it stupid simple (KISS).
 

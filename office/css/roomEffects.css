@@ -1,0 +1,52 @@
+.ambient-effects { pointer-events: none; }
+.crt-phosphor { animation: phosphor-drift 7.3s linear infinite; }
+.crt-scan { animation: scan-pass 6s linear infinite; }
+.crt-cursor { animation: terminal-cursor 1.8s steps(1) infinite; }
+
+@keyframes phosphor-drift {
+  0%, 100% { opacity: .85; }
+  32% { opacity: .94; }
+  35% { opacity: .72; }
+  39% { opacity: .88; }
+  76% { opacity: .96; }
+  80% { opacity: .82; }
+}
+@keyframes scan-pass { to { transform: translateY(76px); } }
+@keyframes terminal-cursor { 55% { opacity: 0; } }
+
+.sunlight { animation: passing-cloud 16s ease-in-out infinite; }
+.sun-pane {
+  fill: #fff2c8;
+  opacity: .28;
+  filter: drop-shadow(0 0 9px #ffe0a0bb);
+}
+.sun-slat { fill: #fff6dc; opacity: .22; }
+.sun-ray { filter: blur(3px); }
+@keyframes passing-cloud {
+  0%, 100% { opacity: .65; }
+  40% { opacity: 1; }
+  70% { opacity: .8; }
+}
+
+.water-bubble {
+  fill: #dcfaff22;
+  stroke: #d1f3fb;
+  stroke-width: 1;
+  opacity: 0;
+  animation: bubble-rise 7.6s ease-in infinite;
+}
+@keyframes bubble-rise {
+  0%, 8% { opacity: 0; transform: translate(0, 0); }
+  12% { opacity: .6; }
+  27% { transform: translate(2px, -32px); opacity: .7; }
+  41% { transform: translate(-1px, -68px); opacity: .35; }
+  45%, 100% { transform: translate(0, -77px); opacity: 0; }
+}
+
+#room[data-paused="true"] .ambient-effects *,
+body[data-away="true"] .ambient-effects * { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-effects * { animation: none !important; }
+  .crt-scan, .water-bubble { display: none; }
+}

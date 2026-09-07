@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://b25oqiyjybc48"]
+
+[ext_resource type="Script" uid="uid://ewhaw8vdnykx" path="res://scripts/office/room_shell.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cl084s5iva2tm" path="res://assets/office/walnut.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dew36h1q8o865" path="res://assets/office/plaster.png" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/office/desk.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/office/chair.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/office/plant.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/office/water-cooler.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/office/rug.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/office/window.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/office/computer.tscn" id="11"]
+[ext_resource type="PackedScene" path="res://scenes/office/keyboard.tscn" id="12"]
+[ext_resource type="PackedScene" path="res://scenes/office/coffee-cup.tscn" id="13"]
+
+[node name="FounderOffice" type="Node2D" unique_id=1600740135]
+texture_filter = 1
+
+[node name="Shell" type="Node2D" parent="." unique_id=864458023]
+z_index = -100
+texture_filter = 1
+texture_repeat = 2
+script = ExtResource("1")
+floor_outline = PackedVector2Array()
+floor_texture = ExtResource("2")
+wall_texture = ExtResource("3")
+
+[node name="Window" parent="." unique_id=1935145260 instance=ExtResource("10")]
+z_index = -50
+position = Vector2(-111, -2)
+
+[node name="Props" type="Node2D" parent="." unique_id=951224924]
+y_sort_enabled = true
+
+[node name="Rug" parent="Props" unique_id=1702436492 instance=ExtResource("9")]
+z_index = -10
+position = Vector2(108.8, 233.6)
+
+[node name="Desk" parent="Props" unique_id=498727091 instance=ExtResource("4")]
+position = Vector2(-51, 101)
+scale = Vector2(0.85, 0.85)
+metadata/_edit_group_ = false
+
+[node name="Tabletop" type="Node2D" parent="Props/Desk" unique_id=1329719434]
+y_sort_enabled = true
+
+[node name="Computer" parent="Props/Desk/Tabletop" unique_id=1509624518 instance=ExtResource("11")]
+position = Vector2(-13.88237, -114.764694)
+
+[node name="Keyboard" parent="Props/Desk/Tabletop" unique_id=1548865147 instance=ExtResource("12")]
+position = Vector2(15.588234, -91.6469)
+
+[node name="CoffeeCup" parent="Props/Desk/Tabletop" unique_id=2042056443 instance=ExtResource("13")]
+position = Vector2(60.823532, -140.47064)
+
+[node name="Chair" parent="Props" unique_id=438006487 instance=ExtResource("5")]
+position = Vector2(26, 138)
+
+[node name="Plant" parent="Props" unique_id=582038519 instance=ExtResource("6")]
+position = Vector2(-203, 136)
+scale = Vector2(0.75, 0.75)
+
+[node name="WaterCooler" parent="Props" unique_id=266800501 instance=ExtResource("7")]
+position = Vector2(339.2, 201.6)
