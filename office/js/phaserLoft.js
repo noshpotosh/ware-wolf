@@ -329,6 +329,17 @@ function createLoftScene(Phaser, host) {
       graphics.lineTo(rightX + ox, rightY + oy);
       graphics.strokePath();
 
+      // Opaque clay skirt below the foot so generateTexture does not
+      // anti-alias clay against transparency (that fringe is the gap).
+      graphics.fillStyle(WALL_CLAY_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX + ox, leftY + oy - 1);
+      graphics.lineTo(rightX + ox, rightY + oy - 1);
+      graphics.lineTo(rightX + ox, rightY + oy + footSealPx);
+      graphics.lineTo(leftX + ox, leftY + oy + footSealPx);
+      graphics.closePath();
+      graphics.fillPath();
+
       // Top edge only — no foot ink.
       graphics.lineStyle(2, WALL_INK_COLOR, 1);
       graphics.beginPath();
