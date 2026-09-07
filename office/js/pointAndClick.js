@@ -296,10 +296,12 @@ async function paintOfficeUnderGate() {
   const response = await fetch(ROOM_PATH, { cache: "no-cache" });
   if (!response.ok) throw new Error(`Room failed to load: ${response.status}`);
   definition = await response.json();
+
   await Promise.all([
     preloadImage(definition.background),
     ...definition.pickups.map(item => preloadImage(item.emptyImage)),
   ]);
+
   state = loadAdventure(storage());
   renderRoom();
   renderInventory();
@@ -319,6 +321,7 @@ async function startRoom() {
     await paintOfficeUnderGate();
     markReady();
   } catch (error) {
+    // Still unlock Enter; outer catch tears the gate down.
     markReady();
     throw error;
   }

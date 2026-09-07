@@ -9,6 +9,8 @@
   --start-ink: #0b0b0c;
   --start-bone: #f4f0e8;
   --start-amber: #f59e0b;
+  /* Keep in sync with DISMISS_MS in startMenu.js. */
+  --start-dismiss-ms: 280ms;
   position: fixed;
   inset: 0;
   z-index: 40;
@@ -115,7 +117,7 @@
 
 .start-menu.is-leaving {
   opacity: 0;
-  transition: opacity 280ms ease;
+  transition: opacity var(--start-dismiss-ms) ease;
   pointer-events: none;
 }
 

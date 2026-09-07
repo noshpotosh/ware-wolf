@@ -1,4 +1,6 @@
+// Must match --start-dismiss-ms in startMenu.css.
 const DISMISS_MS = 280;
+// Non-zero so is-leaving can paint before we hide the gate.
 const REDUCED_DISMISS_MS = 1;
 const ENTER_LABEL = "Enter office";
 const OPENING_LABEL = "Opening…";
@@ -74,11 +76,15 @@ export function openStartMenu({
       tearDown();
       enterButton.disabled = true;
       enterButton.textContent = OPENING_LABEL;
+
       await untilReady;
+
       enterButton.textContent = ENTER_LABEL;
       menu.classList.add("is-leaving");
       menu.classList.remove("is-open");
+
       await wait(dismissDelayMs());
+
       menu.hidden = true;
       menu.classList.remove("is-leaving");
       document.body.classList.remove("at-title");
