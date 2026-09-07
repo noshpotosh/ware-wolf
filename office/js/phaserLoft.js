@@ -172,7 +172,7 @@ function createLoftScene(Phaser, host) {
     handlePointer(pointer) {
       const shell = this.host.getShell();
 
-      if (!shell || this.host.isDesktopOpen()) {
+      if (!shell || this.host.isLoftPaused()) {
         return;
       }
 
@@ -665,14 +665,14 @@ function createLoftScene(Phaser, host) {
 export function createPhaserLoft({
   parentEl,
   getShell,
-  isDesktopOpen,
+  isLoftPaused,
   onTilePointer,
   tick,
 }) {
   const Phaser = requirePhaser();
   const host = {
     getShell,
-    isDesktopOpen,
+    isLoftPaused,
     onTilePointer,
     tick,
   };
