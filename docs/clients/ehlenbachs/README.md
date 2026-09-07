@@ -8,12 +8,6 @@
 (ADR 011/012) · Go plan in [`shopify-build.md`](shopify-build.md) ·
 Liquid section map is the Dex handoff
 ([`liquid-section-map.md`](liquid-section-map.md))
-=======
-**Status:** Client approved mocks · Shopify Basic + customize-first
-(ADR 011/012) · Go plan in [`shopify-build.md`](shopify-build.md) ·
-Liquid map in [`liquid-section-map.md`](liquid-section-map.md)
-(PR #54 if not merged)
->>>>>>> origin/main
 
 ---
 
