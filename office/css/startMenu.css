@@ -103,55 +103,10 @@
   outline-offset: 3px;
 }
 
-.start-menu-mute,
-.chrome-mute {
-  --start-ink: #0b0b0c;
-  --start-bone: #f4f0e8;
-  --start-amber: #f59e0b;
-  border: 1px solid color-mix(
-    in srgb,
-    var(--start-bone) 35%,
-    transparent
-  );
-  border-radius: 2px;
-  padding: 0.45rem 0.8rem;
-  background: color-mix(in srgb, var(--start-ink) 70%, transparent);
-  color: var(--start-bone);
-  font: inherit;
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
-  cursor: pointer;
-}
-
-.start-menu-mute {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  z-index: 2;
-}
-
-.chrome-mute {
-  position: absolute;
-  top: 1.35rem;
-  right: 1.35rem;
-  z-index: 3;
-  font-family: StartMenuPixel, Georgia, serif;
-}
-
-.start-menu-mute:hover,
-.chrome-mute:hover {
-  border-color: var(--start-amber);
-}
-
-.start-menu-mute:focus-visible,
-.chrome-mute:focus-visible {
-  outline: 2px solid var(--start-amber);
-  outline-offset: 3px;
-}
-
-.start-menu-mute[aria-pressed="true"],
-.chrome-mute[aria-pressed="true"] {
-  opacity: 0.78;
+.start-menu-enter:disabled {
+  opacity: 0.72;
+  cursor: wait;
+  transform: none;
 }
 
 .start-menu.is-open {
@@ -190,11 +145,5 @@ body.at-title #room {
 @media (max-width: 760px) {
   .start-menu {
     padding-bottom: 18vh;
-  }
-
-  .start-menu-mute,
-  .chrome-mute {
-    top: 0.85rem;
-    right: 0.85rem;
   }
 }

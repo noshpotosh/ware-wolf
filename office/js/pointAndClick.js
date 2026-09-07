@@ -4,27 +4,18 @@ import { createDesktop } from "./desktopOS.js";
 import {
   loadAdventure, saveAdventure, setItemCollected,
 } from "./adventureState.js";
-import { createAudioBus, toggleAudioMuted } from "./audio.js";
-import { openStartMenu, paintMuteButtons } from "./startMenu.js";
+import { openStartMenu } from "./startMenu.js";
 
 const ROOM_PATH = "data/founders-office-adventure.json";
 const ACTIVATE_KEYS = new Set(["Enter", " "]);
 const room = document.getElementById("room");
 const dialog = document.getElementById("inspection");
 const itemAction = document.getElementById("item-action");
-const audio = createAudioBus();
 let definition;
 let state;
 let inOffice = true;
 let inspectedItem = null;
 const desktop = createDesktop(syncMotion);
-
-function muteButtons() {
-  return [
-    document.getElementById("start-menu-mute"),
-    document.getElementById("chrome-mute"),
-  ];
-}
 
 function renderClock() {
   const time = describeTime();
@@ -87,7 +78,9 @@ function createHotspot(hotspot) {
     }));
   }
   for (const event of ["pointerenter", "focus"]) {
-    polygon.addEventListener(event, () => showObjectLabel(hotspot.label, polygon));
+    polygon.addEventListener(event, () => {
+      showObjectLabel(hotspot.label, polygon);
+    });
   }
   for (const event of ["pointerleave", "blur"]) {
     polygon.addEventListener(event, () => showObjectLabel());
@@ -269,21 +262,6 @@ async function preloadImage(path) {
   }
 }
 
-function syncChromeMute() {
-  paintMuteButtons(audio, muteButtons());
-}
-
-function wireChromeMute() {
-  const chromeMute = document.getElementById("chrome-mute");
-
-  chromeMute?.addEventListener("click", () => {
-    toggleAudioMuted(audio);
-    syncChromeMute();
-  });
-
-  syncChromeMute();
-}
-
 function wireShellControls() {
   itemAction.addEventListener("click", changeItem);
   dialog.addEventListener("close", syncMotion);
@@ -330,18 +308,12 @@ async function paintOfficeUnderGate() {
 }
 
 async function startRoom() {
-  wireChromeMute();
-
   let markReady;
   const untilReady = new Promise((resolve) => {
     markReady = resolve;
   });
 
-  const titleGate = openStartMenu({
-    audio,
-    onMuteChange: syncChromeMute,
-    untilReady,
-  });
+  const titleGate = openStartMenu({ untilReady });
 
   try {
     await paintOfficeUnderGate();

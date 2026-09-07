@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/pointAndClick.css?v=portrait-medallion-v3" />
   <link rel="stylesheet" href="css/roomEffects.css" />
   <link rel="stylesheet" href="css/desktopOS.css" />
-  <link rel="stylesheet" href="css/startMenu.css?v=title-gate-v1" />
+  <link rel="stylesheet" href="css/startMenu.css?v=title-gate-v2" />
 </head>
 <body class="at-title">
   <header class="room-heading game-chrome">
@@ -19,8 +19,6 @@
       <time id="clock-time"></time><span id="day-label"></span>
     </div>
   </header>
-  <button type="button" id="chrome-mute" class="chrome-mute game-chrome"
-    aria-pressed="false" aria-label="Mute audio">Mute</button>
   <main id="room" aria-label="Founder’s office">
     <p id="room-status">Opening the office…</p>
   </main>
@@ -64,24 +62,20 @@
   </footer>
   <p id="game-message" role="status" class="status-message game-chrome"></p>
   <section id="start-menu" class="start-menu" role="dialog"
-    aria-modal="true" aria-labelledby="start-menu-tagline" hidden>
+    aria-modal="true" aria-labelledby="start-menu-tagline">
     <div class="start-menu-scrim" aria-hidden="true"></div>
     <div class="start-menu-band">
       <img class="start-menu-lockup"
         src="assets/ui/warewolf-logo.png"
-        alt="Warewolf" width="1024" height="1024" />
+        alt="Warewolf" width="340" height="120" />
       <p id="start-menu-tagline" class="start-menu-tagline">
         Software with teeth.
       </p>
-      <p class="start-menu-support">
-        Run the studio from the office.
-      </p>
+      <p class="start-menu-support">Run the studio from the office.</p>
       <button type="button" id="enter-office" class="start-menu-enter">
         Enter office
       </button>
     </div>
-    <button type="button" id="start-menu-mute" class="start-menu-mute"
-      aria-pressed="false" aria-label="Mute audio">Mute</button>
   </section>
   <dialog id="inspection" aria-labelledby="inspection-title"
     aria-describedby="inspection-description">
