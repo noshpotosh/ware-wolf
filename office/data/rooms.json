@@ -9,8 +9,8 @@
       "exits": [
         {
           "doorId": "door-to-loft",
-          "gridX": 3,
-          "gridY": 5,
+          "gridX": 0,
+          "gridY": 3,
           "toRoomId": "shared-loft",
           "toSpawn": { "gridX": 2, "gridY": 3 }
         }

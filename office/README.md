@@ -53,11 +53,14 @@ full room, including walls, to the viewport.
 
 ## Visual implementation
 
-The room uses a 64×32 logical isometric grid and a pixel-resolution canvas.
-Cream walls, timber trim, a central checked rug, CRT desks, seated staff, and small
-personal props follow the original art direction. Static room textures are
+The room uses a 128×64 isometric grid and a pixel-resolution canvas.
+Cream walls, timber trim, a central sage woven rug, CRT desks, seated
+staff, and small personal props follow the original art direction. Static room textures are
 cached; characters and upgrade effects remain live. Desks are staggered
-around an open center in both offices. Accepted runtime PNGs load from
+around an open center in both offices. Coffee and water share a
+refreshment
+corner. Bone walls use slim timber trim, a window, and inset doors; the
+founder’s office has a quiet plant accent. Accepted runtime PNGs load from
 `assets/furniture/` and `assets/characters/`. The reference PNGs are
 never loaded as game backgrounds.
 
@@ -69,7 +72,7 @@ available alongside the two original apps.
 Run camera, pointer, and layout reachability checks with Node:
 
 ```bash
-node office/tests/artDirection.test.mjs
+node --test office/tests/*.test.mjs
 ```
 
 Run that command from the repository root.

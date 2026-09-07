@@ -197,7 +197,7 @@ function centeredRugOrigin(gridWidth, gridHeight) {
   return { originX, originY };
 }
 
-function drawCheckeredRug(scene, floorLayer, office, parts) {
+function drawWovenRug(scene, floorLayer, office, parts) {
   if (!scene.textures.exists(RUG_TEXTURE_KEY)) {
     throw new Error(
       `Missing required texture "${RUG_TEXTURE_KEY}". `
@@ -241,7 +241,7 @@ export function drawContinuousFloor(scene, floorLayer, office) {
   const parts = [];
 
   drawWoodField(scene, floorLayer, tips, parts);
-  drawCheckeredRug(scene, floorLayer, office, parts);
+  drawWovenRug(scene, floorLayer, office, parts);
   drawWoodEdge(scene, floorLayer, tips, parts);
 
   return parts;

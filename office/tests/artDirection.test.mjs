@@ -50,16 +50,18 @@ for (const layout of [
     for (const desk of office.furniture.filter(piece => piece.kind === 'desk')) {
       const point = gridToScreen(desk.gridX, desk.gridY);
       const hit = findFurnitureAtScreen(office,
-        point.screenX - 6, point.screenY - 48);
+        point.screenX - 6, point.screenY - 94);
       assert.equal(hit?.id, desk.id);
     }
   });
-  test(`${layout}: visible prop centers select their own interaction`, () => {
-    const props = office.furniture.filter(piece => piece.kind !== 'desk');
+  test(`${layout}: visible upper props select their own interaction`, () => {
+    const props = office.furniture.filter(piece =>
+      piece.kind !== 'desk' && piece.interactable);
     for (const prop of props) {
       const point = gridToScreen(prop.gridX, prop.gridY);
       const hit = findFurnitureAtScreen(office,
-        point.screenX, point.screenY - 30);
+        point.screenX + (prop.kind === 'door' ? -32 : 0),
+        point.screenY - (prop.kind === 'door' ? 30 : 94));
       assert.equal(hit?.id, prop.id);
     }
   });

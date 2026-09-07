@@ -17,8 +17,8 @@
     {
       "id": "coffee",
       "kind": "coffee",
-      "gridX": 0,
-      "gridY": 1,
+      "gridX": 8,
+      "gridY": 0,
       "blocksWalk": true,
       "interactable": true
     },
@@ -62,8 +62,8 @@
     {
       "id": "desk-dex",
       "kind": "desk",
-      "gridX": 1,
-      "gridY": 4,
+      "gridX": 2,
+      "gridY": 5,
       "blocksWalk": true,
       "isPlayerDesk": false,
       "staffId": "dex-harlan"

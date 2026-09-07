@@ -17,8 +17,8 @@
     {
       "id": "coffee",
       "kind": "coffee",
-      "gridX": 0,
-      "gridY": 4,
+      "gridX": 10,
+      "gridY": 0,
       "blocksWalk": true,
       "interactable": true
     },

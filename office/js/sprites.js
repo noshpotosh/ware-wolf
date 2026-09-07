@@ -53,7 +53,7 @@ export const SPRITE_SHEETS = [
 
 export const SINGLE_SPRITES = [
   { id: "floor-wood-field", path: "tiles/floor-wood-field.png" },
-  { id: "floor-rug-checkered", path: "tiles/floor-rug-checkered.png" },
+  { id: "floor-rug-checkered", path: "tiles/floor-rug-woven.png" },
   { id: "desk-pixellab", path: "furniture/desk-basic.png" },
   { id: "chair-pixellab", path: "furniture/chair-basic.png" },
   { id: "monitor-crt", path: "furniture/monitor-crt.png" },

@@ -1,3 +1,8 @@
+import {
+  DOOR_HEIGHT,
+  wallFaceForCell,
+  wallRunBaseline,
+} from "./loftDecor.js";
 import { gridToScreen } from "./isoMath.js";
 import {
   BUBBLER_DRINK_LINE,
@@ -205,25 +210,56 @@ export function buildInteractTargetForPiece(
   return buildTalkTarget(piece, person);
 }
 
-// Raised CRTs must select their desk rather than the floor behind them.
+// Bounds follow the opaque art at its 128px runtime size.
 const FURNITURE_HIT_BOUNDS = {
-  desk: { left: -49, right: 49, top: -70, bottom: 26 },
-  bubbler: { left: -13, right: 17, top: -65, bottom: 3 },
-  coffee: { left: -22, right: 27, top: -48, bottom: 8 },
-  whiteboard: { left: -30, right: 30, top: -61, bottom: 5 },
-  door: { left: -28, right: 28, top: -70, bottom: 10 },
+  desk: { left: -56, right: 55, top: -70, bottom: 26 },
+  bubbler: { left: -26, right: 23, top: -109, bottom: 3 },
+  coffee: { left: -55, right: 52, top: -113, bottom: 8 },
+  whiteboard: { left: -33, right: 37, top: -110, bottom: 6 },
 };
+const MONITOR_HIT_BOUNDS = {
+  left: -22, right: 21, top: -105, bottom: -70,
+};
+
+function insideBounds(bounds, x, y) {
+  return x >= bounds.left && x <= bounds.right
+    && y >= bounds.top && y <= bounds.bottom;
+}
+
+function hitsDoor(piece, screenX, screenY) {
+  const face = wallFaceForCell(piece.gridX, piece.gridY);
+
+  if (!face || face === "corner") {
+    return false;
+  }
+
+  const { start, end } = wallRunBaseline({
+    face, start: piece, end: piece,
+  });
+  const fraction = (screenX - start.x) / (end.x - start.x);
+  const floorY = start.y + (end.y - start.y) * fraction;
+  const height = floorY - screenY;
+
+  return fraction >= 0 && fraction <= 1
+    && height >= 0 && height <= DOOR_HEIGHT;
+}
 
 export function findFurnitureAtScreen(office, screenX, screenY) {
   const frontToBack = [...office.furniture].sort((left, right) =>
     right.gridX + right.gridY - left.gridX - left.gridY);
   return frontToBack.find(piece => {
+    if (piece.kind === FurnitureKind.DOOR) {
+      return hitsDoor(piece, screenX, screenY);
+    }
+
     const bounds = FURNITURE_HIT_BOUNDS[piece.kind];
     if (!bounds) return false;
     const point = gridToScreen(piece.gridX, piece.gridY);
     const x = screenX - point.screenX;
     const y = screenY - point.screenY;
-    return x >= bounds.left && x <= bounds.right
-      && y >= bounds.top && y <= bounds.bottom;
+    const hitsMonitor = piece.kind === FurnitureKind.DESK
+      && insideBounds(MONITOR_HIT_BOUNDS, x, y);
+
+    return hitsMonitor || insideBounds(bounds, x, y);
   }) || null;
 }

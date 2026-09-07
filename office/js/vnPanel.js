@@ -14,7 +14,11 @@ function prefersReducedMotion() {
 }
 
 function bustSrc(staffId) {
-  return `${BUST_PATH_PREFIX}${staffId}.png`;
+  const filename = staffId === "cal-rook"
+    ? "cal-rook-polished"
+    : staffId;
+
+  return `${BUST_PATH_PREFIX}${filename}.png`;
 }
 
 function bustAlt(staffId, fallback) {

@@ -6,6 +6,7 @@ export const FurnitureKind = {
   BUBBLER: "bubbler",
   COFFEE: "coffee",
   WHITEBOARD: "whiteboard",
+  PLANT: "plant",
   DOOR: "door",
 };
 
@@ -198,12 +199,8 @@ export const FloorTexture = {
 
 // Graphics-drawn far walls (continuous runs, foot on floor tip).
 export const WALL_HEIGHT_PX = 110;
-export const WALL_BASEBOARD_PX = 16;
-export const WALL_FOOT_OVERLAP_PX = 22;
-export const WALL_DEPTH_BIAS = -1.2;
 export const WALL_BONE_COLOR = 0xf4efe6;
 export const WALL_BONE_DIM_COLOR = 0xe6dfd2;
-export const WALL_INK_COLOR = 0x1a1714;
 export const WALL_CLAY_COLOR = 0xc4a484;
 export const WALL_CLAY_DARK_COLOR = 0x967658;
 
