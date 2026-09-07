@@ -38,7 +38,55 @@
       {%- endif -%}
     </a>
 
-    <nav aria-label="Primary">
+    <div class="site-header__utilities">
+      <button
+        type="button"
+        class="site-header__menu-toggle"
+        data-menu-toggle
+        aria-controls="PrimaryNavigation"
+        aria-expanded="false"
+      >
+        <span data-menu-label>Menu</span>
+      </button>
+
+      {%- if section.settings.show_cart_icon -%}
+        <button
+          type="button"
+          class="site-header__cart site-header__cart--mobile"
+          data-cart-open
+          aria-controls="CartDrawer"
+          aria-expanded="false"
+        >
+          <svg
+            class="site-header__cart-icon"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            aria-hidden="true"
+          >
+            <path d="M3 4h2l2.2 10.2h10.9L21 7H6"></path>
+            <circle cx="9" cy="19" r="1.25"></circle>
+            <circle cx="18" cy="19" r="1.25"></circle>
+          </svg>
+          <span class="visually-hidden">
+            {{ 'sections.header.cart' | t }}
+          </span>
+          <span class="site-header__cart-count" data-cart-count>
+            {{ cart.item_count }}
+          </span>
+        </button>
+      {%- endif -%}
+    </div>
+
+    <nav
+      class="site-header__navigation"
+      id="PrimaryNavigation"
+      aria-label="Primary"
+      data-primary-navigation
+    >
       <ul class="site-header__nav">
         {%- if section.settings.menu != blank -%}
           {%- for link in section.settings.menu.links -%}
@@ -65,7 +113,7 @@
         {%- endif -%}
 
         {%- if section.settings.show_cart_icon -%}
-          <li>
+          <li class="site-header__cart-item">
             <button
               type="button"
               class="site-header__cart"

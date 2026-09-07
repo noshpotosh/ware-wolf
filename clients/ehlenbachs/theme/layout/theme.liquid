@@ -30,6 +30,9 @@
 
     {% render 'css-variables' %}
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'home.css' | asset_url | stylesheet_tag }}
+    {{ 'shop.css' | asset_url | stylesheet_tag }}
+    {{ 'visit.css' | asset_url | stylesheet_tag }}
 
     {{ content_for_header }}
 
@@ -39,7 +42,12 @@
     </script>
   </head>
 
-  <body class="template-{{ template.name }}">
+  <body
+    class="template-{{ template.name }}
+      {%- if template.suffix -%}
+        template-{{ template.name }}-{{ template.suffix }}
+      {%- endif -%}"
+  >
     <a class="visually-hidden" href="#MainContent">
       {{ 'general.accessibility.skip_to_content' | t }}
     </a>

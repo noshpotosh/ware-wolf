@@ -6,7 +6,7 @@ web staff)
 [`011`](../../decisions/011-ehlenbachs-shopify.md) +
 [`012`](../../decisions/012-ehlenbachs-shopify-basic-customize.md)  
 **Design:** Approved mocks + Liquid section map  
-**Status:** Go — bet 1 in flight after this plan lands
+**Status:** V2 Home, Shop, and Visit implemented locally; preview pending
 
 ---
 
@@ -25,7 +25,7 @@ or app piles.
 | --- | --- |
 | Small business / watch the bread | Basic plan; customize-first theme; no app sprawl |
 | No dedicated staff / need support | Hosted cart, checkout, payments; Shopify Help; admin they can learn |
-| Cozy brand (approved mocks) | Restyle to wood / dairy cream / cheddar gold — not Dawn-stock bland |
+| Cozy brand (approved V2 direction) | Restyle to wood / dairy cream / cheddar gold — not Dawn-stock bland |
 | Google Ads / Shopping | Clean **primary** product images (white/neutral) for the feed; lifestyle OK on site |
 
 **Not the job:** cheapest possible monthly website. **The job:**
@@ -56,7 +56,7 @@ platform choice.
 
 | Artifact | Role |
 | --- | --- |
-| [`README.md`](README.md) + [`mockups/`](mockups/) | Look & feel lock (client approved) |
+| [`README.md`](README.md) + [`mockups/v2/`](mockups/v2/) | Current look & feel lock |
 | [`liquid-section-map.md`](liquid-section-map.md) | Dex section names / hero allow-ban (this pack) |
 | This go plan | Intensity, tier, bet order, cost rules |
 

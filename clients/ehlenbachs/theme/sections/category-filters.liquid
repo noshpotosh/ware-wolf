@@ -1,0 +1,72 @@
+<nav class="category-filters" aria-label="Shop categories">
+  <div class="category-filters__scroller">
+    {%- if section.settings.menu != blank -%}
+      {%- for link in section.settings.menu.links -%}
+        <a
+          class="category-filters__link"
+          href="{{ link.url }}"
+          {% if link.active %}aria-current="page"{% endif %}
+        >
+          {{ link.title | escape }}
+        </a>
+      {%- endfor -%}
+    {%- else -%}
+      <a
+        class="category-filters__link"
+        href="{{ routes.all_products_collection_url }}"
+        aria-current="page"
+      >
+        All
+      </a>
+      <a
+        class="category-filters__link"
+        href="{{ routes.collections_url }}/cheddar"
+      >
+        Cheddar
+      </a>
+      <a
+        class="category-filters__link"
+        href="{{ routes.collections_url }}/curds"
+      >
+        Curds
+      </a>
+      <a
+        class="category-filters__link"
+        href="{{ routes.collections_url }}/smoked"
+      >
+        Smoked
+      </a>
+      <a
+        class="category-filters__link"
+        href="{{ routes.collections_url }}/blue"
+      >
+        Blue
+      </a>
+      <a
+        class="category-filters__link"
+        href="{{ routes.collections_url }}/gift-baskets"
+      >
+        Gift Baskets
+      </a>
+    {%- endif -%}
+  </div>
+</nav>
+
+{% schema %}
+{
+  "name": "Category Filters",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Filter menu",
+      "info": "Use direct collection links in display order."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Filters"
+    }
+  ]
+}
+{% endschema %}

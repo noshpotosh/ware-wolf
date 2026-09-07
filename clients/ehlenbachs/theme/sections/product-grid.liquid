@@ -1,0 +1,41 @@
+<section class="product-grid-section" aria-label="Products">
+  <div class="product-grid-section__inner">
+    {%- paginate collection.products by section.settings.products_per_page -%}
+      {%- if collection.products_count > 0 -%}
+        <div class="product-grid">
+          {%- for product in collection.products -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        </div>
+
+        {{ paginate | default_pagination }}
+      {%- else -%}
+        <p class="product-grid__empty">
+          This collection is getting stocked. Check back soon.
+        </p>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 24,
+      "step": 4,
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid"
+    }
+  ]
+}
+{% endschema %}

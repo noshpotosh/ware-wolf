@@ -1,10 +1,9 @@
-# Ehlenbach's Cheese Chalet — Shopify theme (bet 1)
+# Ehlenbach's Cheese Chalet — Shopify theme
 
-**Path:** `clients/ehlenbachs/theme/`  
-**Platform:** Shopify Online Store 2.0 (Liquid) — ADR 011 / 012  
-**Slice:** Theme shell + design tokens + shared chrome stubs  
-**Not this PR:** Homepage polish (bet 2), collection grid (bet 3),
-catalog import, apps, Hydrogen
+**Path:** `clients/ehlenbachs/theme/`
+**Platform:** Shopify Online Store 2.0 (Liquid) — ADR 011 / 012
+**Slice:** V2 responsive Home, Shop, and Visit implementation
+**Not this PR:** Catalog import, production photography, apps, Hydrogen
 
 ---
 
@@ -15,8 +14,10 @@ catalog import, apps, Hydrogen
 | Tokens | `settings_schema.json` → `:root` CSS vars via `css-variables` |
 | Layout | `theme.liquid`: Header → Announcement → main → Footer → Cart |
 | Chrome | `header`, `footer`, `announcement-banner` (off), cart drawer |
-| Home stubs | `home-hero`, `meet-us-story` + `templates/index.json` |
-| Install shape | Thin product / collection / page / cart / 404 via `page-stub` |
+| Home | Responsive `home-hero` + editorial `meet-us-story` |
+| Shop | Intro, swipeable category row, responsive product grid |
+| Visit | Landmark hero + hours, address, phone, and tagline strip |
+| Install shape | Thin product, page, cart, and 404 via `page-stub` |
 
 CSS tokens: `--color-wood`, `--color-dairy-cream`,
 `--color-cheddar-gold`, `--color-barn-red`, `--color-ink`, fonts.
@@ -28,8 +29,7 @@ never go in the hero.**
 
 ## Design contract (read before filling stubs)
 
-- Liquid map:
-  [`liquid-section-map.md`](../../../docs/clients/ehlenbachs/liquid-section-map.md)
+- [Liquid map](../../../docs/clients/ehlenbachs/liquid-section-map.md)
 - Mocks + README:
   [`docs/clients/ehlenbachs/`](../../../docs/clients/ehlenbachs/)
 - Go / build plan:
@@ -73,12 +73,12 @@ Notes:
 2. Header → overlay mode (`transparent` on home; `solid-wood` on
    shop later), main menu link list
 3. Announcement banner → leave disabled unless seasonal
-4. Upload real photography into Home Hero / Meet Us when art lands
+4. Upload real photography into Home, Shop Intro, and Visit sections
 
 ---
 
 ## Next bets (do not stuff this PR)
 
-2. Homepage + Visit visual fill vs mocks  
-3. Shop collection sections  
-4. Catalog slice
+1. Connect the final menus and Visit page links
+2. Upload client photography and verify mobile crops
+3. Catalog slice

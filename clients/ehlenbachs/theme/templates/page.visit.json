@@ -1,0 +1,58 @@
+{
+  "sections": {
+    "visit_hero": {
+      "type": "visit-hero",
+      "settings": {
+        "headline": "Come say hi to Sissy.",
+        "supporting_sentence": "Minutes north of Madison. Open 7 days.",
+        "primary_cta_label": "Get directions",
+        "secondary_cta_label": "Call the shop"
+      }
+    },
+    "visit_details": {
+      "type": "visit-hours-strip",
+      "blocks": {
+        "hours": {
+          "type": "hours",
+          "settings": {
+            "label": "Hours",
+            "lines": "Mon–Thu 8–7\nFri–Sun 8–8"
+          }
+        },
+        "address": {
+          "type": "address",
+          "settings": {
+            "label": "Address",
+            "street": "4879 County Road V",
+            "city": "DeForest, WI"
+          }
+        },
+        "phone": {
+          "type": "phone",
+          "settings": {
+            "label": "Phone",
+            "number": "608-846-4791"
+          }
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "label": "Made here",
+            "text": "Specialty blues and smoked cheeses made on site."
+          }
+        }
+      },
+      "block_order": [
+        "hours",
+        "address",
+        "phone",
+        "tagline"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "visit_hero",
+    "visit_details"
+  ]
+}

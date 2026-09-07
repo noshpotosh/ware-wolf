@@ -1,0 +1,102 @@
+{%- liquid
+  assign directions_link = section.settings.primary_cta_link
+  if directions_link == blank
+    assign directions_link = '#VisitDetails'
+  endif
+
+  assign phone_link = section.settings.secondary_cta_link
+  if phone_link == blank
+    assign phone_link = 'tel:+16088464791'
+  endif
+-%}
+
+<section class="visit-hero">
+  <div class="visit-hero__media" aria-hidden="true">
+    {%- if section.settings.background_image != blank -%}
+      {{
+        section.settings.background_image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          sizes: '100vw',
+          widths: '800, 1200, 1600, 2400',
+          alt: ''
+      }}
+    {%- endif -%}
+    <div class="visit-hero__shade"></div>
+  </div>
+
+  <div class="visit-hero__inner">
+    <div class="visit-hero__copy">
+      <h1 class="visit-hero__headline">
+        {{ section.settings.headline | escape }}
+      </h1>
+
+      <p class="visit-hero__support">
+        {{ section.settings.supporting_sentence | escape }}
+      </p>
+
+      <div class="visit-hero__actions">
+        <a class="button-primary" href="{{ directions_link }}">
+          {{ section.settings.primary_cta_label | escape }}
+          <span aria-hidden="true">&nbsp;→</span>
+        </a>
+        <a class="button-secondary" href="{{ phone_link }}">
+          {{ section.settings.secondary_cta_label | escape }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Visit Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Chalet and Sissy image"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Come say hi to Sissy."
+    },
+    {
+      "type": "textarea",
+      "id": "supporting_sentence",
+      "label": "Supporting sentence",
+      "default": "Minutes north of Madison. Open 7 days."
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Get directions"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Directions link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary CTA label",
+      "default": "Call the shop"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Phone link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Visit Hero"
+    }
+  ]
+}
+{% endschema %}
