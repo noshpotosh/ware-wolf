@@ -207,6 +207,19 @@ export const WALL_INK_COLOR = 0x1a1714;
 export const WALL_CLAY_COLOR = 0xc4a484;
 export const WALL_CLAY_DARK_COLOR = 0x967658;
 
+// Authored wall posters (overlays — not baked into wall tiles).
+export const POSTER_WAREWOLF_TEXTURE = "poster-warewolf";
+export const POSTER_COFFEE_TEXTURE = "poster-coffee";
+export const POSTER_IDEAS_TEXTURE = "poster-ideas";
+export const POSTER_DEPTH_BIAS = -1.15;
+export const POSTER_LIFT_RATIO = 0.42;
+export const POSTER_WAREWOLF_WIDTH_PX = 120;
+export const POSTER_WAREWOLF_HEIGHT_PX = 50;
+export const POSTER_COFFEE_WIDTH_PX = 42;
+export const POSTER_COFFEE_HEIGHT_PX = 70;
+export const POSTER_IDEAS_WIDTH_PX = 70;
+export const POSTER_IDEAS_HEIGHT_PX = 60;
+
 export const SPRITE_ORIGIN_CENTER_X = 0.5;
 export const SPRITE_ORIGIN_FOOT_Y = 0.92;
 export const SPRITE_NO_BOB_Y = 0;

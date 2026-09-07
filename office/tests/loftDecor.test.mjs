@@ -8,6 +8,7 @@ import {
   isIslandCell,
   listBackWallCells,
   listBackWallRuns,
+  listWallPosters,
   nameplateLabel,
   wallFaceForCell,
 } from "../js/loftDecor.js";
@@ -103,4 +104,29 @@ test("wall runs are contiguous per face", () => {
   const sw = runs.filter((run) => run.face === "sw");
   assert.ok(se.length >= 1);
   assert.ok(sw.length >= 1);
+});
+
+
+test("wall posters: warewolf on SE, ideas+coffee on SW", () => {
+  const posters = listWallPosters(starter);
+  const byId = Object.fromEntries(
+    posters.map((poster) => [poster.id, poster])
+  );
+
+  assert.equal(posters.length, 3);
+  assert.equal(byId["poster-warewolf"].face, "se");
+  assert.equal(byId["poster-warewolf"].gridY, 0);
+  assert.equal(byId["poster-ideas"].face, "sw");
+  assert.equal(byId["poster-coffee"].face, "sw");
+  assert.ok(
+    byId["poster-ideas"].gridY < byId["poster-coffee"].gridY
+  );
+
+  for (const poster of posters) {
+    assert.equal(
+      isBackWallCell(starter, poster.gridX, poster.gridY),
+      true,
+      poster.id
+    );
+  }
 });

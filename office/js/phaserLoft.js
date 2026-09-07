@@ -22,6 +22,8 @@ import {
   NOSH_MAT_SCREEN_OFFSET_X,
   NOSH_MAT_SCREEN_OFFSET_Y,
   NOSH_MAT_TEXTURE_KEY,
+  POSTER_DEPTH_BIAS,
+  POSTER_LIFT_RATIO,
   SPRITE_NO_BOB_Y,
   SPRITE_ORIGIN_CENTER_X,
   SPRITE_ORIGIN_FOOT_Y,
@@ -47,6 +49,7 @@ import {
 import {
   floorTextureKey,
   listBackWallRuns,
+  listWallPosters,
   nameplateLabel,
 } from "./loftDecor.js";
 
@@ -243,6 +246,43 @@ function createLoftScene(Phaser, host) {
       for (const run of listBackWallRuns(office)) {
         this.drawWallRun(run);
       }
+
+      for (const poster of listWallPosters(office)) {
+        this.drawWallPoster(poster);
+      }
+    }
+
+    drawWallPoster(poster) {
+      const point = gridToScreen(poster.gridX, poster.gridY);
+      const tipY = -TILE_HEIGHT_PX / 2;
+      let anchorX;
+      let baseY;
+
+      if (poster.face === "se") {
+        // Midpoint of this cell's SE wall segment (north tip → east tip).
+        anchorX = point.screenX + TILE_WIDTH_PX / 4;
+        baseY = point.screenY + tipY + TILE_HEIGHT_PX / 4;
+      } else {
+        // Midpoint of this cell's SW wall segment (north tip → west tip).
+        anchorX = point.screenX - TILE_WIDTH_PX / 4;
+        baseY = point.screenY + tipY + TILE_HEIGHT_PX / 4;
+      }
+
+      const lift = WALL_HEIGHT_PX * POSTER_LIFT_RATIO;
+      const sprite = this.add.image(
+        anchorX,
+        baseY - lift,
+        poster.textureKey
+      );
+
+      sprite.setOrigin(SPRITE_ORIGIN_CENTER_X, 0.5);
+      sprite.setDisplaySize(poster.widthPx, poster.heightPx);
+      sprite.setData(
+        "depth",
+        poster.gridX + poster.gridY + POSTER_DEPTH_BIAS
+      );
+      this.wallLayer.add(sprite);
+      this.wallSprites.push(sprite);
     }
 
     drawWallRun(run) {
