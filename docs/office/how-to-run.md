@@ -13,6 +13,9 @@ python3 -m http.server 8765
 Open [the office](http://127.0.0.1:8765). No npm install, Phaser, image export,
 or Godot process is required for this page.
 
+Cold load shows the Warewolf title gate. Choose **Enter office** to reveal the
+painted room and exploration shell.
+
 Hover an object or focus it with Tab. Click or press Enter/Space to inspect;
 Escape closes the dialog. Collect the mug, inspect it in inventory to return
 it, and use Leave office / return to exercise room remounting. The current

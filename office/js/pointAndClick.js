@@ -4,6 +4,7 @@ import { createDesktop } from "./desktopOS.js";
 import {
   loadAdventure, saveAdventure, setItemCollected,
 } from "./adventureState.js";
+import { createStartMenu } from "./startMenu.js";
 
 const ROOM_PATH = "data/founders-office-adventure.json";
 const ACTIVATE_KEYS = new Set(["Enter", " "]);
@@ -255,18 +256,7 @@ async function preloadImage(path) {
   }
 }
 
-async function startRoom() {
-  const response = await fetch(ROOM_PATH, { cache: "no-cache" });
-  if (!response.ok) throw new Error(`Room failed to load: ${response.status}`);
-  definition = await response.json();
-  await Promise.all([
-    preloadImage(definition.background),
-    ...definition.pickups.map(item => preloadImage(item.emptyImage)),
-  ]);
-  state = loadAdventure(storage());
-  renderRoom();
-  renderInventory();
-  startClock();
+function wireShellControls() {
   itemAction.addEventListener("click", changeItem);
   dialog.addEventListener("close", syncMotion);
   document.getElementById("leave-room").addEventListener("click", leaveRoom);
@@ -290,7 +280,54 @@ async function startRoom() {
   }
 }
 
+function enterOfficeFromTitle() {
+  renderRoom();
+  renderInventory();
+  const firstHotspot = room.querySelector("[data-hotspot]");
+  firstHotspot?.focus();
+  announce("Welcome to the Founder’s Office.");
+}
+
+async function startRoom() {
+  let officeReady = false;
+  let enterRequested = false;
+
+  const titleGate = createStartMenu({
+    onEnter: enterOfficeFromTitle,
+  });
+  titleGate.open();
+
+  titleGate.enterButton.addEventListener("click", () => {
+    if (!officeReady) {
+      enterRequested = true;
+      titleGate.enterButton.textContent = "Opening…";
+      return;
+    }
+
+    titleGate.dismiss();
+  });
+
+  const response = await fetch(ROOM_PATH, { cache: "no-cache" });
+  if (!response.ok) throw new Error(`Room failed to load: ${response.status}`);
+  definition = await response.json();
+  await Promise.all([
+    preloadImage(definition.background),
+    ...definition.pickups.map(item => preloadImage(item.emptyImage)),
+  ]);
+  state = loadAdventure(storage());
+  startClock();
+  wireShellControls();
+  officeReady = true;
+
+  if (enterRequested) {
+    titleGate.enterButton.textContent = "Enter office";
+    titleGate.dismiss();
+  }
+}
+
 startRoom().catch((error) => {
   console.error(error);
+  document.body.classList.remove("at-title");
+  document.getElementById("start-menu")?.remove();
   room.textContent = "The office could not load. Refresh to try again.";
 });

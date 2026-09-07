@@ -1,6 +1,7 @@
 # Warewolf — Founder’s Office
 
-The main room system is a **painted point-and-click room**. It uses the
+The main room system is a **painted point-and-click room**. Cold load opens a
+Warewolf title gate; **Enter office** reveals the room. It uses the
 original evolved-pixel concept with the founder removed. Hover over the
 computer, mug, or water cooler for a glow; click to inspect. Tab and
 Enter/Space also work; Escape closes the inspection.
@@ -72,6 +73,7 @@ Only the current founder’s office is implemented. Build future mechanics
 from this baseline when they are needed.
 
 - `js/pointAndClick.js`: scene rendering, inspection, inventory UI, and shell.
+- `js/startMenu.js`: cold-boot title gate before the painted room.
 - `js/adventureState.js`: inventory save/load.
 - `js/worldClock.js`: local date/time formatting and status.
 - `js/roomEffects.js`: monitor, window light, and cooler effects.
