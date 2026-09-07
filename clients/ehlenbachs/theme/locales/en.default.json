@@ -1,0 +1,30 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "cart": "Cart",
+      "close": "Close"
+    }
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
+    "checkout": "Checkout",
+    "shipping_note": "Heat-season shipping notes live here — never in the hero."
+  },
+  "sections": {
+    "header": {
+      "cart": "Cart"
+    },
+    "home_hero": {
+      "brand_default": "Ehlenbach's Cheese Chalet",
+      "headline_default": "Wisconsin cheese, the family way.",
+      "support_default": "Family-owned in DeForest for 58 years — aged cheddars, fresh curds, and gifts worth the drive.",
+      "primary_cta": "Shop cheese",
+      "secondary_cta": "Plan your visit"
+    },
+    "meet_us_story": {
+      "heading_default": "Meet us in DeForest"
+    }
+  }
+}

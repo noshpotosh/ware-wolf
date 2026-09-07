@@ -1,0 +1,21 @@
+{% comment %}
+  Maps theme settings → :root tokens from the liquid section map.
+{% endcomment %}
+{% style %}
+  {{ settings.font_display | font_face: font_display: 'swap' }}
+  {{ settings.font_body | font_face: font_display: 'swap' }}
+  {{ settings.font_ui | font_face: font_display: 'swap' }}
+
+  :root {
+    --color-wood: {{ settings.color_wood }};
+    --color-wood-light: {{ settings.color_wood_light }};
+    --color-dairy-cream: {{ settings.color_dairy_cream }};
+    --color-cheddar-gold: {{ settings.color_cheddar_gold }};
+    --color-barn-red: {{ settings.color_barn_red }};
+    --color-ink: {{ settings.color_ink }};
+
+    --font-display: {{ settings.font_display.family }}, serif;
+    --font-body: {{ settings.font_body.family }}, serif;
+    --font-ui: {{ settings.font_ui.family }}, sans-serif;
+  }
+{% endstyle %}

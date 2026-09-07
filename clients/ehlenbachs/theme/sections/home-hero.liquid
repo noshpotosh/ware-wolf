@@ -1,0 +1,131 @@
+{%- comment -%}
+  Homepage first viewport stub. Bet 2 fills mock polish.
+  Ban list: hours, shipping, badges, stats — never here.
+{%- endcomment -%}
+
+{%- liquid
+  assign brand_title = section.settings.brand_title
+  if brand_title == blank
+    assign brand_title = 'sections.home_hero.brand_default' | t
+  endif
+
+  assign headline = section.settings.headline
+  if headline == blank
+    assign headline = 'sections.home_hero.headline_default' | t
+  endif
+
+  assign support = section.settings.supporting_sentence
+  if support == blank
+    assign support = 'sections.home_hero.support_default' | t
+  endif
+-%}
+
+<section class="home-hero" data-home-hero>
+  <div class="home-hero__media" aria-hidden="true">
+    {%- if section.settings.background_image != blank -%}
+      {{
+        section.settings.background_image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          sizes: '100vw',
+          widths: '800, 1200, 1600, 2400',
+          alt: ''
+      }}
+    {%- endif -%}
+    <div class="home-hero__shade"></div>
+  </div>
+
+  <div class="home-hero__copy">
+    <p class="home-hero__brand">{{ brand_title | escape }}</p>
+    <h1 class="home-hero__headline">{{ headline | escape }}</h1>
+    <p class="home-hero__support">{{ support | escape }}</p>
+
+    <div class="home-hero__actions">
+      {%- liquid
+        assign primary_href = section.settings.primary_cta_link
+        if primary_href == blank
+          assign primary_href = routes.all_products_collection_url
+        endif
+
+        assign secondary_href = section.settings.secondary_cta_link
+        if secondary_href == blank
+          assign secondary_href = '/pages/visit'
+        endif
+      -%}
+
+      {%- if section.settings.primary_cta_label != blank -%}
+        <a class="button-primary" href="{{ primary_href }}">
+          {{ section.settings.primary_cta_label | escape }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.secondary_cta_label != blank -%}
+        <a class="button-secondary" href="{{ secondary_href }}">
+          {{ section.settings.secondary_cta_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Home Hero",
+  "tag": "section",
+  "class": "section-home-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image",
+      "info": "Full-bleed chalet / cheese photo"
+    },
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand title",
+      "default": "Ehlenbach's Cheese Chalet"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Wisconsin cheese, the family way."
+    },
+    {
+      "type": "textarea",
+      "id": "supporting_sentence",
+      "label": "Supporting sentence",
+      "default": "Family-owned in DeForest for 58 years — aged cheddars, fresh curds, and gifts worth the drive."
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Shop cheese"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary CTA label",
+      "default": "Plan your visit"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Secondary CTA link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Hero"
+    }
+  ]
+}
+{% endschema %}

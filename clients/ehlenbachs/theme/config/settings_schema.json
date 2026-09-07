@@ -1,0 +1,89 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Ehlenbach's Cheese Chalet",
+    "theme_version": "0.1.0",
+    "theme_author": "Warewolf",
+    "theme_documentation_url": "https://github.com/noshpotosh/ware-wolf",
+    "theme_support_url": "https://github.com/noshpotosh/ware-wolf"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Cozy chalet tokens (ADR 011 / liquid map)"
+      },
+      {
+        "type": "color",
+        "id": "color_wood",
+        "label": "Wood (dark)",
+        "default": "#4A3428",
+        "info": "Header solid bar, borders, structure"
+      },
+      {
+        "type": "color",
+        "id": "color_wood_light",
+        "label": "Wood (light grain)",
+        "default": "#D4B896",
+        "info": "Story / hours strip backgrounds"
+      },
+      {
+        "type": "color",
+        "id": "color_dairy_cream",
+        "label": "Dairy cream",
+        "default": "#F5EDE0",
+        "info": "Page fields; text on dark photos"
+      },
+      {
+        "type": "color",
+        "id": "color_cheddar_gold",
+        "label": "Cheddar gold",
+        "default": "#C9922A",
+        "info": "Primary CTAs, active underlines"
+      },
+      {
+        "type": "color",
+        "id": "color_barn_red",
+        "label": "Barn red",
+        "default": "#8B2E2E",
+        "info": "Sparse accents only"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Ink / brown",
+        "default": "#2C2118",
+        "info": "Body and headings on cream"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Warm serifs — not Inter / Roboto / Arial"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_display",
+        "label": "Display / brand",
+        "default": "fraunces_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body",
+        "default": "source_serif_4_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_ui",
+        "label": "UI labels",
+        "default": "assistant_n4",
+        "info": "Optional clean sans for HOURS / nav utilities"
+      }
+    ]
+  }
+]

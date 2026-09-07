@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-stub",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
