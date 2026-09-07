@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "home_hero": {
+      "type": "home-hero",
+      "settings": {
+        "brand_title": "Ehlenbach's Cheese Chalet",
+        "headline": "Wisconsin cheese, the family way.",
+        "supporting_sentence": "Family-owned in DeForest for 58 years — aged cheddars, fresh curds, and gifts worth the drive.",
+        "primary_cta_label": "Shop cheese",
+        "primary_cta_link": "shopify://collections/all",
+        "secondary_cta_label": "Plan your visit",
+        "secondary_cta_link": "shopify://pages/visit"
+      }
+    },
+    "meet_us_story": {
+      "type": "meet-us-story",
+      "settings": {
+        "background_color": "#D4B896",
+        "heading": "Meet us in DeForest",
+        "accent_rule": "#8B2E2E"
+      }
+    }
+  },
+  "order": [
+    "home_hero",
+    "meet_us_story"
+  ]
+}

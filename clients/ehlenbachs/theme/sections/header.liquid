@@ -1,0 +1,143 @@
+{%- comment -%}
+  Transparent over full-bleed heroes; solid wood on cream pages.
+  Hours and shipping stay out of this chrome.
+{%- endcomment -%}
+
+{%- liquid
+  assign overlay_mode = section.settings.overlay_mode
+  assign brand_text = section.settings.brand_text
+  if brand_text == blank
+    assign brand_text = shop.name
+  endif
+-%}
+
+<header
+  class="site-header site-header--{{ overlay_mode }}"
+  role="banner"
+  data-header
+>
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="{{ routes.root_url }}">
+      {%- if section.settings.brand_image != blank -%}
+        {%- liquid
+          assign brand_alt = section.settings.brand_image_alt
+          if brand_alt == blank
+            assign brand_alt = brand_text
+          endif
+        -%}
+        {{
+          section.settings.brand_image
+          | image_url: width: 360
+          | image_tag:
+            class: 'site-header__brand-image',
+            alt: brand_alt,
+            loading: 'eager'
+        }}
+      {%- else -%}
+        {{ brand_text }}
+      {%- endif -%}
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="site-header__nav">
+        {%- if section.settings.menu != blank -%}
+          {%- for link in section.settings.menu.links -%}
+            <li>
+              <a
+                href="{{ link.url }}"
+                {% if link.active %}
+                  aria-current="page"
+                {% endif %}
+              >
+                {{ link.title }}
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+          <li>
+            <a href="{{ routes.all_products_collection_url }}">
+              Shop
+            </a>
+          </li>
+          <li>
+            <a href="/pages/visit">Visit Us</a>
+          </li>
+        {%- endif -%}
+
+        {%- if section.settings.show_cart_icon -%}
+          <li>
+            <button
+              type="button"
+              class="site-header__cart"
+              data-cart-open
+              aria-controls="CartDrawer"
+              aria-expanded="false"
+            >
+              {{ 'sections.header.cart' | t }}
+              <span
+                class="site-header__cart-count"
+                data-cart-count
+              >
+                {{ cart.item_count }}
+              </span>
+            </button>
+          </li>
+        {%- endif -%}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "brand_image",
+      "label": "Brand wordmark"
+    },
+    {
+      "type": "text",
+      "id": "brand_image_alt",
+      "label": "Brand wordmark alt text",
+      "default": "Ehlenbach's Cheese Chalet"
+    },
+    {
+      "type": "text",
+      "id": "brand_text",
+      "label": "Brand text (if no image)",
+      "default": "Ehlenbach's Cheese Chalet"
+    },
+    {
+      "type": "select",
+      "id": "overlay_mode",
+      "label": "Overlay mode",
+      "options": [
+        {
+          "value": "transparent",
+          "label": "Transparent (over heroes)"
+        },
+        {
+          "value": "solid-wood",
+          "label": "Solid wood (cream pages)"
+        }
+      ],
+      "default": "transparent"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main menu",
+      "info": "Shop · Gift Baskets? · Visit Us. Cart is separate."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart_icon",
+      "label": "Show cart control",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

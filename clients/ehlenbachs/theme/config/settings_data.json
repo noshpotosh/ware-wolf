@@ -1,0 +1,39 @@
+{
+  "current": {
+    "color_wood": "#4A3428",
+    "color_wood_light": "#D4B896",
+    "color_dairy_cream": "#F5EDE0",
+    "color_cheddar_gold": "#C9922A",
+    "color_barn_red": "#8B2E2E",
+    "color_ink": "#2C2118",
+    "font_display": "fraunces_n4",
+    "font_body": "source_serif_4_n4",
+    "font_ui": "assistant_n4",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "overlay_mode": "transparent",
+          "brand_text": "Ehlenbach's Cheese Chalet",
+          "show_cart_icon": true
+        }
+      },
+      "announcement-banner": {
+        "type": "announcement-banner",
+        "settings": {
+          "enable": false,
+          "message": "",
+          "link": ""
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "address_phone": "DeForest, WI",
+          "copyright": "Family-owned cheese shop in DeForest, Wisconsin.",
+          "seo_town_list": "<p>Serving Madison, Waunakee, and Sun Prairie.</p>"
+        }
+      }
+    }
+  }
+}

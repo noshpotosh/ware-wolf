@@ -1,0 +1,44 @@
+{%- comment -%}
+  Thin placeholder so non-home templates stay installable.
+{%- endcomment -%}
+
+<section class="page-stub">
+  <h1 class="page-stub__title">
+    {%- if collection -%}
+      {{ collection.title | escape }}
+    {%- elsif product -%}
+      {{ product.title | escape }}
+    {%- elsif page -%}
+      {{ page.title | escape }}
+    {%- else -%}
+      {{ page_title | escape }}
+    {%- endif -%}
+  </h1>
+
+  {%- if page and page.content != blank -%}
+    <div class="page-stub__body">{{ page.content }}</div>
+  {%- elsif collection -%}
+    <p>Shop grid ships in bet 3.</p>
+  {%- elsif product -%}
+    <p>{{ product.price | money }}</p>
+    <form method="post" action="/cart/add">
+      <input
+        type="hidden"
+        name="id"
+        value="{{ product.selected_or_first_available_variant.id }}"
+      >
+      <button type="submit" class="button-primary">Add</button>
+    </form>
+  {%- else -%}
+    <p>Placeholder — theme shell bet 1.</p>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Page stub",
+  "tag": "section",
+  "class": "section-page-stub",
+  "settings": []
+}
+{% endschema %}

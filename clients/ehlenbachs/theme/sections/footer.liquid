@@ -1,0 +1,74 @@
+{%- comment -%}
+  Quiet utility chrome. SEO town list stays here — not the hero.
+{%- endcomment -%}
+
+<footer class="site-footer" role="contentinfo" data-footer>
+  <div class="site-footer__inner">
+    {%- if section.settings.menu != blank -%}
+      <ul class="site-footer__links">
+        {%- for link in section.settings.menu.links -%}
+          <li>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <ul class="site-footer__links">
+        <li><a href="/pages/shipping-notes">Shipping notes</a></li>
+        <li><a href="/pages/visit">Hours</a></li>
+        <li><a href="/pages/contact">Contact</a></li>
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.address_phone != blank -%}
+      <p class="site-footer__meta">
+        {{ section.settings.address_phone | escape | newline_to_br }}
+      </p>
+    {%- endif -%}
+
+    {%- if section.settings.seo_town_list != blank -%}
+      <div class="site-footer__seo">
+        {{ section.settings.seo_town_list }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.copyright != blank -%}
+      <p class="site-footer__copyright">
+        {{ section.settings.copyright | escape }}
+      </p>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Utility links",
+      "info": "Shipping notes · Hours · Contact"
+    },
+    {
+      "type": "textarea",
+      "id": "address_phone",
+      "label": "Address / phone",
+      "default": "DeForest, WI"
+    },
+    {
+      "type": "richtext",
+      "id": "seo_town_list",
+      "label": "SEO town list (footer only)",
+      "default": "<p>Serving Madison, Waunakee, and Sun Prairie.</p>"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright / family line",
+      "default": "Family-owned cheese shop in DeForest, Wisconsin."
+    }
+  ]
+}
+{% endschema %}
