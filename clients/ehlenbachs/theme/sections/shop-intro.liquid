@@ -1,0 +1,61 @@
+<section class="shop-intro">
+  <div class="shop-intro__inner">
+    <div class="shop-intro__copy">
+      <h1 class="shop-intro__heading">
+        {{ section.settings.heading | escape }}
+      </h1>
+
+      {%- if section.settings.supporting_sentence != blank -%}
+        <p class="shop-intro__support">
+          {{ section.settings.supporting_sentence | escape }}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="shop-intro__media">
+      {%- if section.settings.banner_image != blank -%}
+        {{
+          section.settings.banner_image
+          | image_url: width: 2000
+          | image_tag:
+            loading: 'eager',
+            sizes: '(min-width: 900px) 65vw, 100vw',
+            widths: '600, 900, 1400, 2000',
+            alt: section.settings.heading
+        }}
+      {%- else -%}
+        <div class="shop-intro__placeholder" aria-hidden="true"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop Intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop Wisconsin cheese"
+    },
+    {
+      "type": "text",
+      "id": "supporting_sentence",
+      "label": "Supporting sentence",
+      "default": "From squeaky curds to 21-year cheddar."
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Cheese cellar image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop Intro"
+    }
+  ]
+}
+{% endschema %}

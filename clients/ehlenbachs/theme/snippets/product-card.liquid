@@ -1,0 +1,47 @@
+<article class="product-card">
+  <a class="product-card__link" href="{{ product.url }}">
+    <div class="product-card__media">
+      {%- if product.featured_image != blank -%}
+        {{
+          product.featured_image
+          | image_url: width: 900
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 900px) 25vw, 50vw',
+            widths: '240, 360, 540, 720, 900',
+            alt: product.featured_image.alt
+        }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <h2 class="product-card__title">{{ product.title | escape }}</h2>
+  </a>
+
+  <p class="product-card__price">
+    {%- if product.price_varies -%}
+      From {{ product.price_min | money }}
+    {%- else -%}
+      {{ product.price | money }}
+    {%- endif -%}
+  </p>
+
+  {%- assign selected_variant = product.selected_or_first_available_variant -%}
+
+  {%- form 'product', product, class: 'product-card__form' -%}
+    <input type="hidden" name="id" value="{{ selected_variant.id }}">
+    <input type="hidden" name="quantity" value="1">
+    <button
+      class="product-card__add"
+      type="submit"
+      {% unless selected_variant.available %}disabled{% endunless %}
+    >
+      {%- if selected_variant.available -%}
+        Add
+      {%- else -%}
+        Sold out
+      {%- endif -%}
+    </button>
+  {%- endform -%}
+</article>

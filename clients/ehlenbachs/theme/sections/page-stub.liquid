@@ -21,7 +21,7 @@
     <p>Shop grid ships in bet 3.</p>
   {%- elsif product -%}
     <p>{{ product.price | money }}</p>
-    <form method="post" action="/cart/add">
+    <form method="post" action="{{ routes.cart_add_url }}">
       <input
         type="hidden"
         name="id"

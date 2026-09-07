@@ -1,0 +1,158 @@
+<section class="visit-details" id="VisitDetails">
+  <div class="visit-details__inner">
+    {%- for block in section.blocks -%}
+      <div
+        class="visit-detail visit-detail--{{ block.type }}"
+        {{ block.shopify_attributes }}
+      >
+        <p class="visit-detail__label">
+          {{ block.settings.label | escape }}
+        </p>
+
+        {%- case block.type -%}
+          {%- when 'hours' -%}
+            <p class="visit-detail__value">
+              {{ block.settings.lines | escape | newline_to_br }}
+            </p>
+          {%- when 'address' -%}
+            {%- if block.settings.link != blank -%}
+              <a
+                class="visit-detail__value"
+                href="{{ block.settings.link }}"
+              >
+                {{ block.settings.street | escape }}<br>
+                {{ block.settings.city | escape }}
+              </a>
+            {%- else -%}
+              <p class="visit-detail__value">
+                {{ block.settings.street | escape }}<br>
+                {{ block.settings.city | escape }}
+              </p>
+            {%- endif -%}
+          {%- when 'phone' -%}
+            <a
+              class="visit-detail__value"
+              href="tel:{{ block.settings.number | remove: ' ' }}"
+            >
+              {{ block.settings.number | escape }}
+            </a>
+          {%- when 'tagline' -%}
+            <p class="visit-detail__value visit-detail__value--tagline">
+              {{ block.settings.text | escape }}
+            </p>
+        {%- endcase -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Visit Hours Strip",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "hours",
+      "name": "Hours",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Hours"
+        },
+        {
+          "type": "textarea",
+          "id": "lines",
+          "label": "Hours",
+          "default": "Mon–Thu 8–7\nFri–Sun 8–8"
+        }
+      ]
+    },
+    {
+      "type": "address",
+      "name": "Address",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Address"
+        },
+        {
+          "type": "text",
+          "id": "street",
+          "label": "Street",
+          "default": "4879 County Road V"
+        },
+        {
+          "type": "text",
+          "id": "city",
+          "label": "City",
+          "default": "DeForest, WI"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Directions link"
+        }
+      ]
+    },
+    {
+      "type": "phone",
+      "name": "Phone",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Phone"
+        },
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Phone number",
+          "default": "608-846-4791"
+        }
+      ]
+    },
+    {
+      "type": "tagline",
+      "name": "Tagline",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Made here"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Specialty blues and smoked cheeses made on site."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Visit Hours Strip",
+      "blocks": [
+        {
+          "type": "hours"
+        },
+        {
+          "type": "address"
+        },
+        {
+          "type": "phone"
+        },
+        {
+          "type": "tagline"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

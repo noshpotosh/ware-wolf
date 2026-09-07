@@ -1,9 +1,26 @@
 {
   "sections": {
-    "main": {
-      "type": "page-stub",
+    "shop_intro": {
+      "type": "shop-intro",
+      "settings": {
+        "heading": "Shop Wisconsin cheese",
+        "supporting_sentence": "From squeaky curds to 21-year cheddar."
+      }
+    },
+    "category_filters": {
+      "type": "category-filters",
       "settings": {}
+    },
+    "product_grid": {
+      "type": "product-grid",
+      "settings": {
+        "products_per_page": 12
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "shop_intro",
+    "category_filters",
+    "product_grid"
+  ]
 }

@@ -12,19 +12,45 @@
   if image_alt == blank
     assign image_alt = 'Meet us in DeForest'
   endif
+
+  assign background_image = section.settings.background_image
 -%}
 
 <section
   class="meet-us-story"
   data-meet-us-story
-  style="background-color: {{ section.settings.background_color }};"
+  style="
+    background-color: {{ section.settings.background_color }};
+    {%- if background_image != blank -%}
+      background-image: url('{{ background_image | image_url: width: 2000 }}');
+    {%- endif -%}
+  "
 >
   <div class="meet-us-story__inner">
-    <h2 class="meet-us-story__heading">{{ heading | escape }}</h2>
-    <hr
-      class="meet-us-story__rule"
-      style="background: {{ section.settings.accent_rule }};"
-    >
+    <div class="meet-us-story__copy">
+      <h2 class="meet-us-story__heading">{{ heading | escape }}</h2>
+      <hr
+        class="meet-us-story__rule"
+        style="background: {{ section.settings.accent_rule }};"
+      >
+
+      {%- if section.settings.supporting_text != blank -%}
+        <p class="meet-us-story__support">
+          {{ section.settings.supporting_text | escape }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.link_label != blank
+        and section.settings.image_link != blank
+      -%}
+        <a
+          class="meet-us-story__link"
+          href="{{ section.settings.image_link }}"
+        >
+          {{ section.settings.link_label | escape }} →
+        </a>
+      {%- endif -%}
+    </div>
 
     {%- if section.settings.story_image != blank -%}
       {%- capture story_image -%}
@@ -46,6 +72,8 @@
       {%- else -%}
         {{ story_image }}
       {%- endif -%}
+    {%- else -%}
+      <div class="meet-us-story__placeholder" aria-hidden="true"></div>
     {%- endif -%}
   </div>
 </section>
@@ -62,6 +90,12 @@
       "label": "Background color",
       "default": "#D4B896",
       "info": "Light wood grain stand-in until photo is set"
+    },
+    {
+      "type": "textarea",
+      "id": "supporting_text",
+      "label": "Supporting text",
+      "default": "Our chalet brings cheese, family, and Sissy together."
     },
     {
       "type": "image_picker",
@@ -91,6 +125,12 @@
       "type": "url",
       "id": "image_link",
       "label": "Image link (optional)"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Plan your visit"
     }
   ],
   "presets": [

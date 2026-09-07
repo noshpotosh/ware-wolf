@@ -3,7 +3,7 @@
 **For:** Dex (Shopify Online Store 2.0 theme scaffold)  
 **From:** Maeve Quinn  
 **Date:** 2026-09-06  
-**Contract:** Approved mocks in [`mockups/`](mockups/) +
+**Contract:** Approved V2 direction in [`mockups/v2/`](mockups/v2/) +
 [`README.md`](README.md)  
 **Platform:** ADR 011 — custom Liquid theme (not Dawn cosplay,
 not Hydrogen)

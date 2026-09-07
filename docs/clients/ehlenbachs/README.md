@@ -4,10 +4,29 @@
 **Location:** DeForest, WI (near Madison)  
 **Prepared by:** Warewolf (Maeve Quinn, product & design)  
 **Date:** 2026-09-06  
-**Status:** Client approved mocks · Shopify Basic + customize-first
-(ADR 011/012) · Go plan in [`shopify-build.md`](shopify-build.md) ·
-Liquid section map is the Dex handoff
+**Status:** V2 direction approved for implementation · Shopify Basic +
+customize-first (ADR 011/012) · Go plan in
+[`shopify-build.md`](shopify-build.md) · Liquid section map is the Dex handoff
 ([`liquid-section-map.md`](liquid-section-map.md))
+
+## V2 implementation direction
+
+The files in [`mockups/v2/`](mockups/v2/) are the current visual direction.
+The original mockups remain in the pack as historical context.
+
+- [`home-desktop-direction.png`](mockups/v2/home-desktop-direction.png):
+  calmer hero type, natural daylight, and an editorial story transition
+- [`home-mobile-direction.png`](mockups/v2/home-mobile-direction.png):
+  mobile-first crop, labeled menu, and thumb-sized actions
+- [`shop-desktop-direction.png`](mockups/v2/shop-desktop-direction.png):
+  airier collection layout and an image-led product grid
+- [`shop-mobile-direction.png`](mockups/v2/shop-mobile-direction.png):
+  swipeable categories, readable two-column cards, and full-width Add targets
+- [`visit-mobile-direction.png`](mockups/v2/visit-mobile-direction.png):
+  landmark-led hero, immediate directions/call actions, and hours below the fold
+
+These are visual direction references, not production photography. Real client
+photos, final copy, and accessibility checks still govern the theme build.
 
 ---
 
