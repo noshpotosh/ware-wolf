@@ -1,8 +1,8 @@
-# Warewolf — Founder’s Office
+# Warewolf — Bedroom Office
 
 The main room system is a **painted point-and-click room**. It uses the
-original evolved-pixel concept with the founder removed. Hover over the
-computer, mug, or water cooler for a glow; click to inspect. Tab and
+approved bedroom concept in the evolved-pixel style. Hover over the
+computer or mug for a glow; click to inspect. The door exits the room. Tab and
 Enter/Space also work; Escape closes the inspection.
 
 Pick up the mug from its inspection dialog. It appears in inventory and
@@ -24,12 +24,12 @@ The speaker banner currently supports Nosh’s observations; other characters
 and branching conversations have not been added.
 
 Localized SVG overlays animate the CRT phosphor, scan sweep and cursor,
-warm sunlight through the blinds, and occasional bubbles inside the bottle.
+warm sunlight through the blinds, and rising coffee steam.
 The blinds themselves stay fixed. Geometry lives under effects in the room
 JSON; construction is in js/roomEffects.js, timing in css/roomEffects.css.
 Overlays ignore pointer input. Inspection and hidden tabs pause animations;
 leaving removes them. Reduced-motion preferences keep the lighting steady
-and hide the scan sweep and bubbles. The plant remains static in the
+and hide the scan sweep and steam. The plant remains static in the
 original accepted background.
 
 ```bash
@@ -59,8 +59,8 @@ same image-coordinate convention and effect builders.
 
 Checks: npm test. Browser acceptance: hover each object, click, dismiss
 with Escape, Tab/Enter through the objects, and resize to check alignment.
-Collect the mug, leave/return, reload, and put it back. Check that bubbles
-stay inside the bottle and illumination aligns with the painted surfaces.
+Collect the mug, leave/return, reload, and put it back. Check that steam follows the mug, disappears when it is collected, and
+illumination aligns with the painted surfaces.
 
 [Pivot decision](../docs/decisions/014-painted-room-point-and-click.md).
 Image edit provenance: art-source/founders-office-background.json.
@@ -68,7 +68,7 @@ Mug removal provenance: art-source/founders-office-empty-desk.json.
 
 ## Code baseline
 
-Only the current founder’s office is implemented. Build future mechanics
+Only the current bedroom office is playable. Build future mechanics
 from this baseline when they are needed.
 
 - `js/pointAndClick.js`: scene rendering, inspection, inventory UI, and shell.
@@ -79,8 +79,8 @@ from this baseline when they are needed.
   outlines, effect placement, and mug state patch.
 - `css/pointAndClick.css` and `css/roomEffects.css`: shell and ambient styling.
 
-Walking, pathfinding, NPC simulation, economy, upgrades, goals, desktop OS,
-agent messaging, dialogue, and the Phaser renderer have been removed along
+Walking, pathfinding, NPC simulation, economy, upgrades, goals, the legacy
+desktop OS, agent messaging, dialogue, and the Phaser renderer were removed along
 with their old data, UI assets, tests, and entry page. There is no legacy
 runtime or engine dependency in this directory. The existing inventory save key is unchanged.
 
@@ -112,20 +112,42 @@ portrait can rise above its banner.
 ## Computer desktop
 
 Click the computer or activate it with Enter/Space to open the desktop.
-Mail, Teams, Directory, and Documents open from shortcuts or the taskbar.
+Mail, Teams, and Directory open from shortcuts or the taskbar. Documents
+opens from its desktop shortcut.
 Window controls minimize/close or expand the single application view.
 Back to office and Escape return focus to the computer; room effects pause
 while the desktop is open. The desktop clock uses the same local time as
 our room shell.
 
 Directory supports name/role search, profile selection, and session-only
-favorites. Message in Teams opens that person's local draft. Mail Reply
+favorites. Teams groups people by their current role; Locations reports
+unassigned locations until story data defines them. Message in Teams opens that person's local draft. Mail Reply
 opens a draft to the Building Manager. Save draft stores these in browser
 localStorage under warewolf.desktop.drafts.v1. Nothing is transmitted:
 there is no Microsoft Teams connection, email service, or simulated reply.
 Documents is an empty folder until a story calls for documents.
 
-Implementation: js/desktopOS.js, js/desktopPeople.js, css/desktopOS.css.
+Implementation: js/desktopOS.js, js/desktopPeople.js, js/desktopArt.js,
+css/desktopOS.css.
 The approved mockup supplies icons/portraits through SVG viewBox crops;
 frames, wallpaper, controls and text are real DOM/CSS. Provenance is in
-art-source/desktop-ui.json. The pixel font includes its OFL license.
+art-source/desktop-ui.json. The pixel font includes its CC0 license.
+
+The desktop uses a 1672×941 HTML coordinate space, uniformly scaled to fit
+with letterboxing. Mail and Directory have distinct window proportions
+measured from approved mockups 08 and 09. Paper and control borders use
+small code-authored SVG nine-slice frames. Wallpaper and grain are tiled
+vectors, and the Pixel Operator font is bundled locally with its license. Text,
+search, buttons, profiles, and drafts remain ordinary accessible HTML.
+
+Visual acceptance remains in progress: current lettering and individual
+icon/frame details are approximations of the generated reference. Browser
+verification on September 7 confirmed Mail and Directory panels have no
+horizontal or vertical overflow, and Reply focuses its textarea. These
+checks establish fit and behavior, not a pixel-identical visual match.
+
+Icon crops use individual source-coordinate silhouettes to remove the
+mockup background in every context. The taskbar has one height and fixed
+button widths across all apps; browser measurements confirmed identical
+bounds for Mail, Teams, Directory, and Documents. Application windows may
+have different proportions, but the desktop shell stays fixed.

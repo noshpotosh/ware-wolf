@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "source": "../docs/office/mockups/bedroom-start/02-bedroom-exit.png",
+  "sourceSha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc",
+  "runtime": "assets/rooms/founders-bedroom-v1.png",
+  "runtimeSha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc",
+  "size": [
+    1774,
+    887
+  ],
+  "provider": "OpenAI built-in imagegen",
+  "prompt": "Approved bedroom-exit mockup copied byte-for-byte; generation prompt in docs/office/mockups/bedroom-start/02-bedroom-exit.json.",
+  "referenceCatalogVersion": 1,
+  "review": "Approved PNG copied byte-for-byte. Browser checked full floor edge, remapped CRT/window, computer access, door exit/return, static bed scenery and mug pickup/return."
+}

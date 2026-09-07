@@ -8,12 +8,14 @@ lighting. The founder’s office keeps warm timber, beige plaster, sage
 accents, and restrained CRT green. Preserve the evolved-pixel finish and
 readable silhouettes. Critical text belongs in accessible HTML.
 
-The source reference is
-`office/assets/reference/style-explorations/01-evolved-pixel.png`.
-The runtime background is `office/assets/rooms/founders-office-background.png`:
-the accepted edit with the standing founder removed. Preserve its 1774×887
-canvas and aspect ratio. Render the whole composition, fitting image,
-hotspots, and effects together in the same image-coordinate space.
+The original style reference remains
+`office/assets/rooms/founders-office-background.png`. The starting room is
+now the approved bedroom variant,
+`office/assets/rooms/founders-bedroom-v1.png`, copied exactly from
+`docs/office/mockups/bedroom-start/02-bedroom-exit.png`. Preserve its 1774×887
+canvas and aspect ratio. Fit the complete composition, hotspots, and effects
+in one image-coordinate space. The door is a clickable exit; until another
+area is built, it opens the existing exit-and-return screen.
 
 Hit polygons trace selectable objects in that exact painting. Separate,
 more detailed outline paths supply visible feedback, including the opening
@@ -30,7 +32,7 @@ in the accepted background. The shell uses an illustrated transparent founder
 portrait with local-time status text. Its provenance is in `office/art-source/nosh-portrait.json`.
 
 The mug’s removed state uses
-`office/assets/rooms/founders-office-empty-desk.png`. Reveal only its defined
+`office/assets/rooms/founders-bedroom-empty-desk-v1.png`. Reveal only its defined
 pickup patch, preserving the accepted background everywhere else. A new
 painted state needs matching framing, recorded provenance, and visual review.
 An AI edit is not a guarantee that unrelated pixels stayed identical.

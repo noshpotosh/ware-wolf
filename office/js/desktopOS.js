@@ -1,11 +1,7 @@
 import { PEOPLE, findPeople } from "./desktopPeople.js";
 import { describeTime } from "./worldClock.js";
 
-const ART = "assets/desktop/directory-art.png";
-const ICONS = {
-  mail: [106, 81, 106, 81], teams: [108, 239, 103, 98],
-  directory: [109, 397, 102, 104], documents: [110, 590, 105, 100],
-};
+import { sprite } from "./desktopArt.js";
 const APPS = { mail: "Mail", teams: "Teams", directory: "Employee Directory",
   documents: "Documents" };
 const MAX_DRAFT_LENGTH = 5000;
@@ -25,20 +21,6 @@ function button(label, action, className = "") {
   return node;
 }
 
-function sprite(rect, className = "") {
-  const ns = "http://www.w3.org/2000/svg";
-  const svg = document.createElementNS(ns, "svg");
-  svg.setAttribute("viewBox", rect.join(" "));
-  svg.setAttribute("class", `desktop-art ${className}`);
-  svg.setAttribute("aria-hidden", "true");
-  const image = document.createElementNS(ns, "image");
-  image.setAttribute("href", ART);
-  image.setAttribute("width", "1672");
-  image.setAttribute("height", "941");
-  svg.append(image);
-  return svg;
-}
-
 function readDrafts() {
   try {
     const saved = JSON.parse(localStorage.getItem(DRAFT_KEY));
@@ -55,6 +37,13 @@ function readDrafts() {
 export function createDesktop(onVisibilityChange) {
   const desktop = element("dialog", "desktop-os");
   desktop.setAttribute("aria-label", "Computer desktop");
+  const canvas = element("div", "desktop-canvas");
+  const resize = new ResizeObserver(() => {
+    const scale = Math.min(desktop.clientWidth / 1672,
+      desktop.clientHeight / 941);
+    canvas.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  });
+  resize.observe(desktop);
   const shortcuts = element("nav", "desktop-shortcuts");
   shortcuts.setAttribute("aria-label", "Desktop applications");
   const window = element("section", "desktop-window");
@@ -83,6 +72,8 @@ export function createDesktop(onVisibilityChange) {
 
   function openApp(id) {
     active = id;
+    window.dataset.app = id;
+    canvas.dataset.app = id;
     window.hidden = false;
     status.textContent = "";
     renderWindow();
@@ -100,17 +91,20 @@ export function createDesktop(onVisibilityChange) {
     const header = element("header", "desktop-titlebar");
     const title = element("h2", "", APPS[active]);
     title.tabIndex = -1;
-    header.append(sprite(ICONS[active]), title);
-    const minimize = button("−", closeWindow);
+    const titleIcon = active === "directory"
+      ? "title-directory" : active;
+    header.append(sprite(titleIcon), title);
+    const minimize = button("", closeWindow, "window-minimize");
     minimize.setAttribute("aria-label", "Minimize application");
-    const maximize = button("□", () => {
+    const maximize = button("", () => {
       const expanded = window.classList.toggle("expanded");
       maximize.setAttribute("aria-pressed", String(expanded));
     });
+    maximize.className = "window-maximize";
     maximize.setAttribute("aria-label", "Expand application");
     const expanded = window.classList.contains("expanded");
     maximize.setAttribute("aria-pressed", String(expanded));
-    const close = button("×", closeWindow);
+    const close = button("", closeWindow, "window-close");
     close.setAttribute("aria-label", "Close application");
     header.append(minimize, maximize, close);
     const body = element("div", "desktop-window-body");
@@ -129,9 +123,10 @@ export function createDesktop(onVisibilityChange) {
     sidebar.setAttribute("aria-label", "Mail folders");
     const content = element("article", "desktop-content mail-content");
     function showFolder(folder) {
+      content.dataset.folder = folder;
       content.replaceChildren();
       for (const item of sidebar.children) {
-        item.setAttribute("aria-pressed", String(item.textContent === folder));
+        item.setAttribute("aria-pressed", String(item.dataset.folder === folder));
       }
       if (folder === "Inbox (1)") {
         content.append(element("h3", "", "Welcome to your new office"),
@@ -152,7 +147,10 @@ export function createDesktop(onVisibilityChange) {
       }
     }
     for (const folder of ["Inbox (1)", "Sent", "Drafts"]) {
-      sidebar.append(button(folder, () => showFolder(folder)));
+      const item = button(folder, () => showFolder(folder));
+      item.dataset.folder = folder;
+      item.prepend(element("span", "mail-folder-icon"));
+      sidebar.append(item);
     }
     body.append(sidebar, content);
     showFolder("Inbox (1)");
@@ -180,38 +178,81 @@ export function createDesktop(onVisibilityChange) {
     const list = element("div", "desktop-people");
     const profile = element("article", "desktop-content desktop-profile");
     let onlyFavorites = false;
+    let group = null;
     const all = button("All Employees", () => {
       onlyFavorites = false;
+      group = null;
       refresh();
     });
     const favoriteFilter = button("Favorites", () => {
       onlyFavorites = true;
+      group = null;
       refresh();
     });
+    const teams = button("Teams", () => showGroups("teams"));
+    const locations = button("Locations", () => showGroups("locations"));
+    function showGroups(kind) {
+      // A chooser has no people filter until a group is selected.
+      onlyFavorites = false;
+      group = null;
+      search.value = "";
+      list.classList.add("desktop-groups");
+      for (const item of [all, favoriteFilter, teams, locations]) {
+        item.setAttribute("aria-pressed",
+          String(item === (kind === "teams" ? teams : locations)));
+      }
+      list.replaceChildren();
+      profile.replaceChildren(element("h3", "",
+        kind === "teams" ? "Teams" : "Locations"),
+      element("p", "", "Choose a group to see its people."));
+      const groups = kind === "teams"
+        ? [...new Set(PEOPLE.map(person => person.role))] : ["Not assigned"];
+      for (const label of groups) {
+        list.append(button(label, () => {
+          group = kind === "teams" ? label : null;
+          onlyFavorites = false;
+          search.value = "";
+          refresh();
+          list.querySelector("button")?.focus();
+        }));
+      }
+    }
     function showProfile() {
       const identity = element("div", "desktop-identity");
-      const details = element("div");
+      const details = element("div",
+        selected.name.length > 13 ? "long-name" : "");
       details.append(element("h3", "", selected.name),
-        element("p", "", selected.role));
+        element("p", "", selected.role),
+        element("p", "desktop-availability", "Available"));
+      details.querySelector(".desktop-availability").prepend(
+        element("span", "availability-check"));
       identity.append(sprite(selected.portrait, "profile-portrait"), details);
       const favorite = button(favorites.has(selected.id)
-        ? "★ Favorited" : "☆ Add favorite", () => {
+        ? "★" : "☆", () => {
         if (favorites.has(selected.id)) favorites.delete(selected.id);
         else favorites.add(selected.id);
         refresh();
         const nextFavorite = profile.querySelector("button[aria-pressed]");
         (nextFavorite || favoriteFilter).focus();
       });
+      favorite.classList.add("desktop-favorite");
+      favorite.setAttribute("aria-label", favorites.has(selected.id)
+        ? "Remove favorite" : "Add favorite");
       favorite.setAttribute("aria-pressed", String(favorites.has(selected.id)));
       profile.replaceChildren(identity, element("h4", "", "About"),
         element("p", "", selected.about), button("Message in Teams", () => {
           openApp("teams");
         }), favorite);
+      profile.querySelector("button").prepend(sprite("task-teams"));
     }
     function refresh() {
-      all.setAttribute("aria-pressed", String(!onlyFavorites));
+      list.classList.remove("desktop-groups");
+      all.setAttribute("aria-pressed", String(!onlyFavorites && !group));
       favoriteFilter.setAttribute("aria-pressed", String(onlyFavorites));
-      const people = findPeople(search.value, onlyFavorites ? favorites : null);
+      teams.setAttribute("aria-pressed", String(Boolean(group)));
+      locations.setAttribute("aria-pressed", "false");
+      const people = findPeople(search.value, onlyFavorites ? favorites : null)
+        .filter(person => !group || person.role === group);
       list.replaceChildren();
       if (!people.length) {
         list.append(element("p", "", "No matching people."));
@@ -225,14 +266,23 @@ export function createDesktop(onVisibilityChange) {
           refresh();
           list.querySelector('[aria-pressed="true"]')?.focus();
         });
-        item.append(sprite(person.portrait), element("span", "", person.name));
+        item.append(sprite(person.thumbnail || person.portrait),
+          element("span", "", person.name));
         item.setAttribute("aria-pressed", String(person === selected));
         list.append(item);
       }
       showProfile();
     }
     search.addEventListener("input", refresh);
-    sidebar.append(search, all, favoriteFilter);
+    all.prepend(sprite("employees"));
+    favoriteFilter.prepend(sprite("favorites"));
+    teams.prepend(sprite("groups"));
+    locations.prepend(sprite("locations"));
+    const searchBox = element("label", "desktop-search");
+    const searchIcon = element("span", "desktop-search-icon");
+    searchIcon.setAttribute("aria-hidden", "true");
+    searchBox.append(searchIcon, search);
+    sidebar.append(searchBox, all, teams, locations, favoriteFilter);
     body.append(sidebar, list, profile);
     body.classList.add("directory-layout");
     refresh();
@@ -260,14 +310,20 @@ export function createDesktop(onVisibilityChange) {
 
   function renderTaskbar() {
     taskbar.replaceChildren();
-    taskbar.append(button("◇ Desktop", closeWindow));
-    for (const [id, label] of Object.entries(APPS)) {
+    const launcher = button("", closeWindow, "desktop-launcher");
+    launcher.setAttribute("aria-label", "Show desktop");
+    launcher.append(sprite("launcher"));
+    taskbar.append(launcher);
+    for (const id of ["mail", "teams", "directory"]) {
+      const label = id === "directory" ? "Directory" : APPS[id];
       const tab = button("", () => openApp(id));
       tab.setAttribute("aria-label", label);
-      tab.append(sprite(ICONS[id]), element("span", "", label));
+      tab.append(sprite(`task-${id}`), element("span", "", label));
       tab.setAttribute("aria-pressed", String(active === id && !window.hidden));
       taskbar.append(tab);
     }
+    const sound = sprite("sound", "desktop-sound");
+    taskbar.append(sound);
     taskbar.append(button("Back to office ↗",
       () => desktop.close(), "desktop-exit"));
     const clock = element("time", "desktop-clock");
@@ -287,11 +343,12 @@ export function createDesktop(onVisibilityChange) {
   for (const [id, label] of Object.entries(APPS)) {
     const shortcut = button("", () => openApp(id));
     shortcut.dataset.app = id;
-    shortcut.append(sprite(ICONS[id]),
+    shortcut.append(sprite(id),
       element("span", "", id === "directory" ? "Directory" : label));
     shortcuts.append(shortcut);
   }
-  desktop.append(shortcuts, window, status, taskbar);
+  canvas.append(shortcuts, window, status, taskbar);
+  desktop.append(canvas);
   document.body.append(desktop);
   desktop.addEventListener("close", () => {
     clearInterval(clockTimer);

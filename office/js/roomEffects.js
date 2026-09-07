@@ -94,6 +94,23 @@ function waterEffect(water) {
   return group;
 }
 
+function steamEffect(steam) {
+  const group = svgElement("g", {
+    transform: `translate(${steam.x} ${steam.y})`,
+    "data-pickup-effect": steam.pickupId,
+  });
+  for (const [x, delay] of [[-7, 0], [0, -1.6], [7, -3.2]]) {
+    const wisp = svgElement("g", { transform: `translate(${x} 0)` });
+    wisp.append(svgElement("path", {
+      class: "coffee-steam",
+      d: "M0 0 L0 -4 L2 -7 L2 -11 L-1 -14 L-1 -18 L1 -21",
+      style: `animation-delay:${delay}s`,
+    }));
+    group.append(wisp);
+  }
+  return group;
+}
+
 export function createRoomEffects(effects) {
   const group = svgElement("g", {
     class: "ambient-effects", "aria-hidden": "true",
@@ -109,5 +126,6 @@ export function createRoomEffects(effects) {
   if (effects.window) group.append(windowEffect(effects.window));
   if (effects.screen) group.append(screenEffect(effects.screen));
   if (effects.water) group.append(waterEffect(effects.water));
+  if (effects.steam) group.append(steamEffect(effects.steam));
   return group;
 }

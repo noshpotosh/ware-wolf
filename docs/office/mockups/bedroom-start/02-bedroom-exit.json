@@ -1,0 +1,38 @@
+{
+  "status": "Approved by Nosh and integrated as the starting bedroom room",
+  "provider": "OpenAI built-in imagegen",
+  "referenceCatalogVersion": 1,
+  "references": [
+    "docs/office/mockups/bedroom-start/01-bedroom-office.png",
+    "office/assets/rooms/founders-office-background.png"
+  ],
+  "prompt": "Revise this bedroom office mockup, preserving its precise pixel-painted art style, warm walnut cream sage palette, isometric camera, visible pixel density, lighting, complete floor underside, and black surrounding void. Image 1 is the edit target. Image 2 is the original approved style anchor, only for rendering consistency.\nFix the floor plan: separate desk/work area from sleeping area. Keep the recognizable desk and beige CRT beneath the window on the left wall. Relocate the bed into the far right part of the room, rotate/reposition it so its headboard sits flush against the right/back wall, with its foot projecting toward the open foreground. Put the small nightstand beside the bed's head, against that same wall, on the bed's right side. Do not put the nightstand in the gap between desk and bed. Leave a clearly visible open floor gap between the desk/chair workspace and the bed. Maintain plausible single-bed size and desk proportions. Rearrange boxes, basket, books and shoes around sleeping area without blocking movement.\nAdd ONE clearly visible closed residential wooden door in the LEFT wall at the near/front end, left of the window and desk. It must be painted flush into the wall with consistent isometric perspective, a full visible frame, discernible brass handle on the latch side, threshold and open floor landing. Keep ALL of the door visible: no plant, chair, desk or clutter overlapping its silhouette. Relocate plant if needed. The door is the future clickable exit, so give it a clean readable silhouette and plausible human size in relation to bed/desk. It is a real residential bedroom door, not a free-standing portal, no glowing marker or UI. If needed modestly extend the left wall/floor footprint to fit the door and window/workspace naturally; keep room compact and home-like. Warm sun still comes from window.\nNo people, text, labels, arrows, UI or drawn paths. One complete polished standalone room mockup, wide approximately 2:1 image, all room edges and floor thickness inside canvas with black margins. Change layout and add door only; do not introduce a new art style or overfill the room.",
+  "output": "docs/office/mockups/bedroom-start/02-bedroom-exit.png",
+  "review": "Visible clear door on left wall; sleeping zone separated from desk; warm pixel finish retained. Nightstand is on bed's left rather than requested right but remains separated from desk. Room footprint has expanded; foreground floor edge is less regular than original. Mockup only, runtime hotspot and sizing review pending.",
+  "imageMetadata": [
+    {
+      "path": "docs/office/mockups/bedroom-start/01-bedroom-office.png",
+      "sha256": "5b98ac6a49ee2f5d1fc50f0fad1bd4a981336db536a75b9699fdc8cd43b7a3af",
+      "size": [
+        1774,
+        887
+      ]
+    },
+    {
+      "path": "office/assets/rooms/founders-office-background.png",
+      "sha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+      "size": [
+        1774,
+        887
+      ]
+    },
+    {
+      "path": "docs/office/mockups/bedroom-start/02-bedroom-exit.png",
+      "sha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc",
+      "size": [
+        1774,
+        887
+      ]
+    }
+  ]
+}

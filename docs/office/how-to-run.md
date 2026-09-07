@@ -1,6 +1,6 @@
 # Office — How to run
 
-The painted point-and-click office is the main room system under
+The bedroom office is the starting painted point-and-click room and is the main room system under
 [ADR 014](../decisions/014-painted-room-point-and-click.md).
 Serve the folder over HTTP; opening `index.html` with `file://` cannot reliably
 load ES modules and room JSON.
@@ -42,8 +42,10 @@ Browser acceptance:
 - Resize the window: the whole image, hotspots, and lighting stay aligned.
 - Collect/return the mug, leave/return, and reload to check inventory state.
 - Check the empty patch only changes the mug area.
-- Check CRT effects and cooler bubbles stay on their painted surfaces.
-- Check the plant stays static in the original background.
+- Check CRT and window illumination stay on their painted surfaces.
+- Check the plant stays static in the background.
+- Click or keyboard-activate the door, then return; the mug state persists.
+- The bed is scenery: no hover feedback, keyboard stop, or click action.
 - Confirm local time matches the computer clock. Open Journal and Menu,
   then close them with Escape; verify focus returns to the opening button.
 - Check inspection, hidden tabs, and reduced-motion preferences pause or

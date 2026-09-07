@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "pathBase": "repository root",
   "policy": "These references are scoped anchors selected from the accepted direction. Candidates do not become anchors automatically. Change an anchor only after Nosh selects the new direction; increment the catalog version and record why.",
   "references": [
@@ -42,6 +42,16 @@
         941
       ],
       "scope": "Dialogue panel and nameplate treatment only; not inventory layout or clock behavior."
+    },
+    {
+      "id": "starting-bedroom",
+      "path": "office/assets/rooms/founders-bedroom-v1.png",
+      "sha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc",
+      "size": [
+        1774,
+        887
+      ],
+      "scope": "Approved starting-room composition and bedroom object identities; original founder-room remains style anchor."
     }
   ],
   "shellLayout": {
@@ -50,5 +60,6 @@
       "office/index.html",
       "office/css/pointAndClick.css"
     ]
-  }
+  },
+  "changeReason": "Nosh selected bedroom-exit mockup as starting room; original office remains rendering-style authority."
 }

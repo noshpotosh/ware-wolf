@@ -1,0 +1,19 @@
+{
+  "status": "Exploration only; not integrated or promoted to style anchor",
+  "provider": "OpenAI built-in imagegen",
+  "referenceCatalogVersion": 1,
+  "reference": "office/assets/rooms/founders-office-background.png",
+  "prompt": "Use case: stylized-concept. Create ONE complete room mockup for a pixel-painted point-and-click adventure.\nReference image A is the APPROVED founder office and the strict visual style authority. Match its exact pixel-painted rendering language, deliberate visible pixel clusters, stepped dark silhouette edges, texture density, warm walnut / cream plaster / sage palette, camera elevation and isometric wall slopes, furniture scale, warm sunlight from left window, architectural wall-cap thickness and textured floor underside. This is a different room in THE SAME GAME, not a style reinterpretation.\nAllowed change: reimagine the first founder office as a small messy bedroom in someone's house, where an aspiring founder has squeezed a startup workspace into their living space. Charming, lived-in and humble, hopeful rather than filthy. One narrow unmade single bed along the right wall with rumpled sage blanket and cream pillow; small secondhand bedside cabinet; a laundry basket with a couple clothes draped over it; two cardboard moving/storage boxes, a few books and loose papers, one pair of shoes. Restrained intentional clutter with clear object silhouettes and open floor patches, not a junk-filled room. Replace corporate water cooler with bedroom storage. Keep the recognizable walnut desk, chunky beige CRT with green lit screen, beige keyboard, green mug, and worn dark office chair at the left under the familiar window blinds. A modest plant and worn little rug tie back to the reference. Home workspace is the focal point, bed clearly establishes this is a bedroom.\nComposition: standalone complete isometric cutaway room on plain black void, two back walls and open front, generous margins around entire room including all floor thickness. Match reference wide 2:1 canvas, target 1774x887. No human character, no UI, no text, no labels, no watermark. No new art style, no 3D/clay, no smooth cel/vector, no photorealism, no soft painterly brushwork. Preserve reference's pixel density and grounded lighting; do not make pixel blocks coarser. Deliver a single polished room illustration.",
+  "output": "docs/office/mockups/bedroom-start/01-bedroom-office.png",
+  "review": "Compared visually with approved room: warm pixel-painted finish, window direction, familiar CRT/desk/mug, full floor underside and cutaway camera retained. Bedroom and domestic clutter read clearly. New furniture proportions and layout differ intentionally. Native render inspected; runtime sizing and interactions not tested because this is a mockup only.",
+  "referenceSha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+  "referenceSize": [
+    1774,
+    887
+  ],
+  "outputSha256": "5b98ac6a49ee2f5d1fc50f0fad1bd4a981336db536a75b9699fdc8cd43b7a3af",
+  "outputSize": [
+    1774,
+    887
+  ]
+}

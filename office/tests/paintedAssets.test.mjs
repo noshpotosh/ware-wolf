@@ -10,6 +10,8 @@ const PNG_HEIGHT_OFFSET = 20;
 const PROVENANCE_PATHS = [
   "art-source/founders-office-background.json",
   "art-source/founders-office-empty-desk.json",
+  "art-source/founders-bedroom-v1.json",
+  "art-source/founders-bedroom-empty-desk-v1.json",
 ];
 const read = (path) => readFile(new URL(path, OFFICE_ROOT));
 const readJson = async (path) => JSON.parse(await read(path));
@@ -45,6 +47,11 @@ test("pickup patches use a verified matching room state", async () => {
     assert.ok([x, y, width, height].every(Number.isFinite));
     assert.ok(x >= 0 && y >= 0 && width > 0 && height > 0);
     assert.ok(x + width <= room.width && y + height <= room.height);
+    assert.ok(pickup.maskPoints.length >= 3);
+    for (const [px, py] of pickup.maskPoints) {
+      assert.ok(px >= x && px <= x + width);
+      assert.ok(py >= y && py <= y + height);
+    }
   }
 });
 
@@ -60,6 +67,8 @@ test("painted entry dependencies exist without the retired raster kit",
   });
 
 async function checkLocalReferences(url, visited) {
+  url = new URL(url);
+  url.search = "";
   if (visited.has(url.href)) return;
   assert.ok(url.href.startsWith(OFFICE_ROOT.href));
   visited.add(url.href);
