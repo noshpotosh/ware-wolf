@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "source": "assets/reference/style-explorations/01-evolved-pixel.png",
+  "sourceSha256": "fb3d97be0e517ebe156f69dd1f058bd072c4492a8bf6aadc5f62a677eedce739",
+  "runtime": "assets/rooms/founders-office-background.png",
+  "runtimeSha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+  "provider": "OpenAI built-in image_gen",
+  "editType": "precise-object-edit",
+  "size": [
+    1774,
+    887
+  ],
+  "prompt": "Remove ONLY the standing human character in the orange jacket on the right and his floor shadow. Fill that small region with the continuation of the existing beige plaster wall, brown baseboard, and wooden floor boards. Preserve the entire rest of the image exactly: same composition, dimensions and aspect ratio, camera, pixel art style, colors, textures, plant, window, desk, CRT computer, mug, keyboard, empty chair, rug, water cooler and black exterior background. Do not redraw or move furniture or change lighting. This is a single static game background, without characters, lettering or added UI. Retain the original concept art faithfully.",
+  "review": "Visually accepted character removal; generated edit, not a pixel-exact inpainting guarantee. Accepted PNG copied without export transforms. Hotspots traced independently over that exact image.",
+  "silhouetteTrace": {
+    "target": "data/founders-office-adventure.json#silhouette",
+    "method": "Per-row outer colored-pixel extents in x=240..1534; RGB maximum >=24 and channel range >=8; retain 2px left and 2px right padding; preserve horizontal/vertical steps, remove collinear vertices. Interior pixels are never color-keyed.",
+    "review": "Browser reviewed: full front and right floor thickness retained, no straight diagonal truncation. This is a vector exterior clip; runtime PNG bytes unchanged."
+  }
+}

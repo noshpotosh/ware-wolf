@@ -1,2 +1,6 @@
 # Godot local editor cache — do not commit.
 .godot/
+
+# Local Python export/test caches.
+__pycache__/
+*.pyc

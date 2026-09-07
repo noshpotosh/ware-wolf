@@ -1,0 +1,204 @@
+{
+  "version": 1,
+  "filter": "Point",
+  "assets": [
+    {
+      "id": "desk",
+      "source": "desk-bare.png",
+      "edge_matte_removed": false,
+      "source_sha256": "6b1e2a7c4f06b15b13fc279aa9673e93a3e99376ce0685777a8401058a89eb5c",
+      "output_sha256": "c478bc0ad53e8d4031793803ea9831df43162e879c56828e7aba8c56dcbd08c6",
+      "size": [
+        256,
+        174
+      ]
+    },
+    {
+      "id": "chair",
+      "source": "chair.png",
+      "edge_matte_removed": true,
+      "source_sha256": "79503213679a016d16c653ba12757b1792044aede13970dd4452827a3724416c",
+      "output_sha256": "8a7cfde063e361ecf56be4734cda3abc1dd339aec5f16fa69750d3c3c1f63360",
+      "size": [
+        112,
+        144
+      ]
+    },
+    {
+      "id": "plant",
+      "source": "plant.png",
+      "edge_matte_removed": true,
+      "source_sha256": "659e3b67695af1f32243ccbfb6b06faa2ea11c8da2d3c2ce380e56907ec45935",
+      "output_sha256": "2bb6eadce4717cab17c84db76612069487b3a6e127cca5a3c7a50be7fa11d013",
+      "size": [
+        112,
+        150
+      ]
+    },
+    {
+      "id": "water-cooler",
+      "source": "water-cooler.png",
+      "edge_matte_removed": true,
+      "source_sha256": "03f12ab26f4fc9a3e28bd097589c5265f2fe70a81baec20999cae7ed6bc34e8a",
+      "output_sha256": "f89e5903559d6b52191c64b6090706e71103de2bc7ca97438e018b552b0f3232",
+      "size": [
+        80,
+        172
+      ]
+    },
+    {
+      "id": "founder",
+      "source": "founder.png",
+      "edge_matte_removed": false,
+      "source_sha256": "71fccb8a0f2982217852f99a7e9a1d4be561c4a544d65a606a187bf15dad33d6",
+      "output_sha256": "79af1354d8c19a2ae7f0c7254674ff507b3bb58a471a191f36c5afce462f462a",
+      "size": [
+        66,
+        190
+      ]
+    },
+    {
+      "id": "window",
+      "source": "window.png",
+      "edge_matte_removed": false,
+      "source_sha256": "7e3cb87903305b9b107d77eac952b665a3a04e719a9c87382fe231b511f1f408",
+      "output_sha256": "1f7fbb0e043638019b2039400754a27a6c50f86d568f5acc87b80a0c964b56a7",
+      "size": [
+        128,
+        108
+      ]
+    },
+    {
+      "id": "walnut",
+      "source": "walnut.png",
+      "edge_matte_removed": false,
+      "source_sha256": "995e5ab17e791010f434f6c2c81d19f9763c1b7403a9a9fe9d1441d06a1da5ef",
+      "output_sha256": "322db89afa2ded4a569b83dc4b63ae1ff1d53a4301aac34875625968e1157acd",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "plaster",
+      "source": "plaster.png",
+      "edge_matte_removed": false,
+      "source_sha256": "fe8c88a37f1956dc9d2ad656098b2de10af0eb00aa6a39ec24cc1ffc5705bb0b",
+      "output_sha256": "78e50d16f3f446dddffd21c9f92fc91a696c990d1224894f12743698e9bbe13a",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "rug",
+      "source": "rug.png",
+      "edge_matte_removed": false,
+      "source_sha256": "9b51652bad05e6c21f123b9902e32585389c91d077f138e830c2bb548e77a504",
+      "output_sha256": "4ef6634df04d02d490caeab6b9b30be042e75ccb98dd31229a418c3bccb82afc",
+      "size": [
+        256,
+        128
+      ]
+    },
+    {
+      "id": "computer",
+      "source": "computer.png",
+      "edge_matte_removed": false,
+      "source_sha256": "347a6bf1ed907f1073fd3f5c5835e92fd378a0f4a15f575957c4cea2b7433078",
+      "output_sha256": "dafdbee6b9c49202c519ba09783c8c484be27c92cbbb277f3854b4eed7976ab2",
+      "size": [
+        90,
+        96
+      ]
+    },
+    {
+      "id": "keyboard",
+      "source": "keyboard.png",
+      "edge_matte_removed": false,
+      "source_sha256": "897cb3c80e6e5e96d384152bebb730c5e1bdee5fddbaae70702a84aef9f8da22",
+      "output_sha256": "22fac9e05c724dbf8deb1757c2e7f45fad16ff0a138d0bc0b4fe65a9d1d67265",
+      "size": [
+        82,
+        36
+      ]
+    },
+    {
+      "id": "coffee-cup",
+      "source": "coffee-cup.png",
+      "edge_matte_removed": false,
+      "source_sha256": "436d42b8f2317076347fbc8584e20236c0382a3849b5d5da05b250b1e961cf3a",
+      "output_sha256": "8d99d56ed57bc01d24395ac40ae4880ad6de6e2aaff368a67e3a241bedc3fc42",
+      "size": [
+        32,
+        30
+      ]
+    },
+    {
+      "id": "door-timber",
+      "source": "door-timber.png",
+      "edge_matte_removed": false,
+      "source_sha256": "69602e5f68b56b41319cf6a2f0a1a0a028f4882a1c2925f8b6d28bb845412a2c",
+      "output_sha256": "bf429d29a0184d94ab3a6e14302c33c5787c2edae7d64869615d00bc60ee9f1c",
+      "size": [
+        104,
+        170
+      ]
+    },
+    {
+      "id": "wall-landscape",
+      "source": "wall-landscape.png",
+      "edge_matte_removed": false,
+      "source_sha256": "11bb114700171769e5aa625e72d100f10d17b185c5542593d83a68389a05cb04",
+      "output_sha256": "eb43e891be0c4dc9db5d76f73508e654e255737989d813fc22cd24dfa605baba",
+      "size": [
+        100,
+        88
+      ]
+    },
+    {
+      "id": "wall-shelf-books",
+      "source": "wall-shelf-books.png",
+      "edge_matte_removed": false,
+      "source_sha256": "9c093b67e947a154839900991675ea39e3de11de7ab278e60a241035d89fb1c0",
+      "output_sha256": "fd15d5b89b47554809ae7f81143c6185730497ca6255e1b8bee6f88553e4bdc8",
+      "size": [
+        140,
+        100
+      ]
+    },
+    {
+      "id": "desk-lamp",
+      "source": "desk-lamp.png",
+      "edge_matte_removed": false,
+      "source_sha256": "6576495e8305cd45005124ad0b98f3384a6a5c43ca49f83d9accb52fe8b48a67",
+      "output_sha256": "27a4a775f0d12bbbb0f6f09b401e0ccfa4c6ed4c218cf0029b2b56365c1461f3",
+      "size": [
+        48,
+        78
+      ]
+    },
+    {
+      "id": "coffee-cabinet",
+      "source": "coffee-cabinet.png",
+      "edge_matte_removed": false,
+      "source_sha256": "d1fa2cbc5edbe0bc79e44fc1d6ae22e78b875909350bcac245668c723b0554de",
+      "output_sha256": "98584aad969be7dd838f7d2796752b461c2ccfe2224d946e418b425575ebd6d1",
+      "size": [
+        170,
+        182
+      ]
+    },
+    {
+      "id": "whiteboard",
+      "source": "whiteboard.png",
+      "edge_matte_removed": false,
+      "source_sha256": "28e3a035b9abd5e9de7f7854a8756d07ca126908a9aee7bb178689e9359f6f28",
+      "output_sha256": "ba89a052391fd4802b933b852a72a323b904724e866739e5f0313d659e5ac3ad",
+      "size": [
+        156,
+        108
+      ]
+    }
+  ]
+}

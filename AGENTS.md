@@ -25,6 +25,12 @@ Before substantive work in this repository:
 5. Read the relevant product or implementation docs linked from
    `docs/index.md` before changing that part of the project.
 
+For office art generation, animation, or integration, follow the shared
+[art contract](docs/office/art-direction.md),
+[pipeline](docs/office/asset-pipeline.md), and
+[prompt templates](docs/office/art-prompts.md). Open the actual approved
+references in `office/art-source/style-reference.json` before art work.
+
 ## Use the shared crew
 
 The canonical agent definitions live in `.cursor/agents/`. Cursor loads those

@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://dp3vexispc15n"]
 
-[ext_resource type="Texture2D" path="res://assets/characters/nosh-motion.png" id="NoshSheet"]
+[ext_resource type="Texture2D" uid="uid://4lp7n3c0f5fe" path="res://assets/characters/nosh-motion.png" id="NoshSheet"]
 
 [sub_resource type="AtlasTexture" id="NoshFrame0"]
 atlas = ExtResource("NoshSheet")

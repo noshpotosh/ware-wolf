@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="OfficePropArt" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/office/prop_art.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/office/rug.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"rug"
+display_name = "Sage woven rug"
+texture = ExtResource("2")
+draw_size = Vector2(256, 128)
+ground_anchor = Vector2(0.5, 0.5)
+footprint = Vector2(2.4, 1.4)
+floor_decoration = true
+casts_shadow = false

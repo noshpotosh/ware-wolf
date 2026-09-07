@@ -1,6 +1,9 @@
 # Warewolf AI studio game plan
 
-**Status:** Implementation plan under [ADR 008][product-contract]
+**Status:** Historical implementation plan. The gameplay systems described
+here were removed from `office/` when Nosh reset development to the single
+painted founder’s office under [ADR 014](decisions/014-painted-room-point-and-click.md).
+This is not the current implementation backlog.
 
 **Date:** 2026-09-06
 

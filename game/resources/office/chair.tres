@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="OfficePropArt" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/office/prop_art.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/office/chair.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"chair"
+display_name = "Task chair"
+texture = ExtResource("2")
+draw_size = Vector2(112, 144)
+ground_anchor = Vector2(0.5, 0.92)
+footprint = Vector2(0.8, 0.8)
+floor_decoration = false
+casts_shadow = true

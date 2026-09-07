@@ -1,141 +1,104 @@
-# Virtual Office — Art Direction (v1)
+# Office — Painted-room art direction
 
-**Owner:** Maeve Quinn  
-**Status:** Draft lock for Phase 0  
-**Date:** 2026-09-05
+**Status:** Main room system
+**Decision:** [ADR 014](../decisions/014-painted-room-point-and-click.md)
 
-### Reference mocks (Phase 0)
+The accepted room painting owns composition, perspective, materials, and
+lighting. The founder’s office keeps warm timber, beige plaster, sage
+accents, and restrained CRT green. Preserve the evolved-pixel finish and
+readable silhouettes. Critical text belongs in accessible HTML.
 
-| Mock | Path | Role |
-| --- | --- | --- |
-| Starter loft (wrong cast names) | [`starter-office-hero-mock.png`](../../office/assets/reference/starter-office-hero-mock.png) | Original kit/style lock — **Mara/Jory/etc. are wrong**; do not perpetuate those names |
-| Starter loft + real pack | [`starter-office-hero-crew-mock.png`](../../office/assets/reference/starter-office-hero-crew-mock.png) | **Correct-cast lock** — Nosh, Fabrizio, Maeve, Dex, Cal, Reed at starter (~10×8) scale |
-| Pack Loft | [`pack-office-hero-mock.png`](../../office/assets/reference/pack-office-hero-mock.png) | Bigger loft (~12×10 feel), same kit language + real crew |
-| Decor upgrades sheet | [`office-decor-upgrades-sheet.png`](../../office/assets/reference/office-decor-upgrades-sheet.png) | Labeled before/after for catalog upgrades only (`desk-plants`, `desk-lamps`, `better-chairs`, `amber-neon`) |
-| Crew outfit lineup | [`crew-outfit-lineup-mock.png`](../../office/assets/reference/crew-outfit-lineup-mock.png) | Silhouette-first outfit cues at loft-readable scale |
-| Crew portraits sheet | [`crew-portraits-sheet.png`](../../office/assets/reference/crew-portraits-sheet.png) | Directory headshot lock — naming targets `characters/<id>-portrait.png` later |
-| Desk desktop OS | [`desk-desktop-os-mock.png`](../../office/assets/reference/desk-desktop-os-mock.png) | Fake OS chrome lock |
+The source reference is
+`office/assets/reference/style-explorations/01-evolved-pixel.png`.
+The runtime background is `office/assets/rooms/founders-office-background.png`:
+the accepted edit with the standing founder removed. Preserve its 1774×887
+canvas and aspect ratio. Render the whole composition, fitting image,
+hotspots, and effects together in the same image-coordinate space.
 
-Reference mocks stay under `office/assets/reference/` until playtest says the kit holds. Not runtime sprites.
+Hit polygons trace selectable objects in that exact painting. Separate,
+more detailed outline paths supply visible feedback, including the opening
+in the mug handle. Pointer hover and keyboard
+focus give warm silhouette feedback; inspect and pickup actions use stable
+IDs. Highlights are drawn overlays, not separately generated furniture.
+Changes to a hotspot must be checked at native size and smaller viewports.
 
-### Implementation cut sheets (loft scale)
+Localized SVG/CSS effects follow painted surfaces. They must ignore pointer
+input, pause when inspection or page visibility requires it, and respect
+reduced motion. A small amount of amber light is enough; keep the room
+readable while the artwork carries the detail. The plant remains static
+in the accepted background. The shell uses an illustrated transparent founder
+portrait with local-time status text. Its provenance is in `office/art-source/nosh-portrait.json`.
 
-Labeled atlas guides at **1× loft px** — Dex cuts pipeline PNGs from these, not from room mood boards:
+The mug’s removed state uses
+`office/assets/rooms/founders-office-empty-desk.png`. Reveal only its defined
+pickup patch, preserving the accepted background everywhere else. A new
+painted state needs matching framing, recorded provenance, and visual review.
+An AI edit is not a guarantee that unrelated pixels stayed identical.
 
-- [`sheets/tile-atlas-sheet.png`](../../office/assets/reference/sheets/tile-atlas-sheet.png) — carpet / island / wood diamonds + 64×32 rulers
-- [`sheets/furniture-kit-sheet.png`](../../office/assets/reference/sheets/furniture-kit-sheet.png) — desk kit, bubbler, coffee, whiteboard
-- [`sheets/character-sprites-sheet.png`](../../office/assets/reference/sheets/character-sprites-sheet.png) — crew idle (+ Nosh walk) at 48–64 px
-- [`sheets/upgrade-overlays-sheet.png`](../../office/assets/reference/sheets/upgrade-overlays-sheet.png) — catalog overlays only
+Separate generated furniture, tiled floor assembly, atlas cut sheets, and
+walking are retired from the main room workflow. The 128px prop canvas and
+isometric grid rules describe earlier prototypes; they do not govern painted
+room images. The old office raster kit has been archived and removed.
+Godot’s independent assets remain in `game/`.
 
-Still reference-only (not loaded by the game). Contracts: 2:1 iso,
-tile diamond **128×64** (ADR 010; mocks still show 64×32 rulers),
-props **128×128**, characters ~96–128 px tall once regenerated,
-1px ink `#1A1714`, pipeline filenames as labels.
+See [asset pipeline](asset-pipeline.md) for the retained files and provenance,
+and [how to run](how-to-run.md) for acceptance checks.
 
-## The vibe
+## Consistency contract for every agent
 
-Cozy isometric pixel office — warm, readable, a little lived-in. Not cyberpunk, not purple SaaS glow, not photoreal 3D. Think “tiny company that actually works here,” not a diorama flex.
+Read this document, [the pipeline](asset-pipeline.md), and
+[the prompt templates](art-prompts.md) before generating or integrating art.
+The approved reference catalog is `office/art-source/style-reference.json`.
+Open the actual reference images; filenames and prose are not substitutes.
 
-Villain we’re defeating: sterile empty offices and unreadable clutter.
+### Reference hierarchy
 
-## Palette (named constants later in CSS)
+1. The accepted founder-room background is the primary environment anchor.
+2. The accepted Nosh portrait anchors character rendering and his identity.
+3. The classic-adventure mockup anchors only its crisp computer highlight.
+   The visual-novel mockup anchors only its dialogue/nameplate treatment.
+4. The current implemented shell governs layout: compact inventory, detached circular portrait at the padded left
+   screen edge, vertically centered with the inventory bar,
+   Journal/Menu, local clock, and textured olive-charcoal void. Health and
+   stamina arcs frame the portrait; currently both are static full previews.
+   Mockup clocks, extra controls, and overflowing inventory portraits are not
+   requirements. The dialogue portrait may extend above its speech panel.
 
-| Token | Hex | Use |
-| --- | --- | --- |
-| `ink` | `#1A1714` | Outlines, text, taskbar |
-| `bone` | `#F4EFE6` | Walls, desktop wallpaper base |
-| `amber` | `#D97706` | Accents, CRT glow, Warewolf signal |
-| `sage` | `#6B8F71` | Soft secondary (plants, UI success) |
-| `clay` | `#C4A484` | Wood desks, trim |
-| `carpet` | `#C9B8A6` | Floor field |
-| `crt-green` | `#86EFAC` | Optional screen glow (sparse) |
+Use the original approved anchor on every generation. A newly generated
+variant is not automatically a reference for the next variant. This prevents
+small deviations from accumulating across rooms. Explorations stay outside
+runtime assets and never silently redefine the style.
 
-No purple gradients. No glassmorphism. Amber is the brand spark — use it like salt.
+### Visual invariants
 
-## Camera + grid
+- Pixel-painted finish: deliberate pixel clusters and stepped edges, detailed
+  but controlled material texture. No smooth vector/cel rendering, 3D clay,
+  painterly gouache, noisy sharpening, or automatic palette reduction.
+- Match the anchor’s fixed isometric camera, visible wall faces, furniture
+  scale, and thickness of wall caps and floor sides. New rooms can differ in
+  dimensions and contents; they must feel photographed by the same camera.
+- Warm walnut, cream plaster, restrained sage and brass; readable dark ink
+  edges. Preserve material contrast rather than tinting everything amber.
+- Window light and local CRT illumination have identifiable sources. New
+  lighting scenarios are deliberate variants, not accidental color shifts.
+- Repeated objects retain design, proportions, material, and relative scale.
+  Attach the accepted object’s room reference alongside the main style anchor.
+- Character variants preserve face, hair, clothing, proportions, and pixel
+  treatment unless the brief explicitly changes one of those attributes.
+- UI stays code-native except illustrated portraits/items. Fine brass frames,
+  olive inset surfaces, readable cream text, and quiet texture support the
+  room. Critical text and interaction labels never depend on generated text.
 
-- **Projection:** classic 2:1 isometric
-- **Base tile:** **128×64** px diamond (locked — [ADR 010](../decisions/010-128px-world-art-standard.md)). Older mocks use 64×32 rulers; treat those as half-scale guides.
-- **Props:** **128×128** canvases for furniture / interactables
-- **Character height:** ~96–128 px tall at room scale (current Nosh sheet is temporarily ×2 until regen)
-- **Room fit:** entire starter office visible without pan on a 1280×720 viewport (camera zoom, not downscaled art)
+### Known failures to avoid
 
-## Floor kit
+The rejected plant displacement warped the painting; do not revive it as a
+cheap animation shortcut. The coarse room boundary clipped the floor; trace
+its complete silhouette including the full underside. Heavy orange strokes
+and blurred halos lost the preferred computer highlight’s crisp edge.
+Separate generated furniture kits and chained style variants caused drift.
+These are documented failure modes, not alternate approved approaches.
 
-- Warm wood plank border
-- Soft carpet field (not busy pattern)
-- Walkable aisles between desks — pathing must stay obvious
-
-## Desk kit (every human gets one)
-
-Each desk includes:
-
-1. Desk surface (clay wood)
-2. Chair
-3. Computer (laptop or chunky CRT — pick one kit and stay consistent for v1)
-4. Nameplate space (readable at scale; can be UI overlay if pixel text fails)
-5. Small personal prop slot (plant, mug, sticky notes) for upgrades later
-
-**Nosh’s desk** is visually marked (slightly different mat/monitor sticker) so the “my PC” hotspot is obvious.
-
-## Characters
-
-| Person | Read cue (v1) |
-| --- | --- |
-| Nosh | Distinct jacket/color; player-readable at a glance |
-| Fabrizio | Grounded co-founder energy |
-| Maeve | Design-lead silhouette (sharp, a little glam) |
-| Dex | Builder — practical |
-| Cal | Verifier — sharper posture |
-| Reed | Editor — calmer posture |
-
-Keep faces simple. Silhouette > detail. Idle bob optional later.
-
-## Living interactables (v1)
-
-**Required:** bubbler / water cooler — Nosh can drink; NPCs sometimes walk up.
-
-**Phase 8 loft life:** coffee station + whiteboard (E to sip / read rotating scribbles).
-
-Later candidates: plant to water, couch.
-
-## Desktop OS chrome
-
-Fake OS when Nosh uses their PC:
-
-- Bone wallpaper, subtle quiet pattern
-- Ink taskbar + amber accents
-- Chunky window chrome (readable titles)
-- Icons at launch: **Teams**, **Directory** only
-- Windows open/close/focus — one app focused at a time is fine for v1
-
-### Teams app
-
-- Sidebar roster with presence dots (Available / Away)
-- Chat thread + compose box backed by the agent message bus
-- Local persona replies now; remote Cursor provider later
-- Presence driven by desk occupancy
-
-### Employee Directory app
-
-- Scrollable list of all staff
-- Click → profile: avatar portrait, role, about, presence badge
-- Grows as we hire — data-driven from `staff.json`
-
-## Do / don’t
-
-**Do**
-
-- Warm, cozy, readable
-- One clear composition per view
-- Leave room for upgrades without redesigning the whole kit
-
-**Don’t**
-
-- Purple AI sludge
-- Tiny unreadable pixel text for critical UI (prefer HTML overlays for Directory/Teams text)
-- Clutter the hero room with vanity props
-
-## Sign-off
-
-Phase 0 visual lock candidate. Nosh + Fabrizio review mocks before Phase 1 renderer work.
+A style deviation requested by Nosh is an explicit exploration. Keep it
+separate until Nosh selects it as a new anchor. Routine matching work may
+proceed within the user’s existing authorization; this contract does not
+require repeated permission for every asset or code change.

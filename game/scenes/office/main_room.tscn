@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/office/office_view.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/office/main_office.tscn" id="2"]
+[ext_resource type="FontFile" path="res://assets/fonts/pixelify-sans.ttf" id="3"]
+
+[ext_resource type="Script" path="res://scripts/office/hover_picker.gd" id="4"]
+
+[node name="MainRoomSlice" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Room" parent="." instance=ExtResource("2")]
+
+[node name="HoverPicker" type="Node2D" parent="."]
+script = ExtResource("4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(96, 99)
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="Title" type="Label" parent="Overlay"]
+offset_left = 28.0
+offset_top = 20.0
+offset_right = 400.0
+offset_bottom = 52.0
+theme_override_colors/font_color = Color(0.9, 0.84, 0.72, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 24
+text = "MAIN OFFICE"
+
+[node name="Hint" type="Label" parent="Overlay"]
+offset_left = 28.0
+offset_top = 52.0
+offset_right = 500.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0.61, 0.61, 0.53, 1)
+theme_override_font_sizes/font_size = 13
+text = "Hover over computers   ·   F1 guides   ·   H hide labels   ·   Tab switch room"

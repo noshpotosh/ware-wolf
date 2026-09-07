@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "filter": "Point",
+  "assets": [
+    {
+      "id": "desk",
+      "size": [
+        256,
+        174
+      ],
+      "source": "desk-bare.png"
+    },
+    {
+      "id": "chair",
+      "size": [
+        112,
+        144
+      ],
+      "remove_edge_matte": true
+    },
+    {
+      "id": "plant",
+      "size": [
+        112,
+        150
+      ],
+      "remove_edge_matte": true
+    },
+    {
+      "id": "water-cooler",
+      "size": [
+        80,
+        172
+      ],
+      "remove_edge_matte": true
+    },
+    {
+      "id": "founder",
+      "size": [
+        66,
+        190
+      ]
+    },
+    {
+      "id": "window",
+      "size": [
+        128,
+        108
+      ]
+    },
+    {
+      "id": "walnut",
+      "size": [
+        128,
+        128
+      ],
+      "trim": false
+    },
+    {
+      "id": "plaster",
+      "size": [
+        128,
+        128
+      ],
+      "trim": false
+    },
+    {
+      "id": "rug",
+      "size": [
+        256,
+        128
+      ]
+    },
+    {
+      "id": "computer",
+      "size": [
+        90,
+        96
+      ]
+    },
+    {
+      "id": "keyboard",
+      "size": [
+        82,
+        36
+      ]
+    },
+    {
+      "id": "coffee-cup",
+      "size": [
+        32,
+        30
+      ]
+    },
+    {
+      "id": "door-timber",
+      "size": [
+        104,
+        170
+      ]
+    },
+    {
+      "id": "wall-landscape",
+      "size": [
+        100,
+        88
+      ]
+    },
+    {
+      "id": "wall-shelf-books",
+      "size": [
+        140,
+        100
+      ]
+    },
+    {
+      "id": "desk-lamp",
+      "size": [
+        48,
+        78
+      ]
+    },
+    {
+      "id": "coffee-cabinet",
+      "size": [
+        170,
+        182
+      ]
+    },
+    {
+      "id": "whiteboard",
+      "size": [
+        156,
+        108
+      ]
+    }
+  ]
+}

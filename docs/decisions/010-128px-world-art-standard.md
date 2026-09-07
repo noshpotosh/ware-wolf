@@ -4,6 +4,10 @@
 **Date:** 2026-09-06  
 **Deciders:** Nosh (call)
 
+**2026-09-07 amendment:** [ADR 013](013-founder-room-godot-restart.md)
+keeps the 128×64 grid but permits silhouette-sized prop exports for
+the new Godot founder-room slice.
+
 ## Decision
 
 1. **World art authoring size is 128.** Floor diamonds are

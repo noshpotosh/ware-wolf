@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "source": "assets/rooms/founders-office-background.png",
+  "sourceSha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+  "runtime": "assets/rooms/founders-office-empty-desk.png",
+  "runtimeSha256": "778fd33dc0c8a0b4c0e74fb4bc7171f8c65587ae7a4d4283c74a4a1a7b90c06f",
+  "provider": "OpenAI built-in image_gen",
+  "editType": "precise-object-removal",
+  "size": [
+    1774,
+    887
+  ],
+  "prompt": "Precise object removal edit of this exact image. Remove ONLY the small green coffee mug and its handle and its shadow from the desk to the right of the monitor. Reconstruct the wood desk grain underneath. Keep image dimensions 1774 by 887, all composition and camera and all other pixels as unchanged as possible. Do NOT remove or change the monitor, keyboard, chair, plant, rug, blinds, walls, water cooler or lighting. No added objects or people. This is a matching empty-desk state for a point-and-click game; the removed mug area is around x780-855,y267-342. Preserve the exact image framing and pixel-art finish.",
+  "review": "Generated edit copied without export transforms. Runtime reveals only the pickup.patch rectangle from this image, preserving original art elsewhere. Visually checked picked-up state in browser."
+}

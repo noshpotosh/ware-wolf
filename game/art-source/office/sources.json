@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "importedOn": "2026-09-07",
+  "reference": "office/assets/reference/style-explorations/01-evolved-pixel.png",
+  "copiedMasters": {
+    "desk": "office/assets/furniture/desk-evolved-hd.png",
+    "chair": "office/assets/furniture/chair-evolved-hd.png",
+    "plant": "office/assets/furniture/plant-evolved-hd.png",
+    "water-cooler": "office/assets/furniture/bubbler-evolved-hd.png",
+    "founder": "office/assets/characters/nosh-evolved-hd.png",
+    "window": "office/assets/furniture/window-evolved-flat.png"
+  },
+  "copiedMasterAttribution": "Earlier provider/job IDs were not recorded in the existing source kit.",
+  "generatedMasters": [
+    {
+      "id": "rug",
+      "provider": "PixelLab",
+      "model": "pro",
+      "jobId": "768b6c66-83b9-4ebe-b412-7a4ac7b08e9b",
+      "size": [
+        256,
+        128
+      ],
+      "prompt": "Single rectangular woven office rug, classic 2:1 isometric top-down view, wide axis slopes down-right, short axis slopes down-left, muted sage green border, warm beige tan center with simple large sage diamond motifs, subtle wool texture and neat small cream fringe on short ends. Clean consistent continuous pattern, cozy warm pixel art, crisp deliberate pixel clusters, dark warm thin outline, transparent background, no furniture, no floor, no text, no shadow outside rug. Entire rug visible centered on canvas."
+    },
+    {
+      "id": "walnut",
+      "provider": "PixelLab",
+      "model": "pro",
+      "jobId": "8fdbca78-e878-45d2-a489-6c7c81729d41",
+      "size": [
+        256,
+        256
+      ],
+      "prompt": "Seamlessly tileable full-bleed walnut wood floor material texture, flat orthographic top-down material swatch filling every pixel. Horizontal long planks of medium warm honey walnut, staggered end joints, delicate organic grain, subtle variations between boards, understated fine dark brown seams. Cozy detailed handcrafted pixel-art game texture with small crisp pixel clusters like an illustrated retro office, natural rich wood, no black outlines, no hatching, no stippling, no perspective, no isometric diamond, no frame, no objects, no lighting gradient. All four edges tile seamlessly."
+    },
+    {
+      "id": "plaster",
+      "provider": "PixelLab",
+      "model": "pro",
+      "jobId": "84f16676-c161-4017-9845-e2aa39051ade",
+      "size": [
+        256,
+        256
+      ],
+      "prompt": "Seamlessly tileable full-bleed warm ivory beige limewash plaster wall texture, softly mottled smooth pale warm cream with VERY subtle low-contrast organic cloudy pigment variation. Cozy illustrated pixel-art interior background material, quiet and warm, minimal texture with tiny deliberate pixel clusters, no dark dots or speckles, no stippling or hatching, no cracks or brick, no frame, no objects, no trim, no perspective, no lighting gradient, all edges seamlessly tile."
+    },
+    {
+      "id": "desk-bare",
+      "provider": "PixelLab",
+      "model": "edit",
+      "jobId": "9a52c0d7-3144-4209-8975-7cf94d661fc2",
+      "prompt": "Remove the CRT computer including its pedestal, keyboard, and green coffee mug completely. Reconstruct the uninterrupted clean wood desktop beneath them, matching existing grain and perspective. Keep ONLY the original empty wooden desk, preserving the exact desk silhouette, legs, drawers, size, position, perspective and pixel art. Transparent background. No white halo or bright edge matte. Leave newly empty canvas transparent."
+    },
+    {
+      "id": "keyboard",
+      "provider": "PixelLab",
+      "model": "edit",
+      "jobId": "06983be7-c9dc-460f-8987-cd61c2c5dbff",
+      "prompt": "Isolate ONLY the beige computer keyboard exactly as shown as a standalone movable game sprite. Remove computer, desk, mug and everything else. Preserve keyboard's exact perspective, size, position, keys and pixel style. Transparent background. No white fringe, no desk, floor or external shadow."
+    },
+    {
+      "id": "computer",
+      "provider": "PixelLab",
+      "model": "pro",
+      "jobId": "ee261203-2c81-4679-b5a1-e1bf8a2daa1b",
+      "prompt": "ONE standalone vintage cream beige CRT computer monitor with its pedestal base, green dark screen, left side visible, front faces down-right in classic 2:1 isometric perspective. Match the CRT in the reference, but output ONLY the computer. No desk, keyboard, mug, room, floor, shadows or other objects. Crisp cozy detailed pixel art, warm dark outlines, transparent background."
+    },
+    {
+      "id": "coffee-cup",
+      "provider": "PixelLab",
+      "model": "pro",
+      "jobId": "97320275-b215-4a7e-9dba-4c91789c76d6",
+      "prompt": "ONE standalone small sage green ceramic coffee mug with dark coffee visible from above and its handle on the right, classic 2:1 isometric perspective. Match the mug in the reference. Output ONLY mug, no computer, desk, keyboard, saucer, room, floor, shadows or other objects. Crisp cozy pixel art, clean warm dark outline, transparent background."
+    }
+  ],
+  "edgeCleanup": {
+    "assets": [
+      "chair",
+      "plant",
+      "water-cooler"
+    ],
+    "method": "Export removes nearly neutral pale silhouette pixels adjacent to transparency; interior highlights unchanged."
+  }
+}

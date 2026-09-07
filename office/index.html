@@ -1,238 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1"
-    />
-    <title>Warewolf Virtual Office</title>
-    <link rel="stylesheet" href="css/office.css?v=desk2" />
-    <link rel="stylesheet" href="css/desktopOs.css?v=mock2" />
-    <link rel="stylesheet" href="css/vnPanel.css?v=vn1" />
-  </head>
-  <body>
-    <main class="stage" id="office-stage">
-      <header class="loft-chrome">
-        <h1 class="office-title">Warewolf · Founder's Office</h1>
-        <div class="loft-chrome-actions">
-          <p
-            class="bucks-hud"
-            id="bucks-hud"
-            aria-live="polite"
-          >
-            0 bucks
-          </p>
-          <button
-            type="button"
-            class="mute-button"
-            id="mute-button"
-            aria-pressed="false"
-            aria-label="Toggle mute"
-          >
-            Mute
-          </button>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#151714" />
+  <title>Warewolf · Founder’s Office</title>
+  <link rel="stylesheet" href="css/pointAndClick.css?v=portrait-medallion-v3" />
+  <link rel="stylesheet" href="css/roomEffects.css" />
+  <link rel="stylesheet" href="css/desktopOS.css" />
+</head>
+<body>
+  <header class="room-heading">
+    <div><h1><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22S4 13 4 8a8 8 0 0 1 16 0c0 5-8 14-8 14Z"/><circle cx="12" cy="8" r="3"/></svg> Founder’s Office</h1>
+      <p>Your first day.</p></div>
+    <div class="clock-panel" aria-label="Local date and time">
+      <span class="clock-caption">LOCAL TIME</span>
+      <time id="clock-time"></time><span id="day-label"></span>
+    </div>
+  </header>
+  <main id="room" aria-label="Founder’s office">
+    <p id="room-status">Opening the office…</p>
+  </main>
+  <div id="object-label" class="object-label" hidden></div>
+  <footer id="inventory-shell">
+    <section class="founder-card" aria-label="Founder state">
+      <div class="portrait-medallion">
+        <div class="portrait-window">
+          <img id="founder-avatar" src="assets/ui/nosh-portrait.png"
+            alt="Nosh" />
         </div>
-      </header>
-      <div
-        id="office-phaser"
-        aria-label="Isometric Warewolf office"
-      ></div>
-      <p
-        class="interact-prompt"
-        id="interact-prompt"
-        hidden
-      ></p>
-      <p class="office-controls">
-        Click to walk &nbsp;·&nbsp; <kbd>E</kbd> interact
-        &nbsp;·&nbsp; <kbd>Esc</kbd> back &nbsp;·&nbsp; <kbd>M</kbd> sound
-      </p>
-      <p class="office-toast" id="office-toast" hidden></p>
-
-      <section
-        id="vn-panel"
-        class="vn-panel"
-        hidden
-        role="dialog"
-        aria-modal="true"
-        aria-label="Talk"
-      >
-        <div class="vn-dim" aria-hidden="true"></div>
-        <div class="vn-stage">
-          <div class="vn-portraits">
-            <img
-              class="vn-bust vn-bust-player"
-              data-vn-bust="player"
-              alt=""
-              hidden
-            />
-            <img
-              class="vn-bust vn-bust-npc"
-              data-vn-bust="npc"
-              alt=""
-              hidden
-            />
-          </div>
-          <div class="vn-line-box">
-            <p class="vn-nameplate" data-vn-nameplate></p>
-            <p class="vn-line" data-vn-line></p>
-            <p class="vn-dismiss-hint" aria-hidden="true">
-              E · close
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="desktop-os"
-        class="desktop-os"
-        hidden
-        aria-label="Desk desktop"
-      >
-        <div class="desktop-wallpaper">
-          <button
-            type="button"
-            class="desktop-icon"
-            data-app="teams"
-          >
-            <span
-              class="desktop-icon-glyph teams-glyph"
-              aria-hidden="true"
-            >
-            </span>
-            <span class="desktop-icon-label">Teams</span>
-          </button>
-          <button
-            type="button"
-            class="desktop-icon"
-            data-app="directory"
-          >
-            <span
-              class="desktop-icon-glyph directory-glyph"
-              aria-hidden="true"
-            >
-            </span>
-            <span class="desktop-icon-label"
-              >Directory</span
-            >
-          </button>
-        </div>
-
-        <div class="desktop-window" hidden>
-          <header class="window-chrome">
-            <span class="window-title"></span>
-            <div class="window-controls">
-              <button
-                type="button"
-                class="window-minimize"
-                aria-label="Minimize window"
-              >
-                <span aria-hidden="true"></span>
-              </button>
-              <button
-                type="button"
-                class="window-maximize"
-                aria-label="Maximize window"
-                aria-pressed="false"
-              >
-                <span aria-hidden="true"></span>
-              </button>
-              <button
-                type="button"
-                class="window-close"
-                aria-label="Close window"
-              >
-                <span aria-hidden="true"></span>
-              </button>
-            </div>
-          </header>
-          <div class="window-body"></div>
-        </div>
-
-        <footer class="desktop-taskbar">
-          <button
-            type="button"
-            id="desktop-exit"
-            aria-label="Leave desk"
-            title="Leave desk"
-          >
-            <span class="exit-glyph" aria-hidden="true"></span>
-            <span class="exit-label">Leave desk</span>
-          </button>
-          <nav class="taskbar-apps" aria-label="Desktop apps">
-            <button
-              type="button"
-              class="taskbar-app"
-              data-app="teams"
-              aria-pressed="false"
-              aria-label="Teams"
-              title="Teams"
-            >
-              <span class="taskbar-icon teams-glyph"></span>
-              <span class="taskbar-label">Teams</span>
-            </button>
-            <button
-              type="button"
-              class="taskbar-app"
-              data-app="directory"
-              aria-pressed="false"
-              aria-label="Directory"
-              title="Directory"
-            >
-              <span class="taskbar-icon directory-glyph"></span>
-              <span class="taskbar-label">Directory</span>
-            </button>
-            <button
-              type="button"
-              class="taskbar-app"
-              data-app="goals"
-              aria-pressed="false"
-              aria-label="Goals"
-              title="Goals"
-            >
-              <span class="taskbar-icon goals-glyph"></span>
-              <span class="taskbar-label">Goals</span>
-            </button>
-            <button
-              type="button"
-              class="taskbar-app"
-              data-app="loft"
-              aria-pressed="false"
-              aria-label="Loft"
-              title="Loft"
-            >
-              <span class="taskbar-icon loft-glyph"></span>
-              <span class="taskbar-label">Loft</span>
-            </button>
-          </nav>
-          <div class="taskbar-tray">
-            <span
-              class="tray-glyph tray-chevron"
-              aria-hidden="true"
-            ></span>
-            <span
-              class="tray-glyph tray-wifi"
-              aria-hidden="true"
-            ></span>
-            <button
-              type="button"
-              class="desktop-sound"
-              aria-label="Mute sound"
-              aria-pressed="false"
-              title="Mute sound"
-            >
-              <span
-                class="tray-glyph tray-sound"
-                aria-hidden="true"
-              ></span>
-            </button>
-          </div>
-          <time class="taskbar-clock"></time>
-        </footer>
-      </section>
-    </main>
-
-    <script src="node_modules/phaser/dist/phaser.min.js"></script>
-    <script type="module" src="js/main.js"></script>
-  </body>
+        <svg class="vital-rings" viewBox="0 0 140 140" aria-hidden="true">
+          <circle class="medallion-rim" cx="70" cy="70" r="67" />
+          <path class="health-arc" d="M58 10 A61 61 0 0 0 58 130" />
+          <path class="stamina-arc" d="M82 130 A61 61 0 0 0 82 10" />
+          <path class="medallion-ornament"
+            d="m70 1 4 5-4 5-4-5Zm0 128 4 5-4 5-4-5Z" />
+        </svg>
+      </div>
+      <div class="vital-labels" title="Preview values; gameplay is not connected yet">
+        <span class="health-label" role="meter" aria-label="Health"
+          aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+          <span aria-hidden="true">♥</span> 100
+        </span>
+        <span class="stamina-label" role="meter" aria-label="Stamina"
+          aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+          <span aria-hidden="true">ϟ</span> 100
+        </span>
+      </div>
+      <strong>Nosh</strong><span id="founder-state"></span>
+    </section>
+    <div class="inventory-panel">
+    <section class="inventory-tray" aria-label="Inventory">
+      <h2>Inventory</h2><div id="inventory"></div>
+    </section>
+    <nav class="shell-buttons" aria-label="Game">
+      <button id="open-journal" type="button"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5Q7 2 2 4v15q5-2 10 1 5-3 10-1V4q-5-2-10 1v15"/></svg> Journal</button>
+      <button id="open-menu" type="button"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4M5 5l3 3m8 8 3 3M5 19l3-3m8-8 3-3"/></svg> Menu</button>
+    </nav>
+    </div>
+  </footer>
+  <p id="game-message" role="status" class="status-message"></p>
+  <dialog id="inspection" aria-labelledby="inspection-title"
+    aria-describedby="inspection-description">
+    <img class="dialogue-portrait" src="assets/ui/nosh-portrait.png" alt="" />
+    <form method="dialog">
+      <h2 id="inspection-title">Nosh</h2>
+      <p id="inspection-description"></p>
+      <div class="dialog-actions">
+        <button id="item-action" type="button" hidden></button>
+        <button autofocus aria-label="Continue">Continue ◇</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="journal-panel" aria-labelledby="journal-title">
+    <form method="dialog"><h2 id="journal-title">Journal</h2>
+      <h3>Founder’s Office</h3><p id="journal-note"></p>
+      <button>Close journal</button></form>
+  </dialog>
+  <dialog id="menu-panel" aria-labelledby="menu-title">
+    <form method="dialog"><h2 id="menu-title">Menu</h2>
+      <p>Point and click to explore. Tab selects objects; Enter inspects.
+        Escape closes a conversation or panel.</p>
+      <p>Your inventory saves automatically in this browser.
+        The clock shows your computer’s local time.</p>
+      <button id="leave-room" type="button">Leave office</button>
+      <button>Return to game</button></form>
+  </dialog>
+  <script type="module" src="js/pointAndClick.js"></script>
+</body>
 </html>

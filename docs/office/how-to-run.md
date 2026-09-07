@@ -1,37 +1,54 @@
-# Virtual Office — How to run
+# Office — How to run
 
-**Active shipping web client** (Phaser 3 + DOM desk OS). See
-[`../decisions/008-ai-studio-product-contract.md`](../decisions/008-ai-studio-product-contract.md).
-
-Serve the `office/` folder over HTTP. Browsers block ES module
-`fetch` from `file://`. Install Phaser once, then serve:
+The painted point-and-click office is the main room system under
+[ADR 014](../decisions/014-painted-room-point-and-click.md).
+Serve the folder over HTTP; opening `index.html` with `file://` cannot reliably
+load ES modules and room JSON.
 
 ```bash
 cd office
-npm install
 python3 -m http.server 8765
 ```
 
-Open http://127.0.0.1:8765.
+Open [the office](http://127.0.0.1:8765). No npm install, Phaser, image export,
+or Godot process is required for this page.
 
-## What you should see
+Hover an object or focus it with Tab. Click or press Enter/Space to inspect;
+Escape closes the dialog. Collect the mug, inspect it in inventory to return
+it, and use Leave office / return to exercise room remounting. The current
+return screen is not a second illustrated room. There is no walking.
 
-- Starts in the Founder's Office (private desk PC)
-- Door / `E` travels to the shared loft with a brief flash
-- Shared loft has crew desks, bubbler, coffee, whiteboard
-- Door back returns to the Founder's Office (desk PC again)
-- Nosh (amber jacket) walks on click
-- Staff idle at desks and occasionally visit the bubbler
-- Clicking a staff desk walks Nosh over, then opens talk toast
-- Desk PC opens only in the Founder's Office: Teams, Directory,
-  Goals, Loft
-- Teams presence follows desk occupancy (Away while at the bubbler)
-- Loft shop sells upgrades and larger loft sizes; history is listed
-  in Loft
+The top-right clock shows the computer’s actual local date and time.
+Inventory saves automatically; the clock is not stored or simulated.
+Journal opens a room note reflecting whether the mug is collected. Menu
+opens help and the Leave office action. Object inspection uses Nosh’s
+speech banner, temporarily replacing the compact inventory view.
 
-## Accessibility
+## Verify
 
-- Desktop windows are keyboard-closable with Escape
-- Mute button / `M` toggles UI blips
-- `prefers-reduced-motion: reduce` snaps travel, camera, and shortens
-  room-flash transitions
+```bash
+cd office
+npm test
+```
+
+`npm test` runs all remaining tests for the painted room, dependencies,
+accepted PNGs and provenance, inventory, and clock rollover/persistence.
+There is no legacy runtime or legacy test command.
+
+Browser acceptance:
+
+- Check pointer and keyboard selection on the painted silhouettes. Detailed
+  outlines should match the art, including the opening in the mug handle.
+- Resize the window: the whole image, hotspots, and lighting stay aligned.
+- Collect/return the mug, leave/return, and reload to check inventory state.
+- Check the empty patch only changes the mug area.
+- Check CRT effects and cooler bubbles stay on their painted surfaces.
+- Check the plant stays static in the original background.
+- Confirm local time matches the computer clock. Open Journal and Menu,
+  then close them with Escape; verify focus returns to the opening button.
+- Check inspection, hidden tabs, and reduced-motion preferences pause or
+  simplify animation as intended.
+
+The former loft entry point, renderer, gameplay systems, and unused UI
+assets have been removed. Independent Godot work has its own instructions
+in [`game/README.md`](../../game/README.md).
