@@ -37,6 +37,11 @@ import {
   TILE_HEIGHT_PX,
   TILE_WIDTH_PX,
 } from "./constants.js";
+import {
+  clearFloorParts,
+  drawContinuousFloor,
+  ensureWoodFloorTexture,
+} from "./floorDraw.js";
 import { buildRoomView, gridToScreen, screenToGrid } from "./isoMath.js";
 import { isPlayerMoving } from "./player.js";
 import {
@@ -45,7 +50,6 @@ import {
   spriteAssetUrl,
 } from "./sprites.js";
 import {
-  floorTextureKey,
   listBackWallRuns,
   nameplateLabel,
 } from "./loftDecor.js";
@@ -143,6 +147,7 @@ function createLoftScene(Phaser, host) {
     create() {
       registerAtlasFrames(this.textures);
       ensureDoorTexture(this);
+      ensureWoodFloorTexture(this);
       this.cameras.main.setBackgroundColor(STAGE_FILL);
       this.worldRoot = this.add.container(0, 0);
       this.floorLayer = this.add.container(0, 0);
@@ -155,7 +160,7 @@ function createLoftScene(Phaser, host) {
       this.entityLayer = this.add.container(0, 0);
       this.worldRoot.add(this.entityLayer);
       this.entitySprites = new Map();
-      this.floorTiles = [];
+      this.floorParts = [];
 
       this.input.on("pointerdown", (pointer) => {
         this.handlePointer(pointer);
@@ -199,28 +204,12 @@ function createLoftScene(Phaser, host) {
     }
 
     drawFloor(office) {
-      for (const tile of this.floorTiles) {
-        tile.destroy();
-      }
-
-      this.floorTiles = [];
-
-      for (let gridY = 0; gridY < office.gridHeight; gridY += 1) {
-        for (let gridX = 0; gridX < office.gridWidth; gridX += 1) {
-          const point = gridToScreen(gridX, gridY);
-          const key = floorTextureKey(office, gridX, gridY);
-          const tile = this.add.image(
-            point.screenX,
-            point.screenY,
-            key
-          );
-
-          tile.setOrigin(0.5, 0.5);
-          tile.setDisplaySize(TILE_WIDTH_PX, TILE_HEIGHT_PX);
-          this.floorLayer.add(tile);
-          this.floorTiles.push(tile);
-        }
-      }
+      clearFloorParts(this.floorParts);
+      this.floorParts = drawContinuousFloor(
+        this,
+        this.floorLayer,
+        office
+      );
     }
 
     drawWalls(office) {
