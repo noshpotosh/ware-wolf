@@ -3,8 +3,9 @@
 **Client:** [Ehlenbach's Cheese Chalet](https://ehlenbachscheese.com)  
 **Location:** DeForest, WI (near Madison)  
 **Prepared by:** Warewolf (Maeve Quinn, product & design)  
-**Date:** 2026-09-06  
-**Status:** Client approved mocks · Shopify Basic + customize-first
+**Date:** 2026-09-06 (brief) · round-2 mocks 2026-09-07  
+**Status:** Client approved mocks · inspiration pack round 2
+(PDP / gift baskets / cart) · Shopify Basic + customize-first
 (ADR 011/012) · Go plan in [`shopify-build.md`](shopify-build.md) ·
 Liquid section map is the Dex handoff
 ([`liquid-section-map.md`](liquid-section-map.md))
@@ -51,15 +52,13 @@ not abstract gradients as the main idea.
 
 ---
 
-## Page set (3 screens — this PR-sized bet)
+## Page set
 
-Cut vanity pages. These three sell the redesign:
+**Round 1 (approved):** Homepage · Shop browse · Visit us.
 
-1. **Homepage** — brand-led full-bleed hero + one story strip
-2. **Shop / browse** — category browse with product cards *only*
-   where shopping interaction needs them
-3. **Visit us** — Sissy + hours + directions (the landmark is the
-   story; Product Detail can wait until the client green-lights)
+**Round 2 (inspiration pack):** Product detail · Gift baskets ·
+Cart drawer. Same visual DNA; cut vanity (no mobile/About fourth
+unless it sharpens a later bet).
 
 ---
 
@@ -70,6 +69,9 @@ Cut vanity pages. These three sell the redesign:
 | [`mockups/ehlenbachs-01-homepage-hero.png`](mockups/ehlenbachs-01-homepage-hero.png) | First viewport: **Ehlenbach's Cheese Chalet** as hero-level brand, one headline, one sentence, Shop / Visit CTAs over full-bleed chalet cheese counter. Story strip peeks: “Meet us in DeForest” + Sissy. |
 | [`mockups/ehlenbachs-02-shop-browse.png`](mockups/ehlenbachs-02-shop-browse.png) | Shop job only: warm cream field, category filters, restrained product cards (photo, name, price, Add). No filter sidebar theater. |
 | [`mockups/ehlenbachs-03-visit-us.png`](mockups/ehlenbachs-03-visit-us.png) | Visit / About: full-bleed exterior with Sissy the Cow, “Come say hi to Sissy,” directions + call CTAs; hours/address strip below. |
+| [`mockups/ehlenbachs-04-product-detail.png`](mockups/ehlenbachs-04-product-detail.png) | **Inspiration pack round 2 — PDP:** Aged Cheddar — 2 Year; large cozy cheese photo + one Add CTA; ice-pack / gift-message as quiet utility lines (no related grid). |
+| [`mockups/ehlenbachs-05-gift-baskets.png`](mockups/ehlenbachs-05-gift-baskets.png) | **Round 2 — Gift baskets:** Collection page — atmospheric basket photo strip + three gift-worthy baskets (cards only for shop interaction). |
+| [`mockups/ehlenbachs-06-cart-drawer.png`](mockups/ehlenbachs-06-cart-drawer.png) | **Round 2 — Cart drawer:** Quiet warm drawer over shop; ice pack + gift message as subtle notes; one Checkout CTA — no shipping-alert tower. |
 
 ### Hero budget (homepage & visit)
 
@@ -136,18 +138,18 @@ Suggested visit line (in mock):
 4. **Operational notices:** Prefer a quiet “Shipping notes” drawer /
    footer vs. a slim seasonal banner under the nav (never in the
    hero)?
-5. **Gift baskets:** Own top-nav item (as mocked) or a category
-   inside Shop?
-6. **Next mock after approval:** Product detail page, or gift-basket
-   builder — which sells more for them?
+5. **Gift baskets:** Own top-nav item (as mocked in round 2) or a
+   category inside Shop?
+6. **Gift-basket builder:** Static featured baskets (as mocked) vs
+   a builder flow later — which sells more for them?
 
 ---
 
 ## Out of scope (this bet)
 
 - Live site build / theme migration
-- Product detail page mock
-- Checkout / account flows
+- Checkout / account flows (cart drawer is inspiration only)
+- Gift-basket *builder* UI
 - Game or Warewolf office product work
 
 ---
@@ -163,8 +165,11 @@ Implementable Liquid templates/sections for Dex:
 
 ## How to use these with the client
 
-Show the three PNGs in order (Home → Shop → Visit). Speak the
-villain once: *“Your cheese and your family are the story — the
-site should feel like the chalet, not like a shipping bulletin.”*
-Collect answers to the open questions; then we lock art direction
-for build.
+**Round 1:** Home → Shop → Visit. Speak the villain once: *“Your
+cheese and your family are the story — the site should feel like
+the chalet, not like a shipping bulletin.”*
+
+**Round 2:** PDP → Gift baskets → Cart drawer. Same DNA deeper in
+the shop path — buy a cheese, give a basket, checkout without
+noise. Collect answers to the open questions; then lock art
+direction for build.

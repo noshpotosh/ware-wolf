@@ -98,6 +98,8 @@ the hero.
 - Gift message / ice pack as line-item props or metafields — not apps
 
 ### Bet 5 — PDP
+- Inspiration mock exists:
+  `mockups/ehlenbachs-04-product-detail.png`
 - After Maeve’s PDP pass (or tight Maeve review)
 
 ### Bet 6 — Cutover
