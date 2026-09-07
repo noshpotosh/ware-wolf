@@ -4,9 +4,16 @@
 **Location:** DeForest, WI (near Madison)  
 **Prepared by:** Warewolf (Maeve Quinn, product & design)  
 **Date:** 2026-09-06  
-**Status:** Client approved mocks · Shopify locked (ADR 011) ·
+**Status:** Client approved mocks · Shopify Basic + customize-first
+(ADR 011/012) · Go plan in [`shopify-build.md`](shopify-build.md) ·
 Liquid section map is the Dex handoff
 ([`liquid-section-map.md`](liquid-section-map.md))
+=======
+**Status:** Client approved mocks · Shopify Basic + customize-first
+(ADR 011/012) · Go plan in [`shopify-build.md`](shopify-build.md) ·
+Liquid map in [`liquid-section-map.md`](liquid-section-map.md)
+(PR #54 if not merged)
+>>>>>>> origin/main
 
 ---
 

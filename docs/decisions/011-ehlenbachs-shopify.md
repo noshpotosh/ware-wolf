@@ -12,11 +12,13 @@
 1. **Ehlenbach's Cheese Chalet redesign ships on Shopify** —
    Online Store (hosted cart, checkout, catalog), not a custom
    storefront stack and not headless-by-default.
-2. **Theme path:** custom **Online Store 2.0 (Liquid)** theme
-   shaped to Maeve's cozy chalet mocks — warm wood / dairy cream /
-   cheddar gold. Do **not** ship stock Dawn-looking corporate
-   bland, and do **not** jump to Hydrogen / headless unless a
-   later founder call reopens this.
+2. **Theme path:** **Online Store 2.0 (Liquid)** shaped to Maeve's
+   cozy chalet mocks — warm wood / dairy cream / cheddar gold.
+   Intensity (Basic plan, customize-first vs full custom) locked in
+   [`012-ehlenbachs-shopify-basic-customize.md`](012-ehlenbachs-shopify-basic-customize.md).
+   Do **not** ship stock Dawn-looking corporate bland, and do
+   **not** jump to Hydrogen / headless unless a later founder call
+   reopens this.
 3. **Mocks stay the product contract.** Homepage, Shop/collection,
    and Visit Us must match the approved direction; operational
    notices stay out of the hero.

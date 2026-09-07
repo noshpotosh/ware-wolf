@@ -52,8 +52,8 @@ export const SPRITE_SHEETS = [
 ];
 
 export const SINGLE_SPRITES = [
-  { id: "floor-carpet", path: "tiles/floor-carpet.png" },
-  { id: "floor-wood", path: "tiles/floor-wood-border.png" },
+  { id: "floor-wood-field", path: "tiles/floor-wood-field.png" },
+  { id: "floor-rug-checkered", path: "tiles/floor-rug-checkered.png" },
   { id: "desk-pixellab", path: "furniture/desk-basic.png" },
   { id: "chair-pixellab", path: "furniture/chair-basic.png" },
   { id: "monitor-crt", path: "furniture/monitor-crt.png" },
@@ -62,7 +62,6 @@ export const SINGLE_SPRITES = [
   { id: "whiteboard-pixellab", path: "furniture/whiteboard.png" },
   { id: "desk-with-monitor", path: "furniture/desk-with-monitor.png" },
   { id: "floor-island", path: "tiles/floor-island.png" },
-  { id: "wall-bone", path: "tiles/wall-bone.png" },
   { id: "desk-nosh-mat", path: "furniture/desk-nosh-mat.png" },
 ];
 

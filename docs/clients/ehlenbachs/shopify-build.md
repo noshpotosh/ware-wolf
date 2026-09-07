@@ -1,35 +1,35 @@
-# Ehlenbach's — Shopify build plan
+# Ehlenbach's — Shopify go plan
 
-**Platform:** Shopify Online Store 2.0 (Liquid) — locked in
-[`../../decisions/011-ehlenbachs-shopify.md`](../../decisions/011-ehlenbachs-shopify.md)  
-**Design contract:** Maeve mock pack (Home · Shop · Visit Us)  
-**Status:** Client approved mocks; platform locked Shopify
-
----
-
-## Verdict (build shape)
-
-Custom Liquid theme that *looks like the mocks*, on Shopify
-checkout. Not Dawn-with-a-logo. Not Hydrogen.
-
-**Success moment:** Preview storefront feels like the chalet;
-visitor can browse cheese and open Visit Us without drowning in
-shipping notices.
+**Client:** Ehlenbach's Cheese Chalet (small WI shop, no dedicated
+web staff)  
+**Platform:** Shopify Online Store 2.0 — ADR
+[`011`](../../decisions/011-ehlenbachs-shopify.md) +
+[`012`](../../decisions/012-ehlenbachs-shopify-basic-customize.md)  
+**Design:** Approved mocks + Liquid section map  
+**Status:** Go — bet 1 in flight after this plan lands
 
 ---
 
-## Map mocks → Shopify
+## One-line verdict
 
-| Mock | Shopify surface |
+**Shopify Basic + Shopify Payments + customize-first theme** that
+looks like Maeve’s chalet mocks. Hosted support for a shop that
+cannot hire a webmaster — without burning bread on Plus, Hydrogen,
+or app piles.
+
+---
+
+## Why Shopify (for *this* client)
+
+| Constraint | Call |
 | --- | --- |
-| Homepage hero + story strip | `index` template — hero section + story section |
-| Shop browse | `collection` template + collection list / “All” |
-| Visit us (Sissy) | `page` template (Visit) — full-bleed + hours strip |
-| Gift Baskets nav | Collection or menu link (client still picks weight) |
-| Product cards | Collection grid; PDP is the *next* mock/build bet |
+| Small business / watch the bread | Basic plan; customize-first theme; no app sprawl |
+| No dedicated staff / need support | Hosted cart, checkout, payments; Shopify Help; admin they can learn |
+| Cozy brand (approved mocks) | Restyle to wood / dairy cream / cheddar gold — not Dawn-stock bland |
+| Google Ads / Shopping | Clean **primary** product images (white/neutral) for the feed; lifestyle OK on site |
 
-Theme tokens: wood, dairy cream, cheddar gold, sparse barn red.
-Expressive serif for brand/headlines — not Inter/Roboto.
+**Not the job:** cheapest possible monthly website. **The job:**
+sell cheese online + look like the chalet + not invent an IT dept.
 
 **Dex handoff (bets 1–3):** section names, settings, hero
 allow/ban list, tokens, and nav IA live in
@@ -38,71 +38,114 @@ that map — do not invent sections from the PNGs alone.
 
 ---
 
-## PR-sized bets (ordered)
+## Money (client-plain)
 
-1. **Shopify shell + design tokens**  
-   Dev store, theme repo/scaffold, fonts/colors, base layout
-   (header/footer). Follow
-   [`liquid-section-map.md`](liquid-section-map.md)
-   shared chrome + tokens. No full catalog dump required.
+| Bucket | What | Notes |
+| --- | --- | --- |
+| Platform rent | Shopify **Basic** (~$29/mo annual / ~$39 monthly) | Pocket vs staff time |
+| Cards | Shopify Payments (~2.9% + 30¢ online) | Use Shopify Payments — avoid Basic’s extra % on third-party gateways |
+| Build | Warewolf theme + setup + training | Real bread — scope protects this |
+| Apps | **$0 target for v1** | Baskets = collections/products first |
 
-2. **Homepage + Visit page sections**  
-   Brand-led heroes per mocks / liquid map (`Home Hero`,
-   `Meet Us Story`, `Visit Hero`, `Visit Hours Strip`). Hours /
-   shipping live in quiet utility or footer — never the first
-   viewport.
-
-3. **Collection / Shop browse**  
-   `Shop Intro` + `Category Filters` + `Product Grid` per liquid
-   map. Restrained product cards (photo, name, price, Add). Match
-   mock density; no filter-sidebar theater.
-
-4. **Catalog migration slice**  
-   Import a real subset (cheddars, curds, smoked, blues, sausage,
-   1–2 baskets). Metafields for gift message / ice pack as needed.
-
-5. **Product detail (after Maeve PDP mock or tight Maeve pass)**  
-   One honest PDP — not a gift-basket builder yet.
-
-6. **Cutover**  
-   Payments, shipping rules (incl. heat guidance as policy page /
-   cart notice), domain, redirects from old URLs.
-
-Skip until later: custom basket builder apps, loyalty, wholesale
-portal, headless.
+Photography and wordmark decisions still affect art cost, not
+platform choice.
 
 ---
 
-## Risks to watch
+## Design → build contract
 
-| Risk | Guard |
+| Artifact | Role |
 | --- | --- |
-| Stock theme drift → corporate bland | Maeve signs off preview vs mocks before catalog slog |
-| Shipping/heat warnings creep back into hero | Section allow-list; Cal checks first viewport |
-| App sprawl for gift baskets | Prefer products/collections + line-item props first |
-| Full catalog boil-the-ocean | Bet 4 is a *subset*; expand after look is locked |
+| [`README.md`](README.md) + [`mockups/`](mockups/) | Look & feel lock (client approved) |
+| [`liquid-section-map.md`](liquid-section-map.md) | Dex section names / hero allow-ban (this pack) |
+| This go plan | Intensity, tier, bet order, cost rules |
+
+Tokens: wood, dairy cream, cheddar gold, sparse barn red.
+Expressive serif — not Inter/Roboto. Hours/shipping **never** in
+the hero.
 
 ---
 
-## Open client questions (still)
+## Theme intensity (ADR 012)
 
-Still needed from the mock pack — platform does not answer them:
+1. **Default:** customize-first — clean OS 2.0 base, restyle to
+   mocks / liquid map.
+2. **Escalate** to more custom Liquid only where the base theme
+   fights the cozy contract (Maeve call).
+3. **Never** Hydrogen / headless for v1.
+
+---
+
+## PR-sized bets (go order)
+
+### Bet 1 — Theme shell + tokens *(now)*
+- Theme folder in-repo (scaffold Dex can push to a Shopify preview
+  when credentials exist)
+- Design tokens + Header / Footer / Cart drawer stubs
+- Follow liquid map shared chrome
+- **No** full catalog
+
+### Bet 2 — Homepage + Visit
+- `Home Hero`, `Meet Us Story`, `Visit Hero`, `Visit Hours Strip`
+- Maeve preview sign-off vs mocks
+
+### Bet 3 — Shop collection
+- `Shop Intro`, `Category Filters`, `Product Grid`
+- Sample products only if needed for the grid
+
+### Bet 4 — Catalog slice
+- Real subset: cheddars, curds, smoked, blues, sausage, 1–2 baskets
+- Gift message / ice pack as line-item props or metafields — not apps
+
+### Bet 5 — PDP
+- After Maeve’s PDP pass (or tight Maeve review)
+
+### Bet 6 — Cutover
+- Payments live, shipping/heat as policy + cart note, domain,
+  redirects, client admin training
+
+**Skip until later:** basket builder apps, loyalty, wholesale,
+Plus, headless.
+
+---
+
+## Google Ads / images (client already asked)
+
+- **Site:** cozy / lifestyle product photos OK (and preferred)
+- **Shopping / Ads primary (`image_link`):** clean white/neutral
+  still best practice — separate job from the storefront gallery
+- Do not bleach the whole site white because Ads exists
+
+---
+
+## Open client questions (scaffold-safe)
 
 1. Real photography vs stand-ins  
 2. Wordmark keep / redraw  
 3. Sissy nav weight  
-4. Shipping/hours chrome shape  
-5. Gift baskets: top nav vs Shop category  
+4. Shipping/hours chrome (footer utility vs slim seasonal banner)  
+5. Gift Baskets top-nav vs Shop category  
 6. Next creative: PDP vs gift-basket builder  
+
+Dex scaffolds without waiting; art lock waits on 1–2.
 
 ---
 
 ## Crew
 
-| Who | Job |
+| Who | Now |
 | --- | --- |
-| Maeve | Liquid map shipped ([`liquid-section-map.md`](liquid-section-map.md)); PDP mock when we pull that bet |
-| Dex | Theme + store config on Shopify — bets 1–3 from the liquid map |
-| Cal | First-viewport / cozy-vs-template adversarial pass on preview |
-| Reed | Theme code readability when Dex's slice is behavior-green |
-| Fabrizio | Keep bets scoped; no kitchen-sink “launch everything” PR |
+| Fabrizio | Scope / cost lock (this plan); one concern per PR |
+| Maeve | Liquid map shipped; sign-off vs mocks on preview; PDP when that bet |
+| Dex | Theme shell + bets 1–3 from the liquid map |
+| Cal | First-viewport ban-list when preview exists |
+| Reed | Theme readability after Cal |
+
+---
+
+## Success for “going”
+
+Preview storefront (or in-repo theme preview) shows chalet tokens +
+header/footer that could become the mocks — not a stock purple SaaS
+template. Client can be told: *Basic plan, no apps yet, build in
+slices.*
