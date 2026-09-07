@@ -25,17 +25,6 @@ import {
   SPRITE_NO_BOB_Y,
   SPRITE_ORIGIN_CENTER_X,
   SPRITE_ORIGIN_FOOT_Y,
-  WALL_DEPTH_BIAS,
-  WALL_INK_COLOR,
-  WALL_HEIGHT_PX,
-  WALL_CLAY_DARK_COLOR,
-  WALL_CLAY_COLOR,
-  WALL_BONE_DIM_COLOR,
-  WALL_BONE_COLOR,
-  WALL_BASEBOARD_PX,
-  WALL_FOOT_OVERLAP_PX,
-  TILE_HEIGHT_PX,
-  TILE_WIDTH_PX,
 } from "./constants.js";
 import {
   clearFloorParts,
@@ -43,56 +32,37 @@ import {
   ensureWoodFloorTexture,
 } from "./floorDraw.js";
 import { buildRoomView, gridToScreen, screenToGrid } from "./isoMath.js";
+import { drawRoomWalls } from "./wallDraw.js";
 import { isPlayerMoving } from "./player.js";
 import {
   SINGLE_SPRITES,
   SPRITE_SHEETS,
   spriteAssetUrl,
 } from "./sprites.js";
-import {
-  listBackWallRuns,
-  nameplateLabel,
-} from "./loftDecor.js";
+import { nameplateLabel } from "./loftDecor.js";
 
 const STAGE_FILL = "#242521";
 const PATH_MARKER = 0xd97706;
-const DOOR_TEXTURE_KEY = "door-marker";
 
 const CHARACTER_WIDTH = 52;
 const CHARACTER_HEIGHT = 120;
+const SEATED_BODY_HEIGHT = 86;
+const SEATED_ORIGIN_FOOT_Y = 1;
+const SEATED_OFFSET_X = -24;
+const SEATED_OFFSET_Y = -28;
+const SEATED_DEPTH_BIAS = -0.3;
+const OCCUPIED_CHAIR_DEPTH_BIAS = -0.6;
 const DESK_WIDTH = 128;
-const DESK_HEIGHT = 128;
 const PROP_SIZE = 128;
-const DOOR_WIDTH = 56;
-const DOOR_HEIGHT = 96;
+const PLANT_SIZE = 96;
 
 const FURNITURE_TEXTURE = {
   [FurnitureKind.DESK]: "desk-with-monitor",
   [FurnitureKind.BUBBLER]: "bubbler-pixellab",
   [FurnitureKind.COFFEE]: "coffee-pixellab",
   [FurnitureKind.WHITEBOARD]: "whiteboard-pixellab",
-  [FurnitureKind.DOOR]: DOOR_TEXTURE_KEY,
+  [FurnitureKind.PLANT]: "furniture/loft-props.png",
 };
-
-
-function ensureDoorTexture(scene) {
-  if (scene.textures.exists(DOOR_TEXTURE_KEY)) {
-    return;
-  }
-
-  const width = 48;
-  const height = 80;
-  const graphics = scene.make.graphics({ x: 0, y: 0 });
-
-  graphics.fillStyle(0x3a3228, 1);
-  graphics.fillRect(0, 0, width, height);
-  graphics.fillStyle(0x6b5340, 1);
-  graphics.fillRect(4, 4, width - 8, height - 8);
-  graphics.fillStyle(0xd7ae67, 1);
-  graphics.fillCircle(width - 14, height / 2, 4);
-  graphics.generateTexture(DOOR_TEXTURE_KEY, width, height);
-  graphics.destroy();
-}
 
 function requirePhaser() {
   const Phaser = window.Phaser;
@@ -146,7 +116,6 @@ function createLoftScene(Phaser, host) {
 
     create() {
       registerAtlasFrames(this.textures);
-      ensureDoorTexture(this);
       ensureWoodFloorTexture(this);
       this.cameras.main.setBackgroundColor(STAGE_FILL);
       this.worldRoot = this.add.container(0, 0);
@@ -213,140 +182,14 @@ function createLoftScene(Phaser, host) {
     }
 
     drawWalls(office) {
-      for (const sprite of this.wallSprites) {
-        const textureKey = sprite.texture && sprite.texture.key;
-
-        sprite.destroy();
-
-        if (
-          textureKey
-          && textureKey.startsWith("wall-run:")
-          && this.textures.exists(textureKey)
-        ) {
-          this.textures.remove(textureKey);
-        }
+      for (const wall of this.wallSprites) {
+        wall.destroy();
       }
 
-      this.wallSprites = [];
+      const walls = drawRoomWalls(this, office);
 
-      for (const run of listBackWallRuns(office)) {
-        this.drawWallRun(run);
-      }
-    }
-
-    drawWallRun(run) {
-      const start = gridToScreen(run.start.gridX, run.start.gridY);
-      const end = gridToScreen(run.end.gridX, run.end.gridY);
-      // Far tip of each tile diamond.
-      const tipY = -TILE_HEIGHT_PX / 2;
-      let leftX;
-      let leftY;
-      let rightX;
-      let rightY;
-
-      if (run.face === "se") {
-        leftX = start.screenX;
-        leftY = start.screenY + tipY;
-        rightX = end.screenX + TILE_WIDTH_PX / 2;
-        rightY = end.screenY + tipY + TILE_HEIGHT_PX / 2;
-      } else {
-        rightX = start.screenX;
-        rightY = start.screenY + tipY;
-        leftX = end.screenX - TILE_WIDTH_PX / 2;
-        leftY = end.screenY + tipY + TILE_HEIGHT_PX / 2;
-      }
-
-      // Overlap into the floor diamond; bake to a bitmap so container
-      // scale uses nearest-neighbor like floor tiles (no Graphics seam).
-      leftY += WALL_FOOT_OVERLAP_PX;
-      rightY += WALL_FOOT_OVERLAP_PX;
-
-      const tipLeftY = leftY - WALL_FOOT_OVERLAP_PX;
-      const tipRightY = rightY - WALL_FOOT_OVERLAP_PX;
-      const topLeftY = tipLeftY - WALL_HEIGHT_PX;
-      const topRightY = tipRightY - WALL_HEIGHT_PX;
-      const boardLeftY = leftY - WALL_BASEBOARD_PX;
-      const boardRightY = rightY - WALL_BASEBOARD_PX;
-
-      const footSealPx = 8;
-      const pad = 2;
-      const minX = Math.floor(Math.min(leftX, rightX) - pad);
-      const maxX = Math.ceil(Math.max(leftX, rightX) + pad);
-      const minY = Math.floor(Math.min(topLeftY, topRightY) - pad);
-      const maxY = Math.ceil(
-        Math.max(leftY, rightY) + footSealPx + pad
-      );
-      const textureWidth = Math.max(1, maxX - minX);
-      const textureHeight = Math.max(1, maxY - minY);
-      const textureKey =
-        `wall-run:${run.face}:`
-        + `${run.start.gridX},${run.start.gridY}:`
-        + `${run.end.gridX},${run.end.gridY}:`
-        + `${textureWidth}x${textureHeight}`;
-
-      if (this.textures.exists(textureKey)) {
-        this.textures.remove(textureKey);
-      }
-
-      const graphics = this.make.graphics({ x: 0, y: 0, add: false });
-      const ox = -minX;
-      const oy = -minY;
-
-      graphics.fillStyle(WALL_BONE_COLOR, 1);
-      graphics.beginPath();
-      graphics.moveTo(leftX + ox, leftY + oy);
-      graphics.lineTo(rightX + ox, rightY + oy);
-      graphics.lineTo(rightX + ox, topRightY + oy);
-      graphics.lineTo(leftX + ox, topLeftY + oy);
-      graphics.closePath();
-      graphics.fillPath();
-
-      graphics.fillStyle(WALL_CLAY_COLOR, 1);
-      graphics.beginPath();
-      graphics.moveTo(leftX + ox, leftY + oy);
-      graphics.lineTo(rightX + ox, rightY + oy);
-      graphics.lineTo(rightX + ox, boardRightY + oy);
-      graphics.lineTo(leftX + ox, boardLeftY + oy);
-      graphics.closePath();
-      graphics.fillPath();
-
-      // Seal the foot with clay ink — fillPath diagonals leave a dark
-      // fringe under container scale that reads as a hover gap.
-      graphics.lineStyle(4, WALL_CLAY_COLOR, 1);
-      graphics.beginPath();
-      graphics.moveTo(leftX + ox, leftY + oy);
-      graphics.lineTo(rightX + ox, rightY + oy);
-      graphics.strokePath();
-
-      // Opaque clay skirt below the foot so generateTexture does not
-      // anti-alias clay against transparency (that fringe is the gap).
-      graphics.fillStyle(WALL_CLAY_COLOR, 1);
-      graphics.beginPath();
-      graphics.moveTo(leftX + ox, leftY + oy - 1);
-      graphics.lineTo(rightX + ox, rightY + oy - 1);
-      graphics.lineTo(rightX + ox, rightY + oy + footSealPx);
-      graphics.lineTo(leftX + ox, leftY + oy + footSealPx);
-      graphics.closePath();
-      graphics.fillPath();
-
-      // Top edge only — no foot ink.
-      graphics.lineStyle(2, WALL_INK_COLOR, 1);
-      graphics.beginPath();
-      graphics.moveTo(leftX + ox, topLeftY + oy);
-      graphics.lineTo(rightX + ox, topRightY + oy);
-      graphics.strokePath();
-
-      graphics.generateTexture(textureKey, textureWidth, textureHeight);
-      graphics.destroy();
-
-      const sprite = this.add.image(minX, minY, textureKey);
-      sprite.setOrigin(0, 0);
-      sprite.setData(
-        "depth",
-        run.start.gridX + run.start.gridY + WALL_DEPTH_BIAS
-      );
-      this.wallLayer.add(sprite);
-      this.wallSprites.push(sprite);
+      this.wallLayer.add(walls);
+      this.wallSprites = [walls];
     }
 
     fitCamera(office) {
@@ -382,14 +225,11 @@ function createLoftScene(Phaser, host) {
           size = DESK_WIDTH;
         }
 
-        if (piece.kind === FurnitureKind.DOOR) {
-          size = DOOR_WIDTH;
-        }
+        const isPlant = piece.kind === FurnitureKind.PLANT;
 
-        const drawHeight =
-          piece.kind === FurnitureKind.DOOR
-            ? DOOR_HEIGHT
-            : size;
+        if (isPlant) {
+          size = PLANT_SIZE;
+        }
 
         wantedIds.add(id);
         this.upsertImage(
@@ -397,20 +237,20 @@ function createLoftScene(Phaser, host) {
           piece.gridX,
           piece.gridY,
           textureKey,
-          null,
+          isPlant ? "plant" : null,
           size,
-          drawHeight
+          size
         );
 
         if (piece.kind !== FurnitureKind.DESK) {
           continue;
         }
 
-        this.syncDeskKit(piece, shell, wantedIds);
-
         const occupant = shell.npcs.find(
           (npc) => npc.deskId === piece.id && npc.atDesk
         );
+
+        this.syncDeskKit(piece, shell, wantedIds, Boolean(occupant));
 
         if (!occupant) {
           continue;
@@ -427,9 +267,20 @@ function createLoftScene(Phaser, host) {
           occupant.staffId,
           CHARACTER_WIDTH,
           CHARACTER_HEIGHT,
-          0.55,
-          0.95
+          SPRITE_ORIGIN_CENTER_X,
+          SEATED_ORIGIN_FOOT_Y,
+          SPRITE_NO_BOB_Y,
+          SEATED_OFFSET_X,
+          SEATED_OFFSET_Y,
+          SEATED_DEPTH_BIAS
         );
+
+        const seated = this.entitySprites.get(seatedId);
+        const cropHeight = seated.frame.height
+          * SEATED_BODY_HEIGHT / CHARACTER_HEIGHT;
+
+        seated.setCrop(0, 0, seated.frame.width, cropHeight);
+        seated.setFlipX(true);
       }
 
       for (const npc of shell.npcs) {
@@ -511,7 +362,7 @@ function createLoftScene(Phaser, host) {
       this.pathMarker.strokePath();
     }
 
-    syncDeskKit(piece, shell, wantedIds) {
+    syncDeskKit(piece, shell, wantedIds, occupied) {
       const chairId = `chair:${piece.id}`;
       wantedIds.add(chairId);
       this.upsertImage(
@@ -525,9 +376,9 @@ function createLoftScene(Phaser, host) {
         SPRITE_ORIGIN_CENTER_X,
         SPRITE_ORIGIN_FOOT_Y,
         SPRITE_NO_BOB_Y,
-        CHAIR_SCREEN_OFFSET_X,
-        CHAIR_SCREEN_OFFSET_Y,
-        CHAIR_DEPTH_BIAS
+        occupied ? SEATED_OFFSET_X : CHAIR_SCREEN_OFFSET_X,
+        occupied ? SEATED_OFFSET_Y : CHAIR_SCREEN_OFFSET_Y,
+        occupied ? OCCUPIED_CHAIR_DEPTH_BIAS : CHAIR_DEPTH_BIAS
       );
 
       if (piece.isPlayerDesk) {

@@ -18,13 +18,20 @@
     {
       "id": "door-to-loft",
       "kind": "door",
-      "gridX": 3,
-      "gridY": 5,
+      "gridX": 0,
+      "gridY": 3,
       "blocksWalk": true,
       "interactable": true,
       "toRoomId": "shared-loft",
       "toSpawn": { "gridX": 2, "gridY": 3 },
       "exitLabel": "Exit to loft"
+    },
+    {
+      "id": "plant-founder",
+      "kind": "plant",
+      "gridX": 5,
+      "gridY": 1,
+      "blocksWalk": true
     }
   ]
 }

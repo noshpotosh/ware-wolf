@@ -4,6 +4,26 @@ import {
   ISLAND_INSET_TILES,
   STAFF_NAMEPLATE,
 } from "./constants.js";
+import { gridToScreen } from "./isoMath.js";
+
+export const DOOR_HEIGHT = 96;
+
+export function wallRunBaseline(run) {
+  const isRightWall = run.face === "se";
+  const start = gridToScreen(
+    run.start.gridX - 0.5,
+    run.start.gridY - 0.5
+  );
+  const end = gridToScreen(
+    run.end.gridX + (isRightWall ? 0.5 : -0.5),
+    run.end.gridY + (isRightWall ? -0.5 : 0.5)
+  );
+
+  return {
+    start: { x: start.screenX, y: start.screenY },
+    end: { x: end.screenX, y: end.screenY },
+  };
+}
 
 export function isIslandCell(office, gridX, gridY) {
   const inset = ISLAND_INSET_TILES;

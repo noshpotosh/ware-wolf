@@ -121,3 +121,31 @@ chair when seated; they remain separate from furniture while walking.
 
 The generated sources are larger than the runtime pixels. They are art
 sources, not guaranteed pixel-perfect atlases at their original size.
+
+## Office polish — September 2026
+
+PixelLab generated `office/assets/tiles/floor-rug-woven.png` at
+128×64 with transparent background. Job:
+`5b5ba27c-1621-4ab2-90bc-2898145ba04c`. The accepted rug replaces the
+pale fringe of the previous checked rug with a continuous brown sewn
+border and muted sage/tan pattern. It remains a single floor furnishing
+scaled to the central island, with nearest-neighbor filtering.
+
+Prompt: a rectangular woven office rug in classic 2:1 isometric
+projection, muted sage and tan checks, dark warm brown sewn border,
+clean edges, no fringe, tassels, white pixels, or outside highlights.
+
+PixelLab edited the existing Cal conversation bust, preserving its
+face, pose, shirt, canvas, and transparency while changing the hair
+to tousled chestnut brown to match the established crew atlas. Job:
+`194ad7be-d1db-43d2-9474-b36d71292ecf`. Accepted output:
+`office/assets/characters/vn-busts/cal-rook-polished.png`. The original
+bust is retained. Other Directory portraits and crew sprites already
+share the established outfit, hair, and glasses cues.
+
+Walls, timber trim, window, and inset doors use code-native geometry
+in `office/js/wallDraw.js`, with shared perimeter math for door
+picking in `office/js/loftDecor.js`. No generated wall atlas is needed.
+Seated staff reuse the established atlas with cropped lower bodies,
+mirrored faces toward their monitors, and chair/person/desk depth order.
+Walking figures retain their complete silhouette.
