@@ -279,11 +279,14 @@ function createLoftScene(Phaser, host) {
       const boardLeftY = leftY - WALL_BASEBOARD_PX;
       const boardRightY = rightY - WALL_BASEBOARD_PX;
 
+      const footSealPx = 8;
       const pad = 2;
       const minX = Math.floor(Math.min(leftX, rightX) - pad);
       const maxX = Math.ceil(Math.max(leftX, rightX) + pad);
       const minY = Math.floor(Math.min(topLeftY, topRightY) - pad);
-      const maxY = Math.ceil(Math.max(leftY, rightY) + pad);
+      const maxY = Math.ceil(
+        Math.max(leftY, rightY) + footSealPx + pad
+      );
       const textureWidth = Math.max(1, maxX - minX);
       const textureHeight = Math.max(1, maxY - minY);
       const textureKey =
