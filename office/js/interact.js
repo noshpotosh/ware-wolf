@@ -31,8 +31,10 @@ function buildTalkTarget(piece, person) {
     kind: InteractKind.TALK,
     pieceId: piece.id,
     staffId: person.id,
+    displayName: person.displayName,
+    line,
     prompt: `Press E to talk to ${person.displayName}`,
-    toastText: `${person.displayName}: “${line}”`,
+    toastText: null,
   };
 }
 

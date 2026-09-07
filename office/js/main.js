@@ -54,6 +54,12 @@ import {
 } from "./rooms.js";
 import { loadSprites } from "./sprites.js";
 import {
+  createVnPanel,
+  handleVnPanelKeydown,
+  isVnPanelOpen,
+  openVnPanel,
+} from "./vnPanel.js";
+import {
   findAdjacentWalkable,
   isWalkable,
 } from "./walkMap.js";
@@ -95,6 +101,28 @@ function showToast(toastEl, text) {
     toastEl.hidden = true;
     toastEl.textContent = "";
   }, TOAST_VISIBLE_MS);
+}
+
+function clearToast(shell) {
+  if (shell.toastTimerId !== null) {
+    window.clearTimeout(shell.toastTimerId);
+    shell.toastTimerId = null;
+  }
+
+  if (!shell.toastEl) {
+    return;
+  }
+
+  shell.toastEl.hidden = true;
+  shell.toastEl.textContent = "";
+}
+
+function isLoftPaused(shell) {
+  return (
+    isDesktopOsOpen(shell.desktop)
+    || isVnPanelOpen(shell.vnPanel)
+    || shell.roomTravelPending
+  );
 }
 
 function refreshBucksHud(bucksHud, economy) {
@@ -206,6 +234,20 @@ function travelThroughDoor(shell, target) {
   });
 }
 
+function openTalkPanel(shell, target) {
+  clearToast(shell);
+  setPromptText(shell.promptEl, "");
+  openVnPanel(shell.vnPanel, {
+    staffId: target.staffId,
+    displayName: target.displayName,
+    line: target.line,
+  });
+  playUiBlip(shell.audio, "click");
+  handleGoalEvent(shell, GoalEventKind.TALK, {
+    staffId: target.staffId,
+  });
+}
+
 function triggerInteract(shell, target) {
   if (!target) {
     return;
@@ -230,9 +272,12 @@ function triggerInteract(shell, target) {
     return;
   }
 
-  if (shell.toastTimerId !== null) {
-    window.clearTimeout(shell.toastTimerId);
+  if (target.kind === InteractKind.TALK) {
+    openTalkPanel(shell, target);
+    return;
   }
+
+  clearToast(shell);
 
   let toastText = target.toastText;
 
@@ -248,12 +293,6 @@ function triggerInteract(shell, target) {
 
   playUiBlip(shell.audio, drinkLike ? "drink" : "click");
 
-  if (target.kind === InteractKind.TALK) {
-    handleGoalEvent(shell, GoalEventKind.TALK, {
-      staffId: target.staffId,
-    });
-  }
-
   if (target.kind === InteractKind.DRINK) {
     handleGoalEvent(shell, GoalEventKind.DRINK);
   }
@@ -268,7 +307,7 @@ function triggerInteract(shell, target) {
 }
 
 function handleLoftPointer(shell, gridX, gridY, localX, localY) {
-  if (shell.roomTravelPending) {
+  if (isLoftPaused(shell)) {
     return;
   }
 
@@ -324,6 +363,10 @@ function handleLoftPointer(shell, gridX, gridY, localX, localY) {
 }
 
 function handleOfficeKeydown(event, shell) {
+  if (handleVnPanelKeydown(shell.vnPanel, event)) {
+    return;
+  }
+
   if (handleDesktopOsKeydown(shell.desktop, event)) {
     return;
   }
@@ -338,7 +381,7 @@ function handleOfficeKeydown(event, shell) {
     return;
   }
 
-  if (shell.roomTravelPending || !shell.nearbyTarget) {
+  if (isLoftPaused(shell) || !shell.nearbyTarget) {
     return;
   }
 
@@ -346,7 +389,7 @@ function handleOfficeKeydown(event, shell) {
 }
 
 function tickShell(shell, deltaSeconds) {
-  if (isDesktopOsOpen(shell.desktop) || shell.roomTravelPending) {
+  if (isLoftPaused(shell)) {
     shell.nearbyTarget = null;
     setPromptText(shell.promptEl, "");
     return;
@@ -431,12 +474,15 @@ async function startOfficeShell() {
   const phaserHost = document.getElementById("office-phaser");
   const promptEl = document.getElementById("interact-prompt");
   const toastEl = document.getElementById("office-toast");
+  const vnRoot = document.getElementById("vn-panel");
   const desktopRoot = document.getElementById("desktop-os");
   const bucksHud = document.getElementById("bucks-hud");
   const muteButton = document.getElementById("mute-button");
 
-  if (!stage || !phaserHost || !desktopRoot) {
-    throw new Error("Missing office stage, Phaser host, or desktop");
+  if (!stage || !phaserHost || !desktopRoot || !vnRoot) {
+    throw new Error(
+      "Missing office stage, Phaser host, desktop, or VN panel"
+    );
   }
 
   const bundle = await loadStarterOfficeBundle();
@@ -472,6 +518,7 @@ async function startOfficeShell() {
     npcs: [],
     desktop: null,
     loft: null,
+    vnPanel: createVnPanel(vnRoot),
     toastTimerId: null,
     nearbyTarget: null,
     loftUpgrades: {},
@@ -535,7 +582,7 @@ async function startOfficeShell() {
   shell.loft = createPhaserLoft({
     parentEl: phaserHost,
     getShell: () => shell,
-    isDesktopOpen: () => isDesktopOsOpen(shell.desktop),
+    isLoftPaused: () => isLoftPaused(shell),
     onTilePointer: (gridX, gridY, localX, localY) => {
       handleLoftPointer(shell, gridX, gridY, localX, localY);
     },

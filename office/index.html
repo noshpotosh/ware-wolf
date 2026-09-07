@@ -9,6 +9,7 @@
     <title>Warewolf Virtual Office</title>
     <link rel="stylesheet" href="css/office.css?v=desk2" />
     <link rel="stylesheet" href="css/desktopOs.css?v=mock2" />
+    <link rel="stylesheet" href="css/vnPanel.css?v=vn1" />
   </head>
   <body>
     <main class="stage" id="office-stage">
@@ -47,6 +48,40 @@
         &nbsp;·&nbsp; <kbd>Esc</kbd> back &nbsp;·&nbsp; <kbd>M</kbd> sound
       </p>
       <p class="office-toast" id="office-toast" hidden></p>
+
+      <section
+        id="vn-panel"
+        class="vn-panel"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-label="Talk"
+      >
+        <div class="vn-dim" aria-hidden="true"></div>
+        <div class="vn-stage">
+          <div class="vn-portraits">
+            <img
+              class="vn-bust vn-bust-player"
+              data-vn-bust="player"
+              alt=""
+              hidden
+            />
+            <img
+              class="vn-bust vn-bust-npc"
+              data-vn-bust="npc"
+              alt=""
+              hidden
+            />
+          </div>
+          <div class="vn-line-box">
+            <p class="vn-nameplate" data-vn-nameplate></p>
+            <p class="vn-line" data-vn-line></p>
+            <p class="vn-dismiss-hint" aria-hidden="true">
+              E · close
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section
         id="desktop-os"
