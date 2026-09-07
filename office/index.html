@@ -8,33 +8,10 @@
   <link rel="stylesheet" href="css/pointAndClick.css?v=portrait-medallion-v3" />
   <link rel="stylesheet" href="css/roomEffects.css" />
   <link rel="stylesheet" href="css/desktopOS.css" />
-  <link rel="stylesheet" href="css/startMenu.css?v=title-gate1" />
+  <link rel="stylesheet" href="css/startMenu.css?v=title-gate-v1" />
 </head>
 <body class="at-title">
-  <section
-    id="start-menu"
-    class="start-menu"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="start-menu-brand"
-  >
-    <div class="start-menu-band">
-      <img
-        id="start-menu-brand"
-        class="start-menu-logo"
-        src="assets/ui/warewolf-logo.png"
-        alt="Warewolf"
-        width="1024"
-        height="1024"
-      />
-      <p class="start-menu-tagline">Software with teeth.</p>
-      <p class="start-menu-line">Run the studio from the office.</p>
-      <button type="button" id="enter-office" class="start-menu-cta">
-        Enter office
-      </button>
-    </div>
-  </section>
-  <header class="room-heading">
+  <header class="room-heading game-chrome">
     <div><h1><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22S4 13 4 8a8 8 0 0 1 16 0c0 5-8 14-8 14Z"/><circle cx="12" cy="8" r="3"/></svg> Founder’s Office</h1>
       <p>Your first day.</p></div>
     <div class="clock-panel" aria-label="Local date and time">
@@ -42,11 +19,13 @@
       <time id="clock-time"></time><span id="day-label"></span>
     </div>
   </header>
+  <button type="button" id="chrome-mute" class="chrome-mute game-chrome"
+    aria-pressed="false" aria-label="Mute audio">Mute</button>
   <main id="room" aria-label="Founder’s office">
     <p id="room-status">Opening the office…</p>
   </main>
-  <div id="object-label" class="object-label" hidden></div>
-  <footer id="inventory-shell">
+  <div id="object-label" class="object-label game-chrome" hidden></div>
+  <footer id="inventory-shell" class="game-chrome">
     <section class="founder-card" aria-label="Founder state">
       <div class="portrait-medallion">
         <div class="portrait-window">
@@ -84,24 +63,26 @@
     </div>
   </footer>
   <p id="game-message" role="status" class="status-message game-chrome"></p>
-  <div id="start-menu" class="start-menu" role="dialog" aria-modal="true"
-    aria-labelledby="start-menu-tagline" hidden>
+  <section id="start-menu" class="start-menu" role="dialog"
+    aria-modal="true" aria-labelledby="start-menu-tagline" hidden>
     <div class="start-menu-scrim" aria-hidden="true"></div>
     <div class="start-menu-band">
       <img class="start-menu-lockup"
-        src="../brand/warewolf-logo.png"
-        alt="Warewolf" width="512" height="160" />
+        src="assets/ui/warewolf-logo.png"
+        alt="Warewolf" width="1024" height="1024" />
       <p id="start-menu-tagline" class="start-menu-tagline">
         Software with teeth.
       </p>
-      <p class="start-menu-support">Run the studio from the loft.</p>
-      <button type="button" id="enter-loft" class="start-menu-enter">
-        Enter loft
+      <p class="start-menu-support">
+        Run the studio from the office.
+      </p>
+      <button type="button" id="enter-office" class="start-menu-enter">
+        Enter office
       </button>
     </div>
     <button type="button" id="start-menu-mute" class="start-menu-mute"
       aria-pressed="false" aria-label="Mute audio">Mute</button>
-  </div>
+  </section>
   <dialog id="inspection" aria-labelledby="inspection-title"
     aria-describedby="inspection-description">
     <img class="dialogue-portrait" src="assets/ui/nosh-portrait.png" alt="" />

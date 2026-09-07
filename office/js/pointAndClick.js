@@ -4,18 +4,27 @@ import { createDesktop } from "./desktopOS.js";
 import {
   loadAdventure, saveAdventure, setItemCollected,
 } from "./adventureState.js";
-import { createStartMenu } from "./startMenu.js";
+import { createAudioBus, toggleAudioMuted } from "./audio.js";
+import { openStartMenu, paintMuteButtons } from "./startMenu.js";
 
 const ROOM_PATH = "data/founders-office-adventure.json";
 const ACTIVATE_KEYS = new Set(["Enter", " "]);
 const room = document.getElementById("room");
 const dialog = document.getElementById("inspection");
 const itemAction = document.getElementById("item-action");
+const audio = createAudioBus();
 let definition;
 let state;
 let inOffice = true;
 let inspectedItem = null;
 const desktop = createDesktop(syncMotion);
+
+function muteButtons() {
+  return [
+    document.getElementById("start-menu-mute"),
+    document.getElementById("chrome-mute"),
+  ];
+}
 
 function renderClock() {
   const time = describeTime();
@@ -149,6 +158,10 @@ function refreshPickupVisibility() {
 }
 
 function inspect(hotspot) {
+  if (document.body.classList.contains("at-title")) {
+    return;
+  }
+
   if (hotspot.id === "computer") {
     showObjectLabel();
     desktop.open();
@@ -256,6 +269,21 @@ async function preloadImage(path) {
   }
 }
 
+function syncChromeMute() {
+  paintMuteButtons(audio, muteButtons());
+}
+
+function wireChromeMute() {
+  const chromeMute = document.getElementById("chrome-mute");
+
+  chromeMute?.addEventListener("click", () => {
+    toggleAudioMuted(audio);
+    syncChromeMute();
+  });
+
+  syncChromeMute();
+}
+
 function wireShellControls() {
   itemAction.addEventListener("click", changeItem);
   dialog.addEventListener("close", syncMotion);
@@ -280,33 +308,13 @@ function wireShellControls() {
   }
 }
 
-function enterOfficeFromTitle() {
-  renderRoom();
-  renderInventory();
+function revealOfficeAfterTitle() {
   const firstHotspot = room.querySelector("[data-hotspot]");
   firstHotspot?.focus();
   announce("Welcome to the Founder’s Office.");
 }
 
-async function startRoom() {
-  let officeReady = false;
-  let enterRequested = false;
-
-  const titleGate = createStartMenu({
-    onEnter: enterOfficeFromTitle,
-  });
-  titleGate.open();
-
-  titleGate.enterButton.addEventListener("click", () => {
-    if (!officeReady) {
-      enterRequested = true;
-      titleGate.enterButton.textContent = "Opening…";
-      return;
-    }
-
-    titleGate.dismiss();
-  });
-
+async function paintOfficeUnderGate() {
   const response = await fetch(ROOM_PATH, { cache: "no-cache" });
   if (!response.ok) throw new Error(`Room failed to load: ${response.status}`);
   definition = await response.json();
@@ -315,14 +323,36 @@ async function startRoom() {
     ...definition.pickups.map(item => preloadImage(item.emptyImage)),
   ]);
   state = loadAdventure(storage());
+  renderRoom();
+  renderInventory();
   startClock();
   wireShellControls();
-  officeReady = true;
+}
 
-  if (enterRequested) {
-    titleGate.enterButton.textContent = "Enter office";
-    titleGate.dismiss();
+async function startRoom() {
+  wireChromeMute();
+
+  let markReady;
+  const untilReady = new Promise((resolve) => {
+    markReady = resolve;
+  });
+
+  const titleGate = openStartMenu({
+    audio,
+    onMuteChange: syncChromeMute,
+    untilReady,
+  });
+
+  try {
+    await paintOfficeUnderGate();
+    markReady();
+  } catch (error) {
+    markReady();
+    throw error;
   }
+
+  await titleGate;
+  revealOfficeAfterTitle();
 }
 
 startRoom().catch((error) => {

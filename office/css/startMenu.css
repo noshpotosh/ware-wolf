@@ -105,7 +105,14 @@
 
 .start-menu-mute,
 .chrome-mute {
-  border: 1px solid color-mix(in srgb, var(--start-bone) 35%, transparent);
+  --start-ink: #0b0b0c;
+  --start-bone: #f4f0e8;
+  --start-amber: #f59e0b;
+  border: 1px solid color-mix(
+    in srgb,
+    var(--start-bone) 35%,
+    transparent
+  );
   border-radius: 2px;
   padding: 0.45rem 0.8rem;
   background: color-mix(in srgb, var(--start-ink) 70%, transparent);
@@ -117,39 +124,34 @@
 }
 
 .start-menu-mute {
-  --start-ink: #0b0b0c;
-  --start-bone: #f4f0e8;
   position: absolute;
   top: 1.25rem;
   right: 1.25rem;
   z-index: 2;
 }
 
+.chrome-mute {
+  position: absolute;
+  top: 1.35rem;
+  right: 1.35rem;
+  z-index: 3;
+  font-family: StartMenuPixel, Georgia, serif;
+}
+
 .start-menu-mute:hover,
 .chrome-mute:hover {
-  border-color: var(--start-amber, #f59e0b);
+  border-color: var(--start-amber);
 }
 
 .start-menu-mute:focus-visible,
 .chrome-mute:focus-visible {
-  outline: 2px solid var(--start-amber, #f59e0b);
+  outline: 2px solid var(--start-amber);
   outline-offset: 3px;
 }
 
 .start-menu-mute[aria-pressed="true"],
 .chrome-mute[aria-pressed="true"] {
   opacity: 0.78;
-}
-
-.chrome-mute {
-  --start-ink: #0b0b0c;
-  --start-bone: #f4f0e8;
-  --start-amber: #f59e0b;
-  position: absolute;
-  top: 1.35rem;
-  right: 1.35rem;
-  z-index: 3;
-  font-family: StartMenuPixel, Georgia, serif;
 }
 
 .start-menu.is-open {
@@ -162,12 +164,12 @@
   pointer-events: none;
 }
 
-body.awaiting-enter .game-chrome {
+body.at-title .game-chrome {
   visibility: hidden;
   pointer-events: none;
 }
 
-body.awaiting-enter #room {
+body.at-title #room {
   pointer-events: none;
 }
 
