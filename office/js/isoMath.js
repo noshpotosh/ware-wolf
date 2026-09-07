@@ -88,8 +88,14 @@ export function buildRoomView(gridWidth, gridHeight, width, height) {
   const verticalOffset = 6;
   const widthFit = (width - horizontalPadding) / bounds.width;
   const heightFit = (height - chromePadding) / bounds.height;
-  const scale = Math.max(minimumScale,
+  const rawScale = Math.max(minimumScale,
     Math.min(maximumScale, widthFit, heightFit));
+  // Snap so scaled tile height lands on whole pixels — fractional
+  // container scale opens a dark seam under baked wall feet.
+  const scale = Math.max(
+    minimumScale,
+    Math.floor(rawScale * TILE_HEIGHT_PX) / TILE_HEIGHT_PX
+  );
   return {
     originX: width / 2 - (bounds.minX + bounds.maxX) / 2 * scale,
     originY: height / 2 - (bounds.minY + bounds.maxY) / 2 * scale

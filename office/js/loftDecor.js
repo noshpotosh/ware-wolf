@@ -84,6 +84,22 @@ export function isBackWallCell(office, gridX, gridY) {
   return true;
 }
 
+export function wallFaceForCell(gridX, gridY) {
+  if (gridX === 0 && gridY === 0) {
+    return "corner";
+  }
+
+  if (gridY === 0) {
+    return "se";
+  }
+
+  if (gridX === 0) {
+    return "sw";
+  }
+
+  return null;
+}
+
 export function listBackWallCells(office) {
   const cells = [];
 
@@ -93,9 +109,60 @@ export function listBackWallCells(office) {
         continue;
       }
 
-      cells.push({ gridX, gridY });
+      cells.push({
+        gridX,
+        gridY,
+        face: wallFaceForCell(gridX, gridY),
+      });
     }
   }
 
   return cells;
+}
+
+
+export function listBackWallRuns(office) {
+  const cells = listBackWallCells(office);
+  const seCells = cells
+    .filter((cell) => cell.face === "se" || cell.face === "corner")
+    .sort((a, b) => a.gridX - b.gridX);
+  const swCells = cells
+    .filter((cell) => cell.face === "sw" || cell.face === "corner")
+    .sort((a, b) => a.gridY - b.gridY);
+
+  return [
+    ...groupContiguous(seCells, "se", "gridX"),
+    ...groupContiguous(swCells, "sw", "gridY"),
+  ];
+}
+
+function groupContiguous(cells, face, axisKey) {
+  if (cells.length === 0) {
+    return [];
+  }
+
+  const runs = [];
+  let start = cells[0];
+  let prev = cells[0];
+
+  for (let index = 1; index < cells.length; index += 1) {
+    const cell = cells[index];
+    const expected = prev[axisKey] + 1;
+    const sameCornerAxis =
+      face === "se"
+        ? cell.gridY === prev.gridY
+        : cell.gridX === prev.gridX;
+
+    if (cell[axisKey] === expected && sameCornerAxis) {
+      prev = cell;
+      continue;
+    }
+
+    runs.push({ face, start, end: prev });
+    start = cell;
+    prev = cell;
+  }
+
+  runs.push({ face, start, end: prev });
+  return runs;
 }

@@ -26,12 +26,14 @@ import {
   SPRITE_ORIGIN_CENTER_X,
   SPRITE_ORIGIN_FOOT_Y,
   WALL_DEPTH_BIAS,
-  WALL_DISPLAY_HEIGHT,
-  WALL_DISPLAY_WIDTH,
-  WALL_ORIGIN_X,
-  WALL_ORIGIN_Y,
-  WALL_SCREEN_OFFSET_Y,
-  WALL_TEXTURE_KEY,
+  WALL_INK_COLOR,
+  WALL_HEIGHT_PX,
+  WALL_CLAY_DARK_COLOR,
+  WALL_CLAY_COLOR,
+  WALL_BONE_DIM_COLOR,
+  WALL_BONE_COLOR,
+  WALL_BASEBOARD_PX,
+  WALL_FOOT_OVERLAP_PX,
   TILE_HEIGHT_PX,
   TILE_WIDTH_PX,
 } from "./constants.js";
@@ -44,7 +46,7 @@ import {
 } from "./sprites.js";
 import {
   floorTextureKey,
-  listBackWallCells,
+  listBackWallRuns,
   nameplateLabel,
 } from "./loftDecor.js";
 
@@ -223,43 +225,139 @@ function createLoftScene(Phaser, host) {
 
     drawWalls(office) {
       for (const sprite of this.wallSprites) {
+        const textureKey = sprite.texture && sprite.texture.key;
+
         sprite.destroy();
+
+        if (
+          textureKey
+          && textureKey.startsWith("wall-run:")
+          && this.textures.exists(textureKey)
+        ) {
+          this.textures.remove(textureKey);
+        }
       }
 
       this.wallSprites = [];
 
-      for (const cell of listBackWallCells(office)) {
-        const point = gridToScreen(cell.gridX, cell.gridY);
-        const wall = this.add.image(
-          point.screenX,
-          point.screenY + WALL_SCREEN_OFFSET_Y,
-          WALL_TEXTURE_KEY
-        );
+      for (const run of listBackWallRuns(office)) {
+        this.drawWallRun(run);
+      }
+    }
 
-        wall.setOrigin(WALL_ORIGIN_X, WALL_ORIGIN_Y);
-        wall.setDisplaySize(WALL_DISPLAY_WIDTH, WALL_DISPLAY_HEIGHT);
+    drawWallRun(run) {
+      const start = gridToScreen(run.start.gridX, run.start.gridY);
+      const end = gridToScreen(run.end.gridX, run.end.gridY);
+      // Far tip of each tile diamond.
+      const tipY = -TILE_HEIGHT_PX / 2;
+      let leftX;
+      let leftY;
+      let rightX;
+      let rightY;
 
-        // Flip the gridX==0 face so both far edges read as inward walls.
-        if (cell.gridX === 0 && cell.gridY !== 0) {
-          wall.setFlipX(true);
-        }
-
-        wall.setData(
-          "depth",
-          cell.gridX + cell.gridY + WALL_DEPTH_BIAS
-        );
-        this.wallLayer.add(wall);
-        this.wallSprites.push(wall);
+      if (run.face === "se") {
+        leftX = start.screenX;
+        leftY = start.screenY + tipY;
+        rightX = end.screenX + TILE_WIDTH_PX / 2;
+        rightY = end.screenY + tipY + TILE_HEIGHT_PX / 2;
+      } else {
+        rightX = start.screenX;
+        rightY = start.screenY + tipY;
+        leftX = end.screenX - TILE_WIDTH_PX / 2;
+        leftY = end.screenY + tipY + TILE_HEIGHT_PX / 2;
       }
 
-      const ordered = [...this.wallSprites].sort(
-        (left, right) =>
-          left.getData("depth") - right.getData("depth")
-      );
+      // Overlap into the floor diamond; bake to a bitmap so container
+      // scale uses nearest-neighbor like floor tiles (no Graphics seam).
+      leftY += WALL_FOOT_OVERLAP_PX;
+      rightY += WALL_FOOT_OVERLAP_PX;
 
-      ordered.forEach((sprite, index) => {
-        this.wallLayer.moveTo(sprite, index);
-      });
+      const tipLeftY = leftY - WALL_FOOT_OVERLAP_PX;
+      const tipRightY = rightY - WALL_FOOT_OVERLAP_PX;
+      const topLeftY = tipLeftY - WALL_HEIGHT_PX;
+      const topRightY = tipRightY - WALL_HEIGHT_PX;
+      const boardLeftY = leftY - WALL_BASEBOARD_PX;
+      const boardRightY = rightY - WALL_BASEBOARD_PX;
+
+      const footSealPx = 8;
+      const pad = 2;
+      const minX = Math.floor(Math.min(leftX, rightX) - pad);
+      const maxX = Math.ceil(Math.max(leftX, rightX) + pad);
+      const minY = Math.floor(Math.min(topLeftY, topRightY) - pad);
+      const maxY = Math.ceil(
+        Math.max(leftY, rightY) + footSealPx + pad
+      );
+      const textureWidth = Math.max(1, maxX - minX);
+      const textureHeight = Math.max(1, maxY - minY);
+      const textureKey =
+        `wall-run:${run.face}:`
+        + `${run.start.gridX},${run.start.gridY}:`
+        + `${run.end.gridX},${run.end.gridY}:`
+        + `${textureWidth}x${textureHeight}`;
+
+      if (this.textures.exists(textureKey)) {
+        this.textures.remove(textureKey);
+      }
+
+      const graphics = this.make.graphics({ x: 0, y: 0, add: false });
+      const ox = -minX;
+      const oy = -minY;
+
+      graphics.fillStyle(WALL_BONE_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX + ox, leftY + oy);
+      graphics.lineTo(rightX + ox, rightY + oy);
+      graphics.lineTo(rightX + ox, topRightY + oy);
+      graphics.lineTo(leftX + ox, topLeftY + oy);
+      graphics.closePath();
+      graphics.fillPath();
+
+      graphics.fillStyle(WALL_CLAY_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX + ox, leftY + oy);
+      graphics.lineTo(rightX + ox, rightY + oy);
+      graphics.lineTo(rightX + ox, boardRightY + oy);
+      graphics.lineTo(leftX + ox, boardLeftY + oy);
+      graphics.closePath();
+      graphics.fillPath();
+
+      // Seal the foot with clay ink — fillPath diagonals leave a dark
+      // fringe under container scale that reads as a hover gap.
+      graphics.lineStyle(4, WALL_CLAY_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX + ox, leftY + oy);
+      graphics.lineTo(rightX + ox, rightY + oy);
+      graphics.strokePath();
+
+      // Opaque clay skirt below the foot so generateTexture does not
+      // anti-alias clay against transparency (that fringe is the gap).
+      graphics.fillStyle(WALL_CLAY_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX + ox, leftY + oy - 1);
+      graphics.lineTo(rightX + ox, rightY + oy - 1);
+      graphics.lineTo(rightX + ox, rightY + oy + footSealPx);
+      graphics.lineTo(leftX + ox, leftY + oy + footSealPx);
+      graphics.closePath();
+      graphics.fillPath();
+
+      // Top edge only — no foot ink.
+      graphics.lineStyle(2, WALL_INK_COLOR, 1);
+      graphics.beginPath();
+      graphics.moveTo(leftX + ox, topLeftY + oy);
+      graphics.lineTo(rightX + ox, topRightY + oy);
+      graphics.strokePath();
+
+      graphics.generateTexture(textureKey, textureWidth, textureHeight);
+      graphics.destroy();
+
+      const sprite = this.add.image(minX, minY, textureKey);
+      sprite.setOrigin(0, 0);
+      sprite.setData(
+        "depth",
+        run.start.gridX + run.start.gridY + WALL_DEPTH_BIAS
+      );
+      this.wallLayer.add(sprite);
+      this.wallSprites.push(sprite);
     }
 
     fitCamera(office) {

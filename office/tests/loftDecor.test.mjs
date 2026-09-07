@@ -7,7 +7,9 @@ import {
   isBackWallCell,
   isIslandCell,
   listBackWallCells,
+  listBackWallRuns,
   nameplateLabel,
+  wallFaceForCell,
 } from "../js/loftDecor.js";
 
 const starter = JSON.parse(
@@ -83,4 +85,22 @@ test("back walls hug far edges and skip door cells", () => {
       (cell) => !(cell.gridX === 0 && cell.gridY === 3)
     )
   );
+});
+
+
+test("wall faces: SE along Y=0, SW along X=0, corner both", () => {
+  assert.equal(wallFaceForCell(3, 0), "se");
+  assert.equal(wallFaceForCell(0, 4), "sw");
+  assert.equal(wallFaceForCell(0, 0), "corner");
+  assert.equal(wallFaceForCell(2, 2), null);
+});
+
+
+test("wall runs are contiguous per face", () => {
+  const runs = listBackWallRuns(starter);
+  assert.ok(runs.length >= 2);
+  const se = runs.filter((run) => run.face === "se");
+  const sw = runs.filter((run) => run.face === "sw");
+  assert.ok(se.length >= 1);
+  assert.ok(sw.length >= 1);
 });
