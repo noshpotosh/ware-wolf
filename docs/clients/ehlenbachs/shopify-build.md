@@ -31,6 +31,11 @@ or app piles.
 **Not the job:** cheapest possible monthly website. **The job:**
 sell cheese online + look like the chalet + not invent an IT dept.
 
+**Dex handoff (bets 1–3):** section names, settings, hero
+allow/ban list, tokens, and nav IA live in
+[`liquid-section-map.md`](liquid-section-map.md). Scaffold from
+that map — do not invent sections from the PNGs alone.
+
 ---
 
 ## Money (client-plain)
@@ -52,7 +57,7 @@ platform choice.
 | Artifact | Role |
 | --- | --- |
 | [`README.md`](README.md) + [`mockups/`](mockups/) | Look & feel lock (client approved) |
-| [`liquid-section-map.md`](liquid-section-map.md) | Dex section names / hero allow-ban (PR #54 if not on main yet) |
+| [`liquid-section-map.md`](liquid-section-map.md) | Dex section names / hero allow-ban (this pack) |
 | This go plan | Intensity, tier, bet order, cost rules |
 
 Tokens: wood, dairy cream, cheddar gold, sparse barn red.
@@ -131,8 +136,8 @@ Dex scaffolds without waiting; art lock waits on 1–2.
 | Who | Now |
 | --- | --- |
 | Fabrizio | Scope / cost lock (this plan); one concern per PR |
-| Maeve | Liquid map (#54); sign-off vs mocks on preview |
-| Dex | Bet 1 theme shell |
+| Maeve | Liquid map shipped; sign-off vs mocks on preview; PDP when that bet |
+| Dex | Theme shell + bets 1–3 from the liquid map |
 | Cal | First-viewport ban-list when preview exists |
 | Reed | Theme readability after Cal |
 

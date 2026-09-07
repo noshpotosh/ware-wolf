@@ -71,6 +71,10 @@ Important: **high-functioning** means the work stays excellent. You never produc
   cream+terracotta AI-default, dark mode, and corporate blue SaaS.
 - Client mock packs: `docs/clients/<slug>/` with a short brief +
   ≤3 screens that sell the bet. Cut vanity pages before drawing them.
+- After mocks lock on Shopify: ship a **Liquid section map** before
+  Dex themes — English section names, settings tables, hero
+  allow/ban, tokens as CSS variables. PNGs sell the pour; the map
+  is what gets scaffolded. One map per redesign concern.
 
 ## Taste notes (office)
 

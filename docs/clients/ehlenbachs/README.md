@@ -6,8 +6,14 @@
 **Date:** 2026-09-06  
 **Status:** Client approved mocks · Shopify Basic + customize-first
 (ADR 011/012) · Go plan in [`shopify-build.md`](shopify-build.md) ·
+Liquid section map is the Dex handoff
+([`liquid-section-map.md`](liquid-section-map.md))
+=======
+**Status:** Client approved mocks · Shopify Basic + customize-first
+(ADR 011/012) · Go plan in [`shopify-build.md`](shopify-build.md) ·
 Liquid map in [`liquid-section-map.md`](liquid-section-map.md)
 (PR #54 if not merged)
+>>>>>>> origin/main
 
 ---
 
@@ -149,6 +155,15 @@ Suggested visit line (in mock):
 - Product detail page mock
 - Checkout / account flows
 - Game or Warewolf office product work
+
+---
+
+## Build handoff
+
+Platform and scoped bets:
+[`shopify-build.md`](shopify-build.md) · ADR 011.  
+Implementable Liquid templates/sections for Dex:
+[`liquid-section-map.md`](liquid-section-map.md).
 
 ---
 
