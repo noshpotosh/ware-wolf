@@ -1,0 +1,41 @@
+{
+  "assetId": "house-kitchen-01",
+  "purpose": "Candidate second room for the first house-office",
+  "type": "new room mockup",
+  "status": "Candidate only; not approved or integrated",
+  "provider": "OpenAI built-in imagegen",
+  "model": "Not reported by provider",
+  "referenceCatalogVersion": 2,
+  "references": [
+    "office/assets/rooms/founders-office-background.png",
+    "office/assets/rooms/founders-bedroom-v1.png"
+  ],
+  "allowedDelta": "Create a new kitchen and breakfast nook room",
+  "invariants": [
+    "Match the accepted pixel-painted camera and rendering language",
+    "Keep the house architecture, woodwork, and object scale consistent",
+    "Show the complete room silhouette and floor thickness",
+    "Include no character, UI, labels, or generated text"
+  ],
+  "intendedDisplaySize": "Responsive room view; authored at 1774x887",
+  "prompt": "Use case: stylized-concept\nAsset type: new painted-room mockup for Warewolf's point-and-click game\nPrimary request: Design the next room in the first office, which is a modest lived-in house: a compact kitchen and breakfast nook that feels like it belongs directly beside the existing founder bedroom.\nInput images: Image 1 is the primary environment style anchor for pixel treatment, fixed isometric camera, materials, scale, lighting, wall caps, and floor thickness. Image 2 is the approved starting bedroom and anchors the house's architecture, repeated woodwork, door design, and furniture scale.\nScene/backdrop: A complete cutaway isometric room with two visible cream-plaster walls, warm walnut trim and floorboards, and the full dark floor underside visible against a plain black exterior. Include a closed matching wooden entry door on the left wall, a small window with the same wood blinds, simple sage lower cabinets and cream upper cabinets, walnut countertop, old cream refrigerator, small cream stove/oven, brass-handled sink beneath the window, kettle, a compact round wooden breakfast table with two chairs, a woven sage-and-cream runner, and one restrained household detail such as a fruit bowl. Arrange the room naturally with generous open floor space and clearly separated silhouettes suitable for point-and-click hotspots.\nStyle/medium: detailed evolved pixel-painted environment; deliberate pixel clusters, stepped edges, readable dark ink outlines, controlled texture. Same game and same house as both references, not a reinterpretation.\nComposition/framing: match the references' fixed elevated isometric camera and wall angles; wide 1774:887 composition; show the entire room silhouette, wall-cap thickness, floor edges, and floor sides. No UI and no player character.\nLighting/mood: warm quiet morning daylight from the window with a subtle local amber stove light; cozy, humble, slightly nostalgic; identifiable light sources and balanced material contrast.\nColor palette: warm walnut brown, cream plaster and appliances, restrained sage cabinetry/textiles, small brass details, dark olive shadows.\nMaterials/textures: visible wood grain, matte aged enamel, plaster variation, woven fibers, ceramic tile backsplash used sparingly.\nConstraints: preserve the house architecture and scale established by Image 2; preserve the rendering language and camera of Image 1; create one complete painted environment, not a sprite kit; all major objects must remain legible at reduced game display size; no generated text.\nAvoid: characters, office desks, computers, water coolers, logos, labels, captions, UI, smooth vector art, cel shading, 3D clay rendering, noisy sharpening, photorealism, excessive clutter, heavy orange tint, blurred glow halos, cropped floor edges.",
+  "output": "docs/office/mockups/house-kitchen/01-kitchen-breakfast-nook.png",
+  "review": "Pass as a concept candidate. Camera, walnut/cream/sage palette, wall caps, door language, floor thickness, pixel treatment, and warm window light align closely with the approved anchors. The door, sink, kettle, stove, refrigerator, and table have readable silhouettes for future hotspots. The room is slightly more polished and cabinetry-dense than the sparse bedroom; verify its visual weight at actual game display size before approval. Mockup only; no runtime geometry or navigation has been added.",
+  "imageMetadata": [
+    {
+      "path": "office/assets/rooms/founders-office-background.png",
+      "sha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+      "size": [1774, 887]
+    },
+    {
+      "path": "office/assets/rooms/founders-bedroom-v1.png",
+      "sha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc",
+      "size": [1774, 887]
+    },
+    {
+      "path": "docs/office/mockups/house-kitchen/01-kitchen-breakfast-nook.png",
+      "sha256": "f2020c887a543351c0c081fd119292725b8d59945a970f530ae3ffd85366ff61",
+      "size": [1774, 887]
+    }
+  ]
+}

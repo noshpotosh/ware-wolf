@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "source": "../docs/office/mockups/house-kitchen/03-kitchen-two-doors.png",
+  "sourceSha256": "ceb6c5575d3314617e7e2e7163b6116d48de584c10aeadc8c95527d9a35a5969",
+  "runtime": "assets/rooms/house-kitchen-v1.png",
+  "runtimeSha256": "ceb6c5575d3314617e7e2e7163b6116d48de584c10aeadc8c95527d9a35a5969",
+  "size": [
+    1774,
+    887
+  ],
+  "provider": "OpenAI built-in imagegen",
+  "prompt": "Approved two-door kitchen mockup copied byte-for-byte; generation prompt in docs/office/mockups/house-kitchen/03-kitchen-two-doors.json.",
+  "referenceCatalogVersion": 3,
+  "review": "Approved by Nosh for runtime integration. Kitchen identity, two improvised workspaces, bedroom return door, and future-room door remain readable at native size. Runtime navigation and responsive browser checks are required before completion."
+}

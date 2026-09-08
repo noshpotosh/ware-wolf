@@ -65,3 +65,8 @@ body[data-away="true"] .ambient-effects * { animation-play-state: paused; }
   .ambient-effects * { animation: none !important; }
   .crt-scan, .water-bubble, .coffee-steam { display: none; }
 }
+
+body.reduce-motion .ambient-effects * { animation: none !important; }
+body.reduce-motion .crt-scan,
+body.reduce-motion .water-bubble,
+body.reduce-motion .coffee-steam { display: none; }

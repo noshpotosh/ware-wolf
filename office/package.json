@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Warewolf painted-room point-and-click web client",
   "scripts": {
+    "catalogue": "node tools/scene-catalogue/server.mjs",
     "test": "node --test tests/*.test.mjs"
   },
   "keywords": [],

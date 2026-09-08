@@ -1,0 +1,76 @@
+{
+  "round": "navigation-map-round-01",
+  "date": "2026-09-07",
+  "purpose": "Explore far-right quick navigation before choosing a shell layout.",
+  "status": "Concept 04 approved by Nosh for runtime implementation.",
+  "selectedConcept": "04-compass-paper-popover",
+  "tool": "OpenAI built-in imagegen",
+  "model": null,
+  "referenceCatalogVersion": 3,
+  "allowedDelta": "Change only the far-right navigation treatment.",
+  "invariants": [
+    "Preserve the room artwork and existing shell hierarchy.",
+    "Keep the player portrait at the far left and inventory centered.",
+    "Use warm walnut, dark olive, muted sage, brass, and cream.",
+    "Keep critical labels in code-native UI when implemented."
+  ],
+  "references": [
+    {
+      "role": "Current shell layout edit target",
+      "source": "Localhost browser screenshot captured during this task",
+      "sha256": null,
+      "note": "Session-only screenshot; implementation files remain the layout authority."
+    },
+    {
+      "role": "Approved bedroom room-art anchor",
+      "path": "office/assets/rooms/founders-bedroom-v1.png",
+      "sha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc"
+    },
+    {
+      "role": "Classic-adventure shell reference",
+      "path": "docs/office/mockups/round-01/ui-01-classic-adventure.png",
+      "sha256": "eef11043983015d8585b71a55ccd666065746433614f6bac8424fa66c8c2086a"
+    },
+    {
+      "role": "Dialogue-treatment reference",
+      "path": "docs/office/mockups/round-01/ui-02-visual-novel.png",
+      "sha256": "f4fecd68b26075e11146a510a72a7fd0d1211ce77f259147870720aa03cfaf51"
+    },
+    {
+      "role": "Nosh identity anchor",
+      "path": "office/assets/ui/nosh-portrait.png",
+      "sha256": "2e8c3ef55fb319f1c8ba72bc0edcec2409773801424953ff91f50507c2c498bf"
+    }
+  ],
+  "sharedPrompt": "Use case: ui-mockup. Asset type: high-fidelity 1280x720 desktop game UI mockup. Preserve the current game room, top-left location text, top-right local clock, bottom-left circular Nosh portrait badge, centered five-slot inventory bar, Journal and Menu buttons, proportions, pixel-painted detail, and textured olive-charcoal void. Change only the far-right navigation concept. Use a realistic shippable code-native interface treatment in warm walnut, dark olive, muted sage, fine brass, and cream text. Keep all existing layout and artwork unchanged outside the far-right navigation area. Use only these exact map labels if visible: OFFICE MAP, BEDROOM, KITCHEN, YOU ARE HERE. No new character, logo, watermark, or unrelated controls.",
+  "concepts": [
+    {
+      "id": "01-circular-medallion",
+      "prompt": "An always-visible circular floor-plan medallion on the far right, exactly balancing the player's circular avatar badge on the far left. Inside the brass ring, show a very clean two-room schematic with BEDROOM and KITCHEN as clickable-looking areas, a small warm current-location dot, and a restrained OFFICE MAP caption below. Prioritize symmetry, instant glanceability, and minimal visual weight.",
+      "output": "01-circular-medallion.png",
+      "size": [1672, 941],
+      "sha256": "d6459d7dd44f03589b5b92661ee9276ae4bf7530127b50c76334d4437ca8d7f2"
+    },
+    {
+      "id": "02-vertical-directory",
+      "prompt": "A slim vertical brass-framed room directory on the far right, occupying the same visual weight and footprint as the player's avatar badge but using a rectangular parchment-and-olive floor-plan card. Show BEDROOM and KITCHEN as two clearly separated stacked destinations with a subtle connecting line; highlight the current room with a small YOU ARE HERE marker. Prioritize label clarity and room to scale to more destinations.",
+      "output": "02-vertical-directory.png",
+      "size": [1672, 941],
+      "sha256": "de8aa6bdec8e0c48aacde68c25c0a1f8f3810b19b31be5920fd1f785d6fa18ce"
+    },
+    {
+      "id": "03-expandable-drawer",
+      "prompt": "A small circular compass/map badge on the far-right edge with a tasteful expanded map drawer open toward the left above the inventory bar. The badge visually balances the player's avatar while the drawer shows a compact two-room floor plan with BEDROOM, KITCHEN, and a YOU ARE HERE marker. The expanded drawer should feel intentional and unobtrusive, demonstrating the open interaction state. Prioritize keeping the default shell light while allowing richer navigation on demand.",
+      "output": "03-expandable-drawer.png",
+      "size": [1672, 941],
+      "sha256": "73b4aa4928cb96a678517442478fdb56c48493f0cd1f146b3d998331fced5947"
+    },
+    {
+      "id": "04-compass-paper-popover",
+      "prompt": "Use 03-expandable-drawer.png as the exact layout target and 02-vertical-directory.png as the paper-material reference. Keep the small circular brass compass as the only closed-state map control. Show its clicked state with a compact physical paper office map opening up and left from the compass. Use warm cream parchment, fine brass edging, subtle walnut backing, clear BEDROOM and KITCHEN targets, a restrained brass pin, YOU ARE HERE, and a subtle doorway connection. Preserve the room, portrait, inventory, Journal/Menu, clock, location heading, compass, spacing, and every other UI element. Change only the expanded map treatment; add no unrelated controls, text, logos, characters, or watermark.",
+      "output": "04-compass-paper-popover.png",
+      "size": [1672, 941],
+      "sha256": "29454dadb4b6e0312e94f0c905d8db01885ce781d146db3c3e8d8a3f5dc34e73"
+    }
+  ]
+}

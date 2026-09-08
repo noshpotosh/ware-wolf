@@ -1,0 +1,50 @@
+{
+  "assetId": "main-menu-round-02",
+  "purpose": "Main-menu explorations that foreground tech-startup management",
+  "type": "UI mockup",
+  "status": "Candidates only; not runtime assets or style anchors",
+  "referenceCatalogVersion": 2,
+  "provider": "OpenAI built-in image_gen",
+  "model": null,
+  "modelNote": "The built-in tool did not report a model identifier.",
+  "references": [
+    {
+      "path": "office/assets/rooms/founders-office-background.png",
+      "sha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+      "scope": "Evolved-pixel rendering, materials, camera, and lighting only"
+    },
+    {
+      "path": "docs/office/mockups/round-01/ui-01-classic-adventure.png",
+      "sha256": "eef11043983015d8585b71a55ccd666065746433614f6bac8424fa66c8c2086a",
+      "scope": "Brass frames, olive surfaces, cream typography, and stepped UI edges only"
+    },
+    {
+      "path": "docs/office/mockups/desktop-os/09-employee-directory.png",
+      "sha256": "bfd0c34f5996a867db293a20bb64fc98d1070d4794ea0c2741837e573e81b7d5",
+      "scope": "Friendly retro-computer staffing language only"
+    }
+  ],
+  "sharedConstraints": [
+    "Title is OFFICE",
+    "No Warewolf or player-company identity",
+    "Communicate product, hiring, runway, shipping, and infrastructure",
+    "Do not reuse the founder office or bedroom composition",
+    "Critical text becomes accessible HTML if implemented"
+  ],
+  "candidates": [
+    {
+      "path": "docs/office/mockups/main-menu-round-02/01-startup-command-table.png",
+      "sha256": "d1e04ff8eefaeb2aa3677bac2a3056c6d26442b252286aeccdef7497b1d52c9b",
+      "size": [1672, 941],
+      "allowedDelta": "New company-neutral startup decision still life",
+      "prompt": "Create a high-fidelity 16:9 main-menu mockup for a tech-startup management game titled OFFICE. Use the founder-room image only for evolved-pixel rendering, warm materials, object scale, and grounded lighting; use the classic-adventure UI only for brass frames, olive surfaces, cream typography, and stepped edges; use the Directory only for approachable retro-tech staffing language, with no reused names, faces, purple icons, or layout. Show an isometric founder command table in an olive-charcoal void with four believable decision areas: a cream CRT with abstract terminal lines and build lights, an unlabeled three-stage product roadmap, three anonymous candidate folders, and a runway chart with coin stacks and calculator. Add a compact server and network cables. Put OFFICE and a compact menu at left, with Continue selected. Render only OFFICE, Continue, New Company, Settings, Quit. No Warewolf branding, company identity, first-office scene, characters, branded services, holograms, crypto, rockets, unicorns, cyberpunk, purple glow, smooth vector art, 3D clay, photorealism, or watermark."
+    },
+    {
+      "path": "docs/office/mockups/main-menu-round-02/02-company-growth-cutaway.png",
+      "sha256": "2447da31bffb3e472f397760f98e7082f8bac5b61f8a0168ddaaf2f00a158255",
+      "size": [1672, 941],
+      "allowedDelta": "New company-neutral startup-growth cutaway",
+      "prompt": "Create a high-fidelity 16:9 main-menu mockup for a tech-startup management game titled OFFICE. Use the founder-room image only as the evolved-pixel style and camera anchor; use the classic-adventure UI only for brass and olive menu treatment; use the Directory only for approachable retro-tech staffing language without reused identities. Show one coherent isometric three-level anonymous startup building at night. Bottom: one founder-scale workstation, blank product sketch board, and boxes. Middle: four anonymous workers at computers, an unlabeled roadmap, and build-status lights. Top: server room beside a glass planning room with an unlabeled growth chart and blank screen reserved for the future company logo. Connect floors visibly so it reads as one growing organization. Put OFFICE and a compact menu at left with Continue selected. Render only OFFICE, Continue, New Company, Settings, Quit. No Warewolf or company identity, branded apps, holograms, crypto, rockets, unicorns, luxury skyscraper mood, cyberpunk, purple glow, vector art, 3D clay, photorealism, or watermark."
+    }
+  ]
+}

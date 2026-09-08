@@ -1,0 +1,30 @@
+{
+  "assetId": "house-kitchen-recipe-01",
+  "purpose": "Pass 1 house-room recipe: kitchen concept synced to bedroom DNA",
+  "type": "new room mockup",
+  "status": "Candidate only; not approved or integrated",
+  "provider": "Cursor GenerateImage",
+  "model": "Not reported by provider",
+  "nativeSize": [1280, 720],
+  "targetMasterSize": [1774, 887],
+  "sizeNote": "Generator returned 1280x720; *-1774.png is a review upscale only",
+  "referenceCatalogVersion": 5,
+  "references": [
+    "office/assets/rooms/founders-office-background.png",
+    "office/assets/rooms/founders-bedroom-v1.png"
+  ],
+  "referenceRoles": {
+    "styleGod": "office/assets/rooms/founders-office-background.png",
+    "houseDna": "office/assets/rooms/founders-bedroom-v1.png"
+  },
+  "allowedDelta": "Create a compact lived-in kitchen / breakfast nook beside the bedroom",
+  "invariants": [
+    "Match office style god pixel language and camera",
+    "Match bedroom house architecture DNA",
+    "Complete cutaway room on black void with full floor underside",
+    "No characters, UI, labels, or furniture kits"
+  ],
+  "output": "docs/office/mockups/house-kitchen-recipe-v1/01-kitchen-concept.png",
+  "outputSha256": "12211aac92947cc86f678f5f6ee889e880ce1cc6ca36ef7fb837e1a34a5c4267",
+  "review": "Concept reads as the same house: plaster, walnut, blinds, left door, warm window light. Slightly showroom-polished vs bedroom humility; three chairs; no improvised workspaces yet."
+}

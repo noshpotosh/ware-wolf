@@ -15,7 +15,7 @@ The historical prompts below are retained as history, not generation defaults.
 > or objects beyond the brief. Allowed change: [specific delta]. Preserve:
 > [explicit invariants]. Output: [dimensions, alpha requirement, framing].
 
-## New room
+## New complete scene
 
 > Design [room purpose and contents] using reference A as the visual anchor.
 > Keep its camera and material/rendering language. Room dimensions/layout may
@@ -23,7 +23,38 @@ The historical prompts below are retained as history, not generation defaults.
 > Keep interactable silhouettes legible at [display size]. Do not add a
 > walking character. This is a complete painted environment, not a sprite kit.
 
-## Existing room upgrade or object state
+## House-room recipe (bedroom process for every house room)
+
+Use this for new rooms in the starter house. It mirrors the bedroom
+provenance chain: concept → layout lock → optional edge match. Prefer edits
+over inventing a second room from scratch after Pass 1.
+
+**Canvas:** native `1774×887` PNG on a plain black void. Do not ship an
+upscale of a smaller generator output as the runtime plate.
+
+**Reference roles (never swap them):**
+1. Style god — `founders-office-background.png` only. Camera, pixel clusters,
+   materials, light language, wall-cap and floor underside.
+2. House DNA — `founders-bedroom-v1.png` (or the adjacent approved house
+   room). Door construction, trim weight, blinds language, object scale,
+   humble density. Never a new style authority.
+3. Edit target — the previous pass candidate only.
+
+**Pass 1 — concept (fresh room):** attach style god + house DNA. Invent the
+new room program only. No characters, UI, text, or furniture kits.
+
+**Pass 2 — layout lock (edit):** attach Pass 1 + style god + house DNA.
+Lock doors, navigation silhouettes, and product props. Prefer surgical
+layout changes over a redesign.
+
+**Pass 3 — edge match (optional edit):** attach Pass 2 + bedroom + style
+god. Thin exterior outline weight/color to the bedroom only. Do not move
+furniture.
+
+A new candidate never becomes the next style anchor. Nosh selects anchors
+explicitly in `office/art-source/style-reference.json`.
+
+## Existing scene or object state
 
 > Edit reference B only: [change]. Keep its exact canvas, framing, furniture
 > positions, light direction, and every unrelated object. Reconstruct only
@@ -37,7 +68,7 @@ The historical prompts below are retained as history, not generation defaults.
 > Transparent background; no lettering, frame, scene, or baked UI. Preserve
 > [canvas and bust anchor] across all requested expressions.
 
-## Animated object frames — only after choosing a layer approach
+## Animated object frames — only for a local scene touch
 
 > Animate only [isolated object] from the approved object reference B.
 > Motion: [precise movement]. Fixed canvas [size], anchor [x,y], camera,

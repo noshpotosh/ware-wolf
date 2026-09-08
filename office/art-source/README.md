@@ -1,12 +1,13 @@
-# Office art source
+# Office art source records
 
-The main room system uses accepted painted PNGs directly. This folder keeps
-`founders-office-background.json` and `founders-office-empty-desk.json`:
-source/runtime hashes, edit prompts, dimensions, provider, and review notes.
-The original source reference remains under
-`assets/reference/style-explorations/01-evolved-pixel.png`.
+This directory records provenance for approved complete scene paintings,
+state edits, transitions, portraits, and UI art.
 
-Run `npm test` from `office/` to verify the accepted assets and provenance.
-There is no export build step. The former sprite/atlas recipes and generated
-kit were backed up before retirement. See the canonical
-[asset pipeline](../../docs/office/asset-pipeline.md) for authoring and recovery.
+The runtime catalogue is `../data/scene-catalog.json`. Scene candidates stay
+under `../../docs/office/mockups/` until Nosh approves one. Approval requires
+a versioned runtime path plus source/runtime hashes, native dimensions,
+provider/model information, prompt, permitted change, and acceptance reason.
+
+Interactive masks are runtime support assets, not independent art-catalogue
+items. They live under `../assets/interaction-masks/` and are referenced by
+the scene definition that owns them.

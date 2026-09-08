@@ -1,0 +1,156 @@
+{
+  "id": "main-menu",
+  "width": 1672,
+  "height": 941,
+  "fit": "cover",
+  "effectBindings": [
+    {
+      "id": "computer-screen-crt",
+      "preset": "crt",
+      "kind": "surface",
+      "annotation": "computer-screen",
+      "parameters": {}
+    },
+    {
+      "id": "server-led-1-led",
+      "preset": "led",
+      "kind": "point",
+      "annotation": "server-led-1",
+      "parameters": {
+        "color": "green",
+        "size": 8,
+        "durationSeconds": 2.6,
+        "delaySeconds": 0
+      }
+    },
+    {
+      "id": "server-led-2-led",
+      "preset": "led",
+      "kind": "point",
+      "annotation": "server-led-2",
+      "parameters": {
+        "color": "amber",
+        "size": 8,
+        "durationSeconds": 2.6,
+        "delaySeconds": -1.1
+      }
+    },
+    {
+      "id": "server-led-3-led",
+      "preset": "led",
+      "kind": "point",
+      "annotation": "server-led-3",
+      "parameters": {
+        "color": "green",
+        "size": 8,
+        "durationSeconds": 2.6,
+        "delaySeconds": -2.2
+      }
+    },
+    {
+      "id": "server-led-4-led",
+      "preset": "led",
+      "kind": "point",
+      "annotation": "server-led-4",
+      "parameters": {
+        "color": "amber",
+        "size": 8,
+        "durationSeconds": 2.6,
+        "delaySeconds": -0.6
+      }
+    },
+    {
+      "id": "router-led-2-led",
+      "preset": "led",
+      "kind": "point",
+      "annotation": "router-led-2",
+      "parameters": {
+        "color": "amber",
+        "size": 8,
+        "durationSeconds": 4.4,
+        "delaySeconds": -1.5
+      }
+    },
+    {
+      "id": "router-led-1-led",
+      "preset": "led",
+      "kind": "point",
+      "annotation": "router-led-1",
+      "parameters": {
+        "color": "green",
+        "size": 8,
+        "durationSeconds": 4.4,
+        "delaySeconds": 0
+      }
+    }
+  ],
+  "annotations": {
+    "computer-screen": {
+      "kind": "surface",
+      "corners": [
+        [
+          718,
+          200
+        ],
+        [
+          856,
+          143
+        ],
+        [
+          858,
+          259
+        ],
+        [
+          719,
+          316
+        ]
+      ],
+      "designSize": [
+        100,
+        100
+      ]
+    },
+    "server-led-1": {
+      "kind": "point",
+      "position": [
+        1156,
+        137
+      ]
+    },
+    "server-led-2": {
+      "kind": "point",
+      "position": [
+        1154,
+        166
+      ]
+    },
+    "server-led-3": {
+      "kind": "point",
+      "position": [
+        1155,
+        197
+      ]
+    },
+    "server-led-4": {
+      "kind": "point",
+      "position": [
+        1157,
+        230
+      ]
+    },
+    "router-led-1": {
+      "kind": "point",
+      "position": [
+        1367,
+        300
+      ]
+    },
+    "router-led-2": {
+      "kind": "point",
+      "position": [
+        1368,
+        288
+      ]
+    }
+  }
+}

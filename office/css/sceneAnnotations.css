@@ -1,0 +1,108 @@
+.scene-overlay-root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.scene-coordinate-plane { position: absolute; left: 0; top: 0;
+  transform-origin: 0 0; }
+.projective-surface { position: absolute; left: 0; top: 0;
+  overflow: hidden; transform-origin: 0 0; }
+.projective-surface > * { width: 100%; height: 100%; }
+.scene-point { position: absolute; width: 0; height: 0; }
+
+.crt-surface-effect { position: relative; overflow: hidden; }
+.crt-surface-effect > * { position: absolute; }
+.crt-surface-wash { inset: 0; opacity: .045;
+  background: linear-gradient(#76aa73, #204c38);
+  animation: phosphor-drift 7.3s linear infinite; }
+.crt-surface-copy { inset: 14% 12%; }
+.crt-surface-copy i { display: block; width: 62%; height: 2%;
+  margin-bottom: 9%; background: #bdedb0; opacity: .15; }
+.crt-surface-copy i:nth-child(2) { width: 78%; }
+.crt-surface-copy i:nth-child(3) { width: 42%; }
+.crt-surface-copy i:nth-child(4) { width: 68%; margin-top: 14%; }
+.crt-surface-cursor { left: 13%; top: 67%; width: 8%; height: 4%;
+  background: #d6f7be;
+  animation: terminal-cursor 1.8s steps(1) infinite; }
+.crt-surface-lines { inset: 0; opacity: .1;
+  background: repeating-linear-gradient(#102e21 0, #102e21 1px,
+    transparent 1px, transparent 4px); }
+.crt-surface-scan { left: 0; top: -22%; width: 100%; height: 20%;
+  background: linear-gradient(transparent, #d5ffb738, transparent);
+  animation: surface-scan-pass 6s linear infinite; }
+@keyframes surface-scan-pass { to { transform: translateY(620%); } }
+
+.anchored-steam { position: absolute; width: 1px; height: 1px; }
+.anchored-glow {
+  position: absolute;
+  width: calc(var(--glow-radius) * 2);
+  height: calc(var(--glow-radius) * 2);
+  border-radius: 50%;
+  background: #ffd978;
+  filter: blur(calc(var(--glow-radius) / 2));
+  opacity: var(--glow-intensity);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.anchored-led {
+  position: absolute;
+  width: var(--led-size);
+  height: var(--led-size);
+  border-radius: 1px;
+  background: #caff71;
+  box-shadow: 0 0 5px #8fd13f;
+  transform: translate(-50%, -50%);
+  animation: anchored-led-blink var(--led-duration) steps(1)
+    var(--led-delay) infinite;
+}
+.anchored-led[data-color="amber"] {
+  background: #ffd068;
+  box-shadow: 0 0 5px #e89d35;
+}
+@keyframes anchored-led-blink {
+  0%, 32%, 47%, 100% { opacity: 1; }
+  34%, 45% { opacity: .08; }
+}
+.anchored-steam i { position: absolute; bottom: 0; width: 3px;
+  height: 22px; border-left: 2px solid #fff2d8; border-radius: 50%;
+  opacity: 0; animation: steam-rise 4.8s ease-out infinite; }
+
+.scene-debug-overlay { position: absolute; inset: 0; width: 100%;
+  height: 100%; overflow: visible; pointer-events: none; }
+.scene-debug-active .debug-surface-handle { pointer-events: auto; }
+.debug-hit-area { fill: rgb(49 210 230 / 22%); stroke: #31d2e6;
+  stroke-width: 2; }
+.debug-object-mask { opacity: .38; }
+.debug-object-bounds { fill: none; stroke: #ec6ad7; stroke-width: 2;
+  stroke-dasharray: 8 5; }
+.debug-surface-outline { fill: rgb(255 190 60 / 15%);
+  stroke: #ffbe3c; stroke-width: 3; }
+.debug-surface-axis { fill: none; stroke-width: 4; }
+.debug-surface-x-axis { stroke: #ff6961; }
+.debug-surface-y-axis { stroke: #7cff6b; }
+.debug-surface-handle { fill: #ffbe3c; stroke: #241a08;
+  stroke-width: 3; cursor: move; }
+.debug-point { fill: none; stroke: #8dff82; stroke-width: 3; }
+.debug-label { fill: white; stroke: black; stroke-width: 3;
+  paint-order: stroke; font: 18px/1 monospace; }
+.scene-debug-toolbar { position: fixed; z-index: 100; right: 14px;
+  bottom: 14px; pointer-events: auto; }
+.scene-debug-toolbar button, .scene-debug-toolbar a { border: 1px solid #ffbe3c;
+  padding: 8px 12px; color: #fff1cc; background: #171b15; }
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-surface-effect *, .anchored-steam *, .anchored-led {
+    animation: none !important;
+  }
+  .crt-surface-scan, .anchored-steam { display: none; }
+}
+body.reduce-motion .crt-surface-effect *,
+body.reduce-motion .anchored-steam *,
+body.reduce-motion .anchored-led { animation: none !important; }
+body.reduce-motion .crt-surface-scan,
+body.reduce-motion .anchored-steam { display: none; }
+#room[data-paused="true"] .scene-overlay-root *,
+.main-menu[data-paused="true"] .scene-overlay-root * {
+  animation-play-state: paused !important;
+}

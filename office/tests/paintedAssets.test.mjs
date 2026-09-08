@@ -12,6 +12,11 @@ const PROVENANCE_PATHS = [
   "art-source/founders-office-empty-desk.json",
   "art-source/founders-bedroom-v1.json",
   "art-source/founders-bedroom-empty-desk-v1.json",
+  "art-source/main-menu-command-table.json",
+  "art-source/house-kitchen-v1.json",
+  "art-source/house-kitchen-v2.json",
+  "art-source/house-kitchen-v3.json",
+  "art-source/founders-bedroom-open-door-v1.json",
 ];
 const read = (path) => readFile(new URL(path, OFFICE_ROOT));
 const readJson = async (path) => JSON.parse(await read(path));
@@ -54,6 +59,43 @@ test("pickup patches use a verified matching room state", async () => {
     }
   }
 });
+
+test("scene catalogue contains complete paintings with matching dimensions",
+  async () => {
+  const catalog = await readJson("data/scene-catalog.json");
+  assert.equal(catalog.version, 1);
+  assert.match(catalog.policy, /complete painting/);
+  assert.deepEqual(
+    catalog.scenes.map(scene => scene.id),
+    ["main-menu", "founders-office", "house-kitchen"]
+  );
+  for (const scene of catalog.scenes) {
+    const png = await read(scene.image);
+    assert.deepEqual([
+      png.readUInt32BE(PNG_WIDTH_OFFSET),
+      png.readUInt32BE(PNG_HEIGHT_OFFSET),
+    ], scene.dimensions);
+    await read(scene.definition);
+    await read(scene.provenance);
+  }
+});
+
+test("door animation frames match their recorded hashes and canvas",
+  async () => {
+    const provenance = await readJson(
+      "art-source/bedroom-door-animation-v1.json"
+    );
+    const [, , width, height] = provenance.bounds;
+    assert.equal(provenance.frames.length, 6);
+    for (const frame of provenance.frames) {
+      const png = await read(frame.path);
+      assert.equal(hash(png), frame.sha256);
+      assert.deepEqual([
+        png.readUInt32BE(PNG_WIDTH_OFFSET),
+        png.readUInt32BE(PNG_HEIGHT_OFFSET),
+      ], [width, height]);
+    }
+  });
 
 test("painted entry dependencies exist without the retired raster kit",
   async () => {

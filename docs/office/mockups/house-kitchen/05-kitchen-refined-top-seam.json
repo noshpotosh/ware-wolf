@@ -1,0 +1,41 @@
+{
+  "assetId": "house-kitchen-05",
+  "purpose": "Remove the strong top wall-cap seam against the void",
+  "type": "room mockup edit",
+  "status": "Approved correction integrated as house-kitchen-v3",
+  "provider": "OpenAI built-in imagegen",
+  "model": "Not reported by provider",
+  "referenceCatalogVersion": 4,
+  "references": [
+    "office/assets/rooms/house-kitchen-v2.png",
+    "office/assets/rooms/founders-bedroom-v1.png"
+  ],
+  "allowedDelta": "Thin and recolor only the outer top wall-cap seam",
+  "invariants": [
+    "Preserve every room element away from the top perimeter",
+    "Keep the corrected floor edge and complete floor thickness",
+    "Preserve both doors, workspaces, camera, palette, and lighting",
+    "Match the bedroom's fine wall-cap-to-void transition"
+  ],
+  "intendedDisplaySize": "Responsive room view; authored at 1774x887",
+  "prompt": "Use case: precise-object-edit\nAsset type: surgical correction to a production pixel-painted room background\nPrimary request: Edit Image 1 only along the TOP OUTER PERIMETER where the wooden wall caps meet the black exterior void. The kitchen still has a conspicuous near-black seam tracing the two long diagonal top edges from the rear center corner to the left and right cutaway wall ends. Make that seam match Image 2: a very fine, restrained dark-walnut pixel boundary integrated into the wood, not a strong black cartoon outline.\nInput images: Image 1 is the exact edit target. Image 2 is the approved bedroom and is the authority for the thickness and brown color of the wall-cap-to-void transition.\nAllowed change: Recolor and thin only the outermost top wall-cap boundary against the black void, including the two diagonal runs and their short end returns. Use a single delicate stepped dark-brown line with subtle neighboring walnut pixels. Remove the visual impression of a thick black border while keeping the cap edge crisp.\nPreserve exactly: every pixel-painted room element away from that top perimeter; exact 1774x887 canvas and fixed isometric composition; black surrounding void; wall-cap width and geometry; both doors; all walls; the already-corrected floor edge and full floor thickness; window, cabinets, sink, kettle, stove, refrigerator, plant, rug, table, chairs, laptops, papers, mugs, power strip, lighting, colors, and object positions. Keep all current hotspot geometry valid.\nConstraints: Do not edit the lower/inner line beneath the wall cap unless required to match Image 2. Do not touch the floor perimeter. Do not move, redraw, add, or remove any object. No blur or antialiasing; retain crisp deliberate pixel clusters.\nAvoid: black border bands, bold cartoon outlines, changed wall-cap thickness, altered room footprint, changed perspective, changed lighting, changed furniture, missing floor sides, smooth vector edges, characters, UI, text, logos, or watermark.",
+  "output": "docs/office/mockups/house-kitchen/05-kitchen-refined-top-seam.png",
+  "review": "The outer top perimeter now uses a fine dark-walnut transition instead of the prior near-black band. Both diagonal wall-cap runs remain crisp and continuous. The corrected floor treatment, full room contents, two doors, and improvised workspaces remain present. Runtime silhouette and hotspot alignment were regenerated and reviewed after promotion.",
+  "imageMetadata": [
+    {
+      "path": "office/assets/rooms/house-kitchen-v2.png",
+      "sha256": "434dc58a5dcd395cc29825659bcf9625269c5bb03f6f8ac35147aac973430e78",
+      "size": [1774, 887]
+    },
+    {
+      "path": "office/assets/rooms/founders-bedroom-v1.png",
+      "sha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc",
+      "size": [1774, 887]
+    },
+    {
+      "path": "docs/office/mockups/house-kitchen/05-kitchen-refined-top-seam.png",
+      "sha256": "1d2b27863e7049044253aecf23f1a40056427fd98c1f8af37adabbfc3a523b71",
+      "size": [1774, 887]
+    }
+  ]
+}

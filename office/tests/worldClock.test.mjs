@@ -15,5 +15,7 @@ test("clock displays the supplied local wall-clock time", () => {
 test("old simulated clock saves keep inventory but discard game time", () => {
   const storage = { getItem: () => JSON.stringify({ version: 1,
     items: ["coffee"], minute: 800, clockPaused: true }) };
-  assert.deepEqual(loadAdventure(storage), { items: ["coffee"] });
+  assert.deepEqual(loadAdventure(storage), {
+    items: ["coffee"], roomId: "founders-office",
+  });
 });

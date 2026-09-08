@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "source": "../docs/office/mockups/main-menu-round-02/03-command-table-background.png",
+  "sourceSha256": "4b582eb2dc2f080354c286de014dfe03851ba73ae7c77d526dba9027f5815ac7",
+  "runtime": "assets/ui/main-menu-command-table.png",
+  "runtimeSha256": "4b582eb2dc2f080354c286de014dfe03851ba73ae7c77d526dba9027f5815ac7",
+  "size": [1672, 941],
+  "provider": "OpenAI built-in image_gen",
+  "model": null,
+  "referenceCatalogVersion": 2,
+  "editTarget": "../docs/office/mockups/main-menu-round-02/01-startup-command-table.png",
+  "editTargetSha256": "d1e04ff8eefaeb2aa3677bac2a3056c6d26442b252286aeccdef7497b1d52c9b",
+  "prompt": "Remove only the baked OFFICE title and menu from the left side. Reconstruct the cleared area as seamless textured olive-charcoal. Preserve the exact 1672x941 framing and keep the command table, CRT, keyboard, mug, lamp, servers, cables, roadmap, candidate folders, pens, runway chart, coins, calculator, lighting, palette, and pixel treatment unchanged. Add no text, UI, objects, transparency, or watermark.",
+  "allowedDelta": "The baked title and menu are removed for accessible HTML controls.",
+  "review": "Nosh approved the command-table direction. The cleaned source and runtime are byte-identical. The generated cleanup was visually checked against the selected mockup; implementation keeps all critical title and menu text in HTML."
+}

@@ -1,0 +1,17 @@
+{
+  "assetId": "founders-bedroom-open-door-v1",
+  "purpose": "Localized open-doorway state behind the bedroom door animation",
+  "provider": "OpenAI built-in image generation",
+  "source": "../docs/office/mockups/bedroom-door/01-open-doorway.png",
+  "runtime": "assets/rooms/founders-bedroom-open-door-v1.png",
+  "sourceSha256": "1b0c834c0b60572312e29ee23d11bf8e1ffa30f4bdbb5e70f3c54bdb6541913c",
+  "runtimeSha256": "1b0c834c0b60572312e29ee23d11bf8e1ffa30f4bdbb5e70f3c54bdb6541913c",
+  "size": [1774, 887],
+  "references": [
+    "office/assets/rooms/founders-bedroom-v1.png",
+    "office/assets/rooms/founders-office-background.png"
+  ],
+  "allowedDelta": "The closed left door becomes an open doorway; runtime reveals only the masked doorway patch.",
+  "prompt": "Edit only the closed wooden door on the far left wall into an open doorway leading to a dim, warm residential hallway. Keep the existing walnut frame and every unrelated object, pixel-painted material, camera, light, and the 1774x887 framing unchanged. No people, UI, labels, or additional objects.",
+  "review": "Accepted only as a masked local state. The complete generated frame is never substituted for the approved bedroom background."
+}

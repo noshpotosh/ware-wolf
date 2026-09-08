@@ -1,0 +1,56 @@
+{
+  "assetId": "company-creation-round-01",
+  "purpose": "Compare first-run founder, company, and starter-team UI directions.",
+  "type": "UI mockup",
+  "status": "candidates only; not approved runtime art",
+  "provider": "OpenAI built-in imagegen",
+  "model": "not reported",
+  "referenceCatalogVersion": 3,
+  "references": [
+    {
+      "path": "office/assets/ui/main-menu-command-table.png",
+      "sha256": "4b582eb2dc2f080354c286de014dfe03851ba73ae7c77d526dba9027f5815ac7",
+      "role": "Main-menu mood, palette, pixel treatment, and command table"
+    },
+    {
+      "path": "office/assets/ui/nosh-portrait.png",
+      "sha256": "2e8c3ef55fb319f1c8ba72bc0edcec2409773801424953ff91f50507c2c498bf",
+      "role": "Founder identity and character rendering"
+    },
+    {
+      "path": "office/assets/desktop/directory-art.png",
+      "sha256": "bfd0c34f5996a867db293a20bb64fc98d1070d4794ea0c2741837e573e81b7d5",
+      "role": "Employee portraits and cream-paper desktop UI"
+    }
+  ],
+  "invariants": [
+    "Desktop-first 16:9 game interface",
+    "Founder, company, and first hires are all visible",
+    "Exactly three of five candidates are selected",
+    "Warm cream, charcoal-green, walnut, sage, and amber direction",
+    "No runtime promotion or new style anchor without Nosh approval"
+  ],
+  "outputs": [
+    {
+      "path": "01-founder-dossier.png",
+      "sha256": "6e12f55730a56c0d3d8f82f96d99a6018ad7c50eb2fbe69900bdeebf3008f619",
+      "size": [1672, 941],
+      "direction": "Three-column founder dossier",
+      "prompt": "Use case: ui-mockup. Asset type: high-fidelity desktop game UI mockup, 16:9 landscape. Image 1 is the approved main-menu mood, palette, pixel treatment, and command-table reference. Image 2 is the approved founder portrait identity and rendering reference. Image 3 is the approved employee-directory portrait and cream-paper UI reference. Create a polished first-run character and company creation screen for an honest AI software-studio tycoon game. Direction A is a clear, single-screen FOUNDER DOSSIER with three equal vertical sections: CREATE YOUR FOUNDER, NAME THE COMPANY, and HIRE THE FIRST CREW. The left section has one large framed founder portrait plus name and leadership-style controls; center has company name, motto, and three first-market choices; right has five employee candidate cards with portraits, roles, and checkboxes, exactly three selected. A dark bottom bar contains BACK TO MENU, a compact setup summary, and OPEN THE OFFICE. Use a shippable evolved-pixel game UI with warm cream paper, dark charcoal-green shell, walnut, muted sage, amber brass, crisp pixel typography, and chunky one-pixel borders. Straight-on 1280x720 interface, all content and bottom action visible without scrolling, strong hierarchy and generous spacing. Render these labels verbatim: NEW COMPANY; Build something from nothing.; CREATE YOUR FOUNDER; NAME THE COMPANY; HIRE THE FIRST CREW; Choose three people.; BACK TO MENU; OPEN THE OFFICE. Reuse the references only for visual direction and character identity; no extra rooms, logo design, watermark, browser chrome, or tiny unreadable body text. Do not copy the main-menu composition. Keep this a mockup candidate only."
+    },
+    {
+      "path": "02-command-table-charter.png",
+      "sha256": "0379c99b12d690337a54af69e762c108b49250a52f38f5bbdbce2ff2978206bd",
+      "size": [1672, 941],
+      "direction": "Diegetic command-table charter",
+      "prompt": "Use case: ui-mockup. Asset type: high-fidelity desktop game UI mockup, 16:9 landscape. Image 1 is the approved main-menu command-table mood, palette, and evolved-pixel rendering reference. Image 2 is the approved founder portrait identity reference. Image 3 is the approved employee-directory portrait reference. Create an alternative first-run character and company creation screen for an honest AI software-studio tycoon. Direction B should feel diegetic: an overhead walnut command table covered by one open company charter, a founder ID dossier, and five employee application folders, but still function as a clear practical game interface. The left is a founder ID card with portrait and editable name; center is a large cream company charter with name, motto, and first-market stamps; right is a tidy stack or grid of five hire folders with portrait photos and role labels, three visibly pinned or stamped HIRED. Bottom-right has a prominent brass-and-sage OPEN THE OFFICE button; top-left has NEW COMPANY and a quiet back control. Use tactile paper, stamped ink, paperclips, walnut grain, brass pins, muted sage and amber, with crisp readable interface embedded into physical objects. Top-down or slightly isometric 1280x720 full-screen layout, no perspective distortion that hurts usability, every control visible without scrolling. Render these labels verbatim: NEW COMPANY; FOUNDER; COMPANY CHARTER; FIRST CREW; HIRED; OPEN THE OFFICE. Keep it a practical interface, not a cinematic illustration; no extra decorative objects, logo, watermark, browser chrome, or excessive written copy. References are visual anchors only. Mockup candidate only."
+    },
+    {
+      "path": "03-character-first.png",
+      "sha256": "9cbaf1650094947feeffea219e36e389b0146f2911dec185d0b743a0cf461120",
+      "size": [1672, 941],
+      "direction": "Character-first setup with hiring rail",
+      "prompt": "Use case: ui-mockup. Asset type: high-fidelity desktop game UI mockup, 16:9 landscape. Image 1 is the approved main-menu palette and evolved-pixel atmosphere reference. Image 2 is the approved founder portrait identity and character-rendering anchor. Image 3 is the approved employee-directory portraits and cream-and-charcoal UI reference. Create a third alternative first-run setup screen for an honest AI software-studio tycoon. Direction C is character-first and game-like: a large founder portrait and identity controls dominate the left half; a compact company card occupies the upper-right; a horizontal founding-team recruitment rail runs across the lower-right. Include founder name, leadership style, and three visual identity swatches beside the large portrait; company name and market focus summarized as a clean charter card; five employee portrait cards in a horizontal hiring rail with exactly three selected and a clear 3/3 counter. A strong OPEN THE OFFICE action anchors the lower-right, with BACK at lower-left. Use a polished evolved-pixel interface, dark forest-charcoal background, cream paper panels, walnut frames, muted sage selections, amber focus accents, and tactile RPG character-creation energy. Straight-on 1280x720 interface, asymmetric but balanced, large readable controls, all content visible without scrolling. Render these labels verbatim: NEW COMPANY; YOUR FOUNDER; COMPANY; FOUNDING TEAM; 3 / 3 HIRED; BACK; OPEN THE OFFICE. No detailed skill-stat spreadsheet, body sliders, extra characters beyond one founder and five candidates, logo, watermark, or browser chrome. Mockup candidate only."
+    }
+  ]
+}

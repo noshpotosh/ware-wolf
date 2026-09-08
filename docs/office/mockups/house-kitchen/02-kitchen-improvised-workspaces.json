@@ -1,0 +1,47 @@
+{
+  "assetId": "house-kitchen-02",
+  "purpose": "Second-room kitchen with improvised crew workspaces",
+  "type": "room mockup edit",
+  "status": "Candidate only; not approved or integrated",
+  "provider": "OpenAI built-in imagegen",
+  "model": "Not reported by provider",
+  "referenceCatalogVersion": 2,
+  "references": [
+    "docs/office/mockups/house-kitchen/01-kitchen-breakfast-nook.png",
+    "office/assets/rooms/founders-office-background.png",
+    "office/assets/rooms/founders-bedroom-v1.png"
+  ],
+  "allowedDelta": "Add portable work props to domestic surfaces",
+  "invariants": [
+    "Keep the room unmistakably residential",
+    "Preserve the room footprint, camera, architecture, and lighting",
+    "Use only temporary work surfaces, not permanent office furniture",
+    "Include no character, UI, labels, or readable generated text"
+  ],
+  "intendedDisplaySize": "Responsive room view; authored at 1774x887",
+  "prompt": "Use case: precise-object-edit\nAsset type: revised painted-room mockup for Warewolf's point-and-click game\nPrimary request: Edit Image 1 so this remains unmistakably a lived-in residential kitchen, but ordinary household surfaces have been temporarily commandeered as improvised workspaces the crew actively uses to get things done. Do not redesign it as an office.\nInput images: Image 1 is the exact edit target. Image 2 is the primary rendering-style and camera anchor. Image 3 anchors the house architecture, repeated woodwork, and residential scale.\nAllowed changes: Add signs of active, improvised work only. Turn the round breakfast table into a scrappy shared work spot by adding two small open, slightly battered laptops angled toward the two dining chairs, a paper notebook, a few loose sketch sheets with no readable writing, two mismatched coffee mugs, and a compact power strip with one tidy cable running toward the wall. On the short countertop to the right of the stove, add a second standing-height task spot: a small portable device or closed laptop, a couple folders, pencils in a reused kitchen jar, and a simple wooden stool tucked nearby. Add only one or two subtle fridge notes held by magnets, with abstract marks and no legible text. Keep the fruit bowl, kettle, sink, stove, refrigerator, cabinets, rug, plant, window, and residential door.\nEnvironmental storytelling: The room should look like a tiny startup operating out of a house—work is clearly underway, but everything is temporary, resourceful, and layered over normal domestic life. The table must still read first as a breakfast table, and the countertop first as a kitchen counter.\nStyle/medium: preserve Image 1's exact evolved pixel-painted finish, deliberate pixel clusters, stepped edges, dark ink outlines, material texture, warm walnut/cream/sage palette, and quiet morning light.\nComposition/framing: preserve the exact 1774x887 canvas, fixed isometric camera, room footprint, wall angles, furniture positions, window and door placement, full wall caps, complete floor silhouette, and black exterior.\nConstraints: change only the small workspace props described above; keep all architecture and major furniture unchanged; keep object silhouettes readable for future point-and-click hotspots; no generated text; no people in this reusable background.\nAvoid: office desks, office chairs, desktop CRT monitors, cubicles, filing cabinets, corporate signage, whiteboards, server racks, excessive paper clutter, tangled cables, blocking the walking space, changing cabinetry, changing lighting, adding UI, captions, logos, watermarks, or changing the art style.",
+  "output": "docs/office/mockups/house-kitchen/02-kitchen-improvised-workspaces.png",
+  "review": "Pass as a concept candidate. The kitchen remains the dominant read. Two laptops, notebooks, mugs, and a power strip turn the breakfast table into a temporary shared station; a laptop and reused pencil jar create a second standing task spot without office furniture. Major architecture, camera, palette, and floor silhouette remain consistent. The generated fridge notes contain only decorative pseudo-marks and must never carry critical information. Mockup only; no runtime geometry, characters, or navigation has been added.",
+  "imageMetadata": [
+    {
+      "path": "docs/office/mockups/house-kitchen/01-kitchen-breakfast-nook.png",
+      "sha256": "f2020c887a543351c0c081fd119292725b8d59945a970f530ae3ffd85366ff61",
+      "size": [1774, 887]
+    },
+    {
+      "path": "office/assets/rooms/founders-office-background.png",
+      "sha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+      "size": [1774, 887]
+    },
+    {
+      "path": "office/assets/rooms/founders-bedroom-v1.png",
+      "sha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc",
+      "size": [1774, 887]
+    },
+    {
+      "path": "docs/office/mockups/house-kitchen/02-kitchen-improvised-workspaces.png",
+      "sha256": "09a3d81e5e7b16e82ccd95241cf5b3670e8f8121f7400b06efe54500e67fc146",
+      "size": [1774, 887]
+    }
+  ]
+}

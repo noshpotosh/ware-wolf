@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Office Scene Catalogue</title>
+  <link rel="stylesheet" href="/tools/scene-catalogue/catalogue.css" />
+</head>
+<body>
+  <header>
+    <div><strong>Office</strong><span>Scene catalogue</span></div>
+    <p>Whole paintings, small interactive touches.</p>
+  </header>
+  <main>
+    <aside class="scene-list-panel">
+      <p class="eyebrow">Approved paintings</p>
+      <h1>Scenes</h1>
+      <div id="scene-list" class="scene-list"></div>
+    </aside>
+    <section class="preview-panel">
+      <div class="scene-heading">
+        <div><p class="eyebrow" id="scene-kind"></p>
+          <h2 id="scene-title">Loading…</h2></div>
+        <div class="scene-actions">
+          <span id="save-state" role="status">Saved</span>
+          <div class="zoom-controls" aria-label="Scene zoom">
+            <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+            <button id="zoom-fit" type="button">Fit</button>
+            <input id="zoom-level" type="range" min="50" max="600"
+              step="25" value="100" aria-label="Zoom level" />
+            <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+            <output id="zoom-value" for="zoom-level">100%</output>
+          </div>
+        </div>
+      </div>
+      <div id="scene-stage" class="scene-stage">
+        <div id="scene-canvas" class="scene-canvas">
+          <img id="scene-image" alt="" />
+          <svg id="touch-overlay"
+            aria-label="Draggable scene touches"></svg>
+        </div>
+      </div>
+      <p id="scene-path" class="path"></p>
+    </section>
+    <aside class="touch-panel">
+      <div class="touch-heading">
+        <div><p class="eyebrow">Scene annotations</p><h2>Touches</h2></div>
+        <button id="add-touch" type="button">Add</button>
+      </div>
+      <div id="touch-list" class="touch-list"></div>
+      <form id="touch-form" hidden>
+        <label>ID<input id="touch-id" required pattern="[a-z0-9-]+" /></label>
+        <label>Type<select id="touch-kind">
+          <option value="object">Object mask</option>
+          <option value="surface">Surface</option>
+          <option value="point">Point</option>
+        </select></label>
+        <div id="object-fields">
+          <label>Mask PNG<input id="mask-file" type="file"
+            accept="image/png" /></label>
+          <div class="field-grid">
+            <label>X<input id="object-x" type="number" min="0" /></label>
+            <label>Y<input id="object-y" type="number" min="0" /></label>
+            <label>Width
+              <input id="object-width" type="number" min="1" /></label>
+            <label>Height
+              <input id="object-height" type="number" min="1" /></label>
+          </div>
+          <p>The PNG is a cropped alpha mask and must match width × height.</p>
+        </div>
+        <div id="surface-fields" hidden>
+          <label>Corners (TL, TR, BR, BL)
+            <textarea id="surface-corners" rows="4"></textarea></label>
+          <label>Effect<select id="surface-effect">
+            <option value="">None</option><option value="crt">CRT</option>
+            <option value="glow">Glow</option></select></label>
+        </div>
+        <div id="point-fields" hidden>
+          <div class="field-grid">
+            <label>X<input id="point-x" type="number" min="0" /></label>
+            <label>Y<input id="point-y" type="number" min="0" /></label>
+          </div>
+          <label>Effect<select id="point-effect">
+            <option value="">None</option><option value="steam">Steam</option>
+            <option value="glow">Glow</option>
+            <option value="led">LED</option></select></label>
+        </div>
+        <div class="form-actions">
+          <button id="cancel-touch" type="button">Cancel</button>
+          <button class="primary" type="submit">Save touch</button>
+        </div>
+      </form>
+      <p class="hint">Select a touch, then drag it on the painting. Surface
+        corners have their own handles. Save Touch writes the new position.
+        Masks highlight objects; points anchor steam, light, or LEDs.</p>
+    </aside>
+  </main>
+  <script type="module" src="/tools/scene-catalogue/catalogue.js"></script>
+</body>
+</html>

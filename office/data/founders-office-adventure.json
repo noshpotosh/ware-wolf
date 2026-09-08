@@ -1,9 +1,93 @@
 {
   "id": "founders-office",
   "title": "Bedroom Office",
+  "subtitle": "Small beginnings.",
+  "journal": "My bedroom, my first office. A borrowed corner of the house and an idea.",
+  "map": {
+    "label": "BEDROOM",
+    "x": 8,
+    "y": 24,
+    "width": 46,
+    "height": 52,
+    "outline": "M4 8 H86 V34 H96 V66 H86 V92 H4 Z"
+  },
   "background": "assets/rooms/founders-bedroom-v1.png",
   "width": 1774,
   "height": 887,
+  "annotations": {
+    "computer": {
+      "kind": "object",
+      "mask": "assets/interaction-masks/bedroom/computer.png",
+      "bounds": [
+        590,
+        180,
+        155,
+        170
+      ]
+    },
+    "coffee": {
+      "kind": "object",
+      "mask": "assets/interaction-masks/bedroom/coffee.png",
+      "bounds": [
+        739,
+        240,
+        72,
+        72
+      ]
+    },
+    "door": {
+      "kind": "object",
+      "mask": "assets/interaction-masks/bedroom/door.png",
+      "bounds": [
+        230,
+        228,
+        165,
+        370
+      ]
+    },
+    "doorway-patch": {
+      "kind": "object",
+      "mask": "assets/interaction-masks/bedroom/doorway-patch.png",
+      "bounds": [
+        220,
+        220,
+        185,
+        385
+      ]
+    },
+    "computer-screen": {
+      "kind": "surface",
+      "corners": [
+        [
+          658,
+          239
+        ],
+        [
+          718,
+          217
+        ],
+        [
+          718,
+          276
+        ],
+        [
+          658,
+          298
+        ]
+      ],
+      "designSize": [
+        100,
+        100
+      ]
+    },
+    "coffee-steam": {
+      "kind": "point",
+      "position": [
+        767,
+        253
+      ]
+    }
+  },
   "hotspots": [
     {
       "id": "computer",
@@ -67,7 +151,7 @@
           300
         ]
       ],
-      "outline": "M598 234 L615 227 L615 215 L622 210 L679 189 L701 189 L730 199 L733 204 L733 293 L725 300 L720 303 L724 307 L724 315 L658 337 L610 320 L610 307 L599 300 Z"
+      "annotation": "computer"
     },
     {
       "id": "coffee",
@@ -131,12 +215,12 @@
           292
         ]
       ],
-      "outline": "M747 258 L751 251 L762 247 L776 248 L784 252 L787 258 L787 263 L796 263 L801 269 L801 281 L796 286 L787 289 L785 295 L775 300 L757 299 L747 293 Z M789 269 L794 269 L795 279 L789 282 Z"
+      "annotation": "coffee"
     },
     {
       "id": "door",
       "label": "Exit bedroom",
-      "description": "The rest of the house is on the other side.",
+      "description": "The kitchen is on the other side.",
       "points": [
         [
           241,
@@ -155,14 +239,14 @@
           584
         ]
       ],
-      "outline": "M241 293 L380 238 L380 532 L242 584 Z",
-      "action": "exit"
+      "annotation": "door",
+      "action": "navigate",
+      "targetRoom": "house-kitchen",
+      "targetHotspot": "bedroom-door",
+      "transition": "bedroom-door-opening"
     }
   ],
   "effects": {
-    "screen": {
-      "transform": "matrix(1 -0.35 0 1.06 658 237)"
-    },
     "window": {
       "panes": [
         [
@@ -259,11 +343,73 @@
         ]
       ],
       "rays": []
+    }
+  },
+  "effectBindings": [
+    {
+      "id": "bedroom-crt",
+      "preset": "crt",
+      "kind": "surface",
+      "annotation": "computer-screen",
+      "parameters": {}
     },
-    "steam": {
-      "x": 767,
-      "y": 253,
-      "pickupId": "coffee"
+    {
+      "id": "bedroom-coffee-steam",
+      "preset": "steam",
+      "kind": "point",
+      "annotation": "coffee-steam",
+      "parameters": {
+        "pickupId": "coffee"
+      }
+    }
+  ],
+  "transitions": {
+    "bedroom-door-opening": {
+      "patchImage": "assets/rooms/founders-bedroom-open-door-v1.png",
+      "patch": "doorway-patch",
+      "frames": {
+        "directory": "assets/animations/bedroom-door",
+        "count": 6,
+        "object": "door",
+        "offset": [
+          -20,
+          -13
+        ],
+        "size": [
+          215,
+          395
+        ],
+        "duration": 80,
+        "finalHold": 120,
+        "items": [
+          {
+            "path": "assets/animations/bedroom-door/frame-1.png",
+            "durationMs": 80
+          },
+          {
+            "path": "assets/animations/bedroom-door/frame-2.png",
+            "durationMs": 80
+          },
+          {
+            "path": "assets/animations/bedroom-door/frame-3.png",
+            "durationMs": 80
+          },
+          {
+            "path": "assets/animations/bedroom-door/frame-4.png",
+            "durationMs": 80
+          },
+          {
+            "path": "assets/animations/bedroom-door/frame-5.png",
+            "durationMs": 80
+          },
+          {
+            "path": "assets/animations/bedroom-door/frame-6.png",
+            "durationMs": 80
+          }
+        ],
+        "restingFrame": 0,
+        "reducedMotionFrame": 5
+      }
     }
   },
   "pickups": [

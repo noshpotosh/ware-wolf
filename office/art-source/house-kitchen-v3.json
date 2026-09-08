@@ -1,0 +1,15 @@
+{
+  "version": 3,
+  "source": "../docs/office/mockups/house-kitchen/05-kitchen-refined-top-seam.png",
+  "sourceSha256": "1d2b27863e7049044253aecf23f1a40056427fd98c1f8af37adabbfc3a523b71",
+  "runtime": "assets/rooms/house-kitchen-v3.png",
+  "runtimeSha256": "1d2b27863e7049044253aecf23f1a40056427fd98c1f8af37adabbfc3a523b71",
+  "size": [
+    1774,
+    887
+  ],
+  "provider": "OpenAI built-in imagegen",
+  "prompt": "Approved top-seam correction copied byte-for-byte; full edit prompt in docs/office/mockups/house-kitchen/05-kitchen-refined-top-seam.json.",
+  "referenceCatalogVersion": 5,
+  "review": "Approved surgical correction. The top wall-cap boundary against the exterior void now uses a fine dark-walnut edge matching the bedroom rather than a strong near-black seam."
+}

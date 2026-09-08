@@ -1,0 +1,20 @@
+{
+  "assetId": "bedroom-door-animation-v1",
+  "purpose": "Six-frame bedroom door transition",
+  "source": "assets/rooms/founders-bedroom-v1.png",
+  "method": "The accepted door leaf was alpha-cut from the room and deterministically projected into six fixed-canvas frames with ImageMagick.",
+  "bounds": [210, 215, 215, 395],
+  "hingeAnchor": [51, 93],
+  "frameDurationMs": 80,
+  "finalHoldMs": 120,
+  "contactSheet": "../docs/office/mockups/bedroom-door/02-frame-contact-sheet.png",
+  "frames": [
+    { "path": "assets/animations/bedroom-door/frame-1.png", "sha256": "83c3c0ccbed1fb5f37310c8ea01ac2e1362a57dfff5698df169d6948330bea13" },
+    { "path": "assets/animations/bedroom-door/frame-2.png", "sha256": "6a4f2f54812265b62733e4065a7da90f39c076af68274f08b97c9790a7ac65a5" },
+    { "path": "assets/animations/bedroom-door/frame-3.png", "sha256": "53db27a89d4438e330d69cbd7b9939f8dbeff0c36f992a86e28db8bae760520b" },
+    { "path": "assets/animations/bedroom-door/frame-4.png", "sha256": "f4ae7c363375c205b027d7691a1825741bfca8917d5d23caafcf6b5d523d3ec6" },
+    { "path": "assets/animations/bedroom-door/frame-5.png", "sha256": "b84a180146f2d739cad0462fe096a322f88dcfd511a98f8427f1710f7075d33e" },
+    { "path": "assets/animations/bedroom-door/frame-6.png", "sha256": "1f6f9684e0af23ada7e855c13cd0b4812997171cef1d1f174e418cb4299d9853" }
+  ],
+  "review": "All frames preserve one 215x395 canvas, the accepted door pixels, a fixed hinge, transparency, and stable ground contact."
+}

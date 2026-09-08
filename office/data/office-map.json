@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "rooms": [
+    {
+      "id": "founders-office",
+      "definition": "data/founders-office-adventure.json",
+      "label": "BEDROOM",
+      "layout": {
+        "x": 8,
+        "y": 24,
+        "width": 46,
+        "height": 52,
+        "outline": "M4 8 H86 V34 H96 V66 H86 V92 H4 Z"
+      }
+    },
+    {
+      "id": "house-kitchen",
+      "definition": "data/house-kitchen-adventure.json",
+      "label": "KITCHEN",
+      "layout": {
+        "x": 50,
+        "y": 16,
+        "width": 44,
+        "height": 68,
+        "outline": "M14 8 H96 V92 H14 V66 H4 V34 H14 Z"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": {"room": "founders-office", "hotspot": "door"},
+      "to": {"room": "house-kitchen", "hotspot": "bedroom-door"}
+    }
+  ]
+}

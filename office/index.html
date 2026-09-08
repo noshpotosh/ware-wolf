@@ -4,12 +4,147 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#151714" />
-  <title>Warewolf · Bedroom Office</title>
-  <link rel="stylesheet" href="css/pointAndClick.css?v=portrait-medallion-v3" />
+  <title>Office</title>
+  <link rel="stylesheet" href="css/mainMenu.css?v=command-table-v1" />
+  <link rel="stylesheet" href="css/companyCreation.css?v=charter-table-v2" />
+  <link rel="stylesheet" href="css/sceneAnnotations.css?v=anchors-v3" />
+  <link rel="stylesheet" href="css/pointAndClick.css?v=paper-map-v3" />
   <link rel="stylesheet" href="css/roomEffects.css?v=bedroom-steam-v1" />
   <link rel="stylesheet" href="css/desktopOS.css" />
 </head>
 <body>
+  <section id="main-menu" class="main-menu" aria-labelledby="game-title">
+    <svg class="main-menu-effects" viewBox="0 0 1672 941"
+      preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <image class="main-menu-art"
+        href="assets/ui/main-menu-command-table.png"
+        width="1672" height="941" />
+      <defs>
+        <filter id="title-soft-light" x="-50%" y="-50%"
+          width="200%" height="200%">
+          <feGaussianBlur stdDeviation="12" />
+        </filter>
+      </defs>
+      <ellipse class="title-lamp-light" cx="972" cy="165"
+        rx="68" ry="54" filter="url(#title-soft-light)" />
+    </svg>
+    <div class="main-menu-content">
+      <h1 id="game-title">Office</h1>
+      <div class="title-rule" aria-hidden="true"><span>◆</span></div>
+      <nav class="main-menu-actions" aria-label="Main menu">
+        <button id="continue-game" class="primary-action" type="button">
+          Continue <span aria-hidden="true">▶</span>
+        </button>
+        <button id="new-company" type="button">New Company</button>
+        <button id="open-settings" type="button">Settings</button>
+        <button id="quit-game" type="button">Quit</button>
+      </nav>
+      <p id="main-menu-status" class="main-menu-status" role="status"></p>
+    </div>
+    <dialog id="new-company-panel" aria-labelledby="new-company-title">
+      <form method="dialog">
+        <h2 id="new-company-title">Start a new company?</h2>
+        <p>This resets the current room progress saved in this browser.</p>
+        <div class="dialog-actions">
+          <button>Cancel</button>
+          <button id="confirm-new-company" type="button">
+            Start new company
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="settings-panel" aria-labelledby="settings-title">
+      <form method="dialog">
+        <h2 id="settings-title">Settings</h2>
+        <label class="setting-row">
+          <input id="reduce-motion" type="checkbox" />
+          Reduce ambient motion
+        </label>
+        <div class="dialog-actions"><button>Done</button></div>
+      </form>
+    </dialog>
+    <dialog id="quit-panel" aria-labelledby="quit-title">
+      <form method="dialog">
+        <h2 id="quit-title">Quit Office?</h2>
+        <p>Your room progress saves automatically. You can close this tab
+          whenever you're ready.</p>
+        <div class="dialog-actions"><button>Return to menu</button></div>
+      </form>
+    </dialog>
+  </section>
+  <section id="company-creator" class="company-creator" hidden
+    aria-labelledby="company-creator-title">
+    <form id="company-creator-form">
+      <header class="creator-heading">
+        <button id="cancel-company-creation" class="creator-back"
+          type="button" aria-label="Back to menu">‹</button>
+        <h1 id="company-creator-title">New Company</h1>
+      </header>
+      <div class="creator-layout">
+        <section class="founder-setup" aria-labelledby="founder-heading">
+          <span class="clipboard-clip" aria-hidden="true"></span>
+          <span class="founder-paperclip" aria-hidden="true"></span>
+          <h2 id="founder-heading">Founder</h2>
+          <div class="founder-portrait-frame">
+            <img src="assets/ui/nosh-portrait.png" alt="Founder portrait" />
+          </div>
+          <label class="creator-field founder-name-field">Name
+            <input id="founder-name-input" name="founderName"
+              maxlength="24" value="Nosh" required />
+          </label>
+          <label class="creator-field founder-role-field">Role
+            <input value="Founder &amp; CEO" readonly />
+          </label>
+          <input name="leadershipStyle" value="visionary" type="hidden" />
+          <p class="identity-stamp">Identity verified <span>✓</span></p>
+        </section>
+        <section class="company-setup" aria-labelledby="company-heading">
+          <span class="charter-pin pin-left" aria-hidden="true"></span>
+          <span class="charter-pin pin-right" aria-hidden="true"></span>
+          <h2 id="company-heading">Company Charter</h2>
+          <label class="creator-field company-name-field">Company name
+            <input id="company-name-input" name="companyName"
+              maxlength="30" placeholder="Name your studio" required />
+          </label>
+          <label class="creator-field motto-field">Our motto
+            <textarea name="companyMotto" maxlength="90"
+              placeholder="What will this company stand for?"></textarea>
+          </label>
+          <fieldset class="market-options">
+            <legend>Our first market</legend>
+            <label><input type="radio" name="companyFocus"
+              value="web-products" checked /><span>
+              <b aria-hidden="true">&lt;/&gt;</b>
+              <strong>Developer tools</strong>
+            </span></label>
+            <label><input type="radio" name="companyFocus"
+              value="games" /><span><b aria-hidden="true">▥</b>
+              <strong>Data products</strong></span></label>
+            <label><input type="radio" name="companyFocus"
+              value="internal-tools" /><span><b aria-hidden="true">●●●</b>
+              <strong>Business software</strong></span></label>
+          </fieldset>
+          <div class="signature-row" aria-hidden="true">
+            <p>Founder signature<strong id="founder-signature">Nosh</strong></p>
+            <p>Date<strong>Day 01</strong></p>
+          </div>
+          <p class="draft-stamp">Charter draft ✎</p>
+        </section>
+        <section class="team-setup" aria-labelledby="team-heading">
+          <h2 id="team-heading">First Crew</h2>
+          <div id="candidate-list" class="candidate-list"></div>
+          <strong id="team-count" role="status">3 / 3 hired</strong>
+        </section>
+      </div>
+      <footer class="creator-footer">
+        <p id="company-summary">Your company · 3 founding hires</p>
+        <button class="creator-submit" type="submit">
+          Open the Office <span aria-hidden="true">»</span>
+        </button>
+      </footer>
+    </form>
+  </section>
+  <div id="game-shell" hidden inert>
   <header class="room-heading">
     <div><h1><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22S4 13 4 8a8 8 0 0 1 16 0c0 5-8 14-8 14Z"/><circle cx="12" cy="8" r="3"/></svg> Bedroom Office</h1>
       <p>Small beginnings.</p></div>
@@ -47,7 +182,7 @@
           <span aria-hidden="true">ϟ</span> 100
         </span>
       </div>
-      <strong>Nosh</strong><span id="founder-state"></span>
+      <strong id="founder-name">Nosh</strong><span id="founder-state"></span>
     </section>
     <div class="inventory-panel">
     <section class="inventory-tray" aria-label="Inventory">
@@ -58,6 +193,27 @@
       <button id="open-menu" type="button"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4M5 5l3 3m8 8 3 3M5 19l3-3m8-8 3-3"/></svg> Menu</button>
     </nav>
     </div>
+    <section class="office-map-card" aria-label="Office map">
+      <button id="toggle-office-map" class="compass-button" type="button"
+        aria-expanded="false" aria-controls="office-map-popover"
+        aria-label="Open office map">
+        <svg class="compass-icon" viewBox="0 0 100 100"
+          aria-hidden="true">
+          <circle cx="50" cy="50" r="43" />
+          <circle cx="50" cy="50" r="6" />
+          <path
+            d="M50 12 58 42 88 50 58 58 50 88 42 58 12 50 42 42Z" />
+          <path class="compass-needle" d="m50 21 7 29-7 7-7-7Z" />
+        </svg>
+      </button>
+      <span class="map-toggle-label">Map</span>
+      <div id="office-map-popover" class="office-map-popover" hidden>
+        <div class="map-paper">
+          <h2 id="office-map-title">Office Map</h2>
+          <nav id="office-map" aria-labelledby="office-map-title"></nav>
+        </div>
+      </div>
+    </section>
   </footer>
   <p id="game-message" role="status" class="status-message"></p>
   <dialog id="inspection" aria-labelledby="inspection-title"
@@ -83,9 +239,11 @@
         Escape closes a conversation or panel.</p>
       <p>Your inventory saves automatically in this browser.
         The clock shows your computer’s local time.</p>
+      <button id="return-main-menu" type="button">Main menu</button>
       <button id="leave-room" type="button">Leave office</button>
       <button>Return to game</button></form>
   </dialog>
-  <script type="module" src="js/pointAndClick.js?v=bedroom-steam-v1"></script>
+  </div>
+  <script type="module" src="js/pointAndClick.js?v=scene-anchors-v1"></script>
 </body>
 </html>

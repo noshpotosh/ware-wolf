@@ -1,28 +1,34 @@
 # Office — How to run
 
-The bedroom office is the starting painted point-and-click room and is the main room system under
+The main system is a painted point-and-click app under
 [ADR 014](../decisions/014-painted-room-point-and-click.md).
-Serve the folder over HTTP; opening `index.html` with `file://` cannot reliably
-load ES modules and room JSON.
+
+## Play
 
 ```bash
 cd office
 python3 -m http.server 8765
 ```
 
-Open [the office](http://127.0.0.1:8765). No npm install, Phaser, image export,
-or Godot process is required for this page.
+Open `http://127.0.0.1:8765/`. The app starts at the command-table main
+menu, creates or continues a company, opens the bedroom office, and navigates
+to the house kitchen. Clicking the bedroom computer opens DesktopOS.
 
-Hover an object or focus it with Tab. Click or press Enter/Space to inspect;
-Escape closes the dialog. Collect the mug, inspect it in inventory to return
-it, and use Leave office / return to exercise room remounting. The current
-return screen is not a second illustrated room. There is no walking.
+## Edit scene touches
 
-The top-right clock shows the computer’s actual local date and time.
-Inventory saves automatically; the clock is not stored or simulated.
-Journal opens a room note reflecting whether the mug is collected. Menu
-opens help and the Leave office action. Object inspection uses Nosh’s
-speech banner, temporarily replacing the compact inventory view.
+```bash
+cd office
+npm run catalogue
+```
+
+Open `http://127.0.0.1:8766/`. The scene catalogue shows only approved
+complete paintings. Select a scene to review its object masks, surface quads,
+point anchors, and effect bindings. New object masks are cropped PNGs whose
+pixel dimensions match their declared width and height.
+
+The catalogue is a local write-enabled authoring tool. The ordinary static
+server remains the playtest path. Use `?debug=scene` for the runtime's
+read-only alignment overlay.
 
 ## Verify
 
@@ -31,26 +37,20 @@ cd office
 npm test
 ```
 
-`npm test` runs all remaining tests for the painted room, dependencies,
-accepted PNGs and provenance, inventory, and clock rollover/persistence.
-There is no legacy runtime or legacy test command.
-
 Browser acceptance:
 
-- Check pointer and keyboard selection on the painted silhouettes. Detailed
-  outlines should match the art, including the opening in the mug handle.
-- Resize the window: the whole image, hotspots, and lighting stay aligned.
-- Collect/return the mug, leave/return, and reload to check inventory state.
-- Check the empty patch only changes the mug area.
-- Check CRT and window illumination stay on their painted surfaces.
-- Check the plant stays static in the background.
-- Click or keyboard-activate the door, then return; the mug state persists.
-- The bed is scenery: no hover feedback, keyboard stop, or click action.
-- Confirm local time matches the computer clock. Open Journal and Menu,
-  then close them with Escape; verify focus returns to the opening button.
-- Check inspection, hidden tabs, and reduced-motion preferences pause or
-  simplify animation as intended.
-
-The former loft entry point, renderer, gameplay systems, and unused UI
-assets have been removed. Independent Godot work has its own instructions
-in [`game/README.md`](../../game/README.md).
+- Check the menu CRT stays on the painted screen and reduced motion removes
+  the moving scan.
+- Create or continue a company; confirm the save survives reload.
+- Hover and keyboard-focus each bedroom object. Masks should match exactly,
+  including the mug handle opening.
+- Open DesktopOS from the bedroom computer and return to the scene.
+- Collect and return the mug; confirm its patch and steam respond correctly.
+- Open the bedroom door and enter the kitchen. Verify the animation can be
+  skipped without blocking navigation.
+- Inspect every kitchen target and use its left door to return.
+- Open the compass map and navigate both ways.
+- Resize throughout; painting, hotspots, masks, effects, and transitions must
+  remain aligned.
+- Confirm local time, Journal, Menu, focus return, hidden-tab pause, and
+  reduced-motion behavior.

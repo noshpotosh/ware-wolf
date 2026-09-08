@@ -1,0 +1,25 @@
+{
+  "assetId": "house-kitchen-recipe-03",
+  "purpose": "Pass 3 house-room recipe: bedroom edge match + chair cleanup",
+  "type": "room mockup edit",
+  "status": "Candidate only; not approved or integrated",
+  "provider": "Cursor GenerateImage",
+  "model": "Not reported by provider",
+  "nativeSize": [1280, 720],
+  "targetMasterSize": [1774, 887],
+  "editTarget": "docs/office/mockups/house-kitchen-recipe-v1/02-kitchen-layout-lock.png",
+  "references": [
+    "docs/office/mockups/house-kitchen-recipe-v1/02-kitchen-layout-lock.png",
+    "office/assets/rooms/founders-bedroom-v1.png",
+    "office/assets/rooms/founders-office-background.png"
+  ],
+  "allowedDelta": "Thin exterior outline to bedroom weight; reduce to two chairs; slightly crisp pixel language",
+  "invariants": [
+    "Keep both doors and workspaces",
+    "Do not redesign the kitchen",
+    "Do not promote as style anchor"
+  ],
+  "output": "docs/office/mockups/house-kitchen-recipe-v1/03-kitchen-edge-match.png",
+  "outputSha256": "a9f0344639727d75ec8fc815e3ca3dc52ec794f454a523d9fc84a0880b89702f",
+  "review": "House sync holds in the bedroom side-by-side strip. Chair cleanup incomplete (still more than two). Softness only partly corrected. Not runtime-ready without a native 1774x887 regenerate."
+}

@@ -1,0 +1,25 @@
+{
+  "assetId": "house-kitchen-recipe-02",
+  "purpose": "Pass 2 house-room recipe: two doors + improvised workspaces",
+  "type": "room mockup edit",
+  "status": "Candidate only; not approved or integrated",
+  "provider": "Cursor GenerateImage",
+  "model": "Not reported by provider",
+  "nativeSize": [1280, 720],
+  "targetMasterSize": [1774, 887],
+  "editTarget": "docs/office/mockups/house-kitchen-recipe-v1/01-kitchen-concept.png",
+  "references": [
+    "docs/office/mockups/house-kitchen-recipe-v1/01-kitchen-concept.png",
+    "office/assets/rooms/founders-office-background.png",
+    "office/assets/rooms/founders-bedroom-v1.png"
+  ],
+  "allowedDelta": "Add right future door; lock left return door DNA; add table and counter workspaces",
+  "invariants": [
+    "Preserve Pass 1 kitchen identity and camera",
+    "Office remains style god",
+    "Bedroom remains door/trim DNA only"
+  ],
+  "output": "docs/office/mockups/house-kitchen-recipe-v1/02-kitchen-layout-lock.png",
+  "outputSha256": "6ef2d2f47695459ddab25fcc9e0dbd4def71e804362f0b54b289e26f233035ef",
+  "review": "Both doors present with matching residential DNA. Table workstations and counter/desk workspace present. Chair count overshot to four. Counter workspace drifted toward a small desk."
+}

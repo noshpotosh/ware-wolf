@@ -1,0 +1,53 @@
+{
+  "assetId": "main-menu-round-01",
+  "purpose": "Company-neutral main-menu explorations for OFFICE",
+  "type": "UI mockup",
+  "status": "Candidates only; not runtime assets or style anchors",
+  "referenceCatalogVersion": 2,
+  "provider": "OpenAI built-in image_gen",
+  "model": null,
+  "modelNote": "The built-in tool did not report a model identifier.",
+  "references": [
+    {
+      "path": "office/assets/rooms/founders-office-background.png",
+      "sha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+      "scope": "Evolved-pixel rendering, materials, camera, and lighting only"
+    },
+    {
+      "path": "docs/office/mockups/round-01/ui-01-classic-adventure.png",
+      "sha256": "eef11043983015d8585b71a55ccd666065746433614f6bac8424fa66c8c2086a",
+      "scope": "Brass frames, olive surfaces, cream text, and stepped UI edges only"
+    }
+  ],
+  "sharedConstraints": [
+    "Title is OFFICE",
+    "No Warewolf name or wolf mark",
+    "No player-created company identity",
+    "Do not show the first office or bedroom",
+    "No characters, inventory, clock, health UI, or dialogue",
+    "Critical text becomes accessible HTML if implemented"
+  ],
+  "candidates": [
+    {
+      "path": "docs/office/mockups/main-menu-round-01/01-city-block.png",
+      "sha256": "6673e61d099ed1aec04fb3c9cf33b0780ea5dd82765f99168ed56faf4af56b90",
+      "size": [1672, 941],
+      "allowedDelta": "A new anonymous exterior title-screen scene",
+      "prompt": "Create a polished 16:9 main-menu mockup for a company-building game titled OFFICE. Use the founder-room reference only as the evolved-pixel style anchor and the classic-adventure UI reference only for fine brass frames, olive inset surfaces, cream text, and crisp stepped edges. Show a quiet isometric city block at dawn with a modest anonymous mid-century commercial office building, sidewalk, restrained trees and street details, rooftop vents, and water-tower silhouettes. The building has no company sign, logo, or readable tenant names. Put the full building scene on the right two-thirds and a calm vertical title and menu in the left negative space without a large panel over the art. Render only: OFFICE, Continue, New Company, Settings, Quit. Use warm walnut-brown masonry, cream stone, restrained sage and brass, and dark ink outlines. No Warewolf branding, player company identity, characters, first-office interior, inventory, clock, dialogue, purple AI glow, cyberpunk, wolf clichés, smooth vector art, 3D clay, painterly gouache, blurred halos, photorealism, or watermark."
+    },
+    {
+      "path": "docs/office/mockups/main-menu-round-01/02-blank-canvas.png",
+      "sha256": "f73ac3336b2de5876f5547d881e78db2363a7858d41cfda2fc31b40deb964b09",
+      "size": [1672, 941],
+      "allowedDelta": "A new vacant office-floor title-screen scene",
+      "prompt": "Create a polished 16:9 main-menu mockup for a company-building game titled OFFICE. Use the founder-room reference only as the evolved-pixel style anchor and the classic-adventure UI reference only for fine brass frames, olive inset surfaces, cream text, and crisp stepped edges. Depict a newly leased, completely empty commercial office floor before company creation: cream plaster walls, dark walnut trim, broad industrial windows, clean wood floor, a few closed cartons, one rolled sage rug, a hand truck, and keys on a crate. Include no desk, computer, bed, plant, water cooler, sign, logo, or characters. Put the full isometric empty floor on the right two-thirds and a slim olive-charcoal menu rail at far left without obscuring the room. Render only: OFFICE, Continue, New Company, Settings, Quit. Use pale morning light and a quiet first-day mood. No Warewolf branding, player company identity, first-office interior, inventory, clock, dialogue, purple AI glow, cyberpunk, wolf clichés, smooth vector art, 3D clay, painterly gouache, blurred halos, photorealism, or watermark."
+    },
+    {
+      "path": "docs/office/mockups/main-menu-round-01/03-crt-still-life.png",
+      "sha256": "896dcfdc4b96f1ad323c531be5abc93f9ad764388c153775a9ca6a09b45cba41",
+      "size": [1672, 941],
+      "allowedDelta": "A new company-neutral still-life title scene",
+      "prompt": "Create a polished 16:9 main-menu mockup for a company-building game titled OFFICE. Use the founder-room reference only for evolved-pixel texture, warm materials, grounded light, and object rendering; use the classic-adventure UI reference only for fine brass frames, olive inset surfaces, cream text, and stepped edges. Against a textured olive-charcoal void, arrange an isometric still life on a walnut moving crate: a cream CRT with blank dark-green screen, brass key with blank tag, folded lease with no readable writing, sage mug, pencil, and small archive box. No walls or complete office interior. Put the still life on the right half. On the left, show OFFICE and a compact vertical menu with only Continue selected in an olive inset button; other choices are simple cream text. Render only: OFFICE, Continue, New Company, Settings, Quit. Use a dark pre-dawn setup with warm task light. No Warewolf branding, company logo, player company identity, characters, first-office background, inventory, clock, dialogue, purple AI glow, cyberpunk, wolf clichés, smooth vector art, 3D clay, painterly gouache, blurred halos, photorealism, or watermark."
+    }
+  ]
+}

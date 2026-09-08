@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "policy": "Each entry is one approved complete painting. Interactivity belongs in the scene definition as masks, surfaces, points, effects, hotspots, and transitions.",
+  "scenes": [
+    {
+      "id": "main-menu",
+      "label": "Main menu",
+      "kind": "title",
+      "image": "assets/ui/main-menu-command-table.png",
+      "definition": "data/main-menu-scene.json",
+      "provenance": "art-source/main-menu-command-table.json",
+      "dimensions": [1672, 941],
+      "fit": "cover",
+      "tags": ["menu", "command table", "crt"]
+    },
+    {
+      "id": "founders-office",
+      "label": "Bedroom office",
+      "kind": "room",
+      "image": "assets/rooms/founders-bedroom-v1.png",
+      "definition": "data/founders-office-adventure.json",
+      "provenance": "art-source/founders-bedroom-v1.json",
+      "dimensions": [1774, 887],
+      "fit": "contain",
+      "tags": ["bedroom", "office", "crt", "steam", "door"]
+    },
+    {
+      "id": "house-kitchen",
+      "label": "House kitchen",
+      "kind": "room",
+      "image": "assets/rooms/house-kitchen-v3.png",
+      "definition": "data/house-kitchen-adventure.json",
+      "provenance": "art-source/house-kitchen-v3.json",
+      "dimensions": [1774, 887],
+      "fit": "contain",
+      "tags": ["kitchen", "workspace", "doors"]
+    }
+  ]
+}

@@ -1,143 +1,94 @@
-# Office — Painted-room asset pipeline
+# Office — Painted-scene pipeline
 
-**Status:** Main room system under
+**Status:** Main scene system under
 [ADR 014](../decisions/014-painted-room-point-and-click.md).
 
-The accepted PNG is the runtime asset. There is no sprite exporter, palette
-reduction, tile assembly, atlas build, or ImageMagick dependency in this path.
-Serve `office/` directly and run `npm test` for the active asset checks.
+Runtime art is a small set of approved complete paintings plus optional masks,
+state patches, and transition frames. There is no furniture library, room
+assembly, atlas build, palette reducer, image generator, or engine dependency.
 
-## Starting bedroom
+## Scene catalogue
 
-The active room uses `assets/rooms/founders-bedroom-v1.png`, copied without
-raster changes from the approved bedroom-exit mockup. Its mug-removal state
-is `assets/rooms/founders-bedroom-empty-desk-v1.png`. Matching provenance
-records live under `art-source/` with the same filenames and `.json` suffix.
-The room definition names its background provenance and each pickup's icon
-viewBox, so neither validation nor inventory rendering assumes old geometry.
+`office/data/scene-catalog.json` is the art catalogue. Each entry records:
 
-The exterior clip follows each row's colored-pixel extents (RGB maximum at
-least 24, channel range at least 8, two pixels of padding), keeping all
-interior pixels and floor thickness. The computer and window effects are
-remapped to the bedroom; there is no water cooler in this room. The door exit uses the existing interaction system. Existing mug saves survive.
-The mug patch uses an object-shaped polygon with a one-pixel feathered edge
-to avoid exposing unrelated generated desk changes. The bed is scenery only, with no hotspot, label, outline, or hand cursor.
+- a stable scene ID and player-facing label;
+- one approved complete painting;
+- its runtime definition and provenance;
+- native dimensions, fit mode, kind, and search tags.
 
-## Retained art and provenance
+Run the local catalogue editor with:
 
-Paths below are relative to `office/`:
+```bash
+cd office
+npm run catalogue
+```
 
-- `assets/rooms/founders-office-background.png`: accepted 1774×887 room.
-- `assets/rooms/founders-office-empty-desk.png`: matching mug-removal state.
-- `assets/reference/style-explorations/01-evolved-pixel.png`: original source
-  reference, retained for provenance; it is not the runtime background.
-- `art-source/founders-office-background.json`: source/runtime SHA-256,
-  provider, edit prompt, dimensions, and review note.
-- `art-source/founders-office-empty-desk.json`: equivalent record for the
-  pickup state, sourced from the accepted room background.
+Open `http://127.0.0.1:8766/`. The editor previews every approved painting
+and its current annotations. It can add or update:
 
-The reference’s source hash is recorded in the background provenance JSON.
-No earlier provider attribution is invented. Code-native SVG icons/textures
-and the illustrated Nosh portrait live under
-`assets/ui/`. The retired font bundle is not part of the current game.
+- cropped object masks and their bounds;
+- four-corner surfaces with CRT or glow effects;
+- point anchors with steam or glow effects.
 
-## Authoring and verification
+The editor writes only the selected scene definition and mask PNGs below
+`office/assets/interaction-masks/`. Mask PNG dimensions must exactly match
+their declared width and height. Scene and annotation validation runs before a
+definition is saved.
 
-1. Preserve the accepted full-room framing and image dimensions. Store a new
-   accepted state as a PNG with an explicit source/edit provenance record.
-2. Define hotspots, pickup patches, and effect geometry in image pixels in
-   `data/founders-office-adventure.json`. IDs are stable action/state keys.
-3. Fit the background and overlays using one shared viewBox. A pickup reveals
-   only its patch of the alternate image; the rest of the base stays intact.
-4. Run `npm test`. It checks provenance hashes, dimensions, polygon bounds,
-   pickup state assets, and persistence behavior. It requires Node, not an
-   image generator, Phaser, or a browser installation.
-5. Use the [browser checklist](how-to-run.md) to inspect silhouettes, effects,
-   resizing, keyboard selection, and pickup/return state. Passing byte checks
-   does not establish visual quality.
+Select an existing touch to drag it over the painting. Object masks and point
+anchors move as a unit. Surface annotations expose four corner handles and
+can also move as a unit. Dragging updates the numeric form as a draft; use
+**Save Touch** to write the new coordinates.
+Zoom controls range from 50% to 600%; the painting and overlay share the same
+scrollable canvas, so drag coordinates remain accurate at every zoom level.
 
-A regenerated edit is a new asset requiring review. Do not regenerate images
-just to produce hover outlines or ambient animation; SVG/CSS handles those.
+Use `?debug=scene` in the game for a read-only overlay with current masks,
+hotspots, points, and surface handles.
 
-## Legacy retirement
+## New complete painting
 
-On 2026-09-07, obsolete office raster art, atlas metadata, export recipes,
-contact sheet, and screenshot baseline were archived before deletion.
-The verified local backup is `/tmp/warewolf-office-legacy-art.tar.gz`, with
-per-file SHA-256 records in `/tmp/warewolf-office-retirement.json`.
-It includes untracked assets and the old `loft.html`, using repository-relative
-paths. Inspect the archive with `tar -tzf`; extract into a separate directory
-for recovery so newer work is not overwritten. `/tmp` is local recovery
-storage, not durable project storage or a runtime dependency.
+1. Write one work order: purpose, permitted change, invariants, native canvas,
+   and required approved references.
+2. Generate or edit one candidate from the original approved anchors.
+3. Keep candidates under `docs/office/mockups/<scene>/` with prompt and job
+   metadata.
+4. Review the entire painting at native size for camera, scale, materials,
+   lighting, seams, silhouettes, and accidental text.
+5. Copy the accepted PNG to a versioned runtime path.
+6. Record source/runtime hashes, dimensions, provider, model, prompt, and
+   acceptance reason under `office/art-source/`.
+7. Add one scene-catalogue entry and its runtime definition.
+8. Add interactive touches only where the product needs them.
 
-The old build, validation, contact-sheet, and visual-smoke tools and their npm
-commands are retired. Old gameplay JS/CSS, room data, UI assets, the loft
-entry point, and legacy tests have also been removed. Their verified local
-backup is `/tmp/warewolf-office-legacy-systems.tar.gz`. The current room is
-the only baseline; `npm test` runs all remaining tests.
+Do not generate furniture separately to recreate the accepted painting. A
+room-wide edit produces another full-scene candidate.
 
-This retirement changes no files in `game/` or `brand/`. Godot provenance may
-still name an old office source path from which its preserved master was
-copied; that path is historical, not a current rebuild dependency.
+## Masks and effects
 
-## Repeatable art work order
+An object mask is a tightly cropped PNG whose alpha matches the visible object.
+Keep the handle opening in the coffee mug and similarly meaningful holes in
+other objects. The hotspot remains a separate forgiving polygon.
 
-Before work, record the asset ID, purpose, type (new room / room state /
-portrait / localized animation / UI), reference catalog version, exact
-reference files, permitted changes, invariants, and intended display size.
-Use the templates in [art-prompts.md](art-prompts.md). Include the references
-as actual generator inputs, not just filenames mentioned in the prompt.
+A surface is four scene-space corners in clockwise TL, TR, BR, BL order. The
+runtime maps a clean local effect rectangle onto those corners. Use this for
+the main-menu and bedroom CRTs.
 
-1. Generate one representative candidate before expanding a batch. For a
-   new room use the founder room as style anchor; for an upgrade also supply
-   the exact room being edited. Same-room states keep dimensions, camera,
-   framing, and coordinates unchanged. New rooms define their own dimensions.
-2. Save candidates under `docs/office/mockups/<round>/`, never over accepted
-   assets. Store the full prompt, provider/tool and model when reported,
-   supplied references and hashes, output dimensions/hash, and allowed delta.
-   Do not invent a seed or model identifier the provider did not return.
-3. Compare the candidate directly with the approved anchor, at native size
-   and the actual in-game display size. Check camera/scale, pixel treatment,
-   palette/materials, light direction, repeated-object identity, silhouette,
-   alpha fringes, and UI readability. Record pass/fail plus specific evidence.
-   Hash checks establish identity, not aesthetic consistency.
-4. For a same-room edit, compare before/after outside the intended region.
-   Prefer revealing only a local accepted patch. A full regenerated frame is
-   not assumed unchanged elsewhere. If a patch cannot hide the drift cleanly,
-   revise the candidate rather than compensating with unrelated scene edits.
-5. Promote a reviewed candidate into a new versioned runtime filename when
-   implementation is authorized. Add its provenance and reference-catalog
-   linkage. Never overwrite the anchor to make a mismatching output pass.
-6. Update scene geometry, masks, state patches, and asset tests together.
-   Run `npm test`, then browser-check hover/focus, pickup/state changes,
-   room remount, display resizing, and reduced motion where relevant.
-   Inspect all floor edges after any exterior-mask change.
-7. Deliver a short review record: what changed, references used, candidate
-   selected, comparison evidence, checks passed, and known limitations.
-   When crew review is used, Maeve reviews visual fit, Cal verifies behavior,
-   and Reed checks code clarity under their existing persona instructions.
+A point is one scene-space coordinate for a small emitter. The bedroom coffee
+steam is the current example.
 
-## Animation decision order
+Effects are code-native presets in `office/js/sceneEffects.js`. Add a new
+preset only when an existing effect cannot express a product need.
 
-Use localized code overlays for light, CRT scanlines, and bubbles, following
-the existing room-effects builders. Keep the source painting static wherever
-possible; never animate the whole room to move a small object.
+## State patches and transitions
 
-For actual moving silhouettes, first prepare an accepted clean background
-patch plus an isolated foreground layer. Use a short sprite sequence only
-when it produces better motion than a simple overlay. Every frame must share
-canvas size, anchor, scale, palette, light direction, and occlusion rules.
-Record frame order, duration, loop seam, and reduced-motion resting frame.
-Review a full-speed loop and a frame contact sheet; reject edge shimmer,
-texture crawling, floating bases, ghost silhouettes, and unwanted warping.
-Generated frames are candidates, not an automatic animation pipeline.
+The mug removal uses a separately reviewed full-scene edit but reveals only a
+small feathered patch. The bedroom door uses one reviewed open-door scene
+patch and six fixed-canvas transparent frames. Reduced motion or missing
+transition assets skips animation and preserves navigation.
 
-Pause animation with panels/hidden tabs, remove it on room teardown, and
-keep effects out of pointer hit testing. A rejected effect can stay static;
-subtle animation is optional and must earn its place visually.
+## Acceptance
 
-The versioned `art-source/style-reference.json` catalog pins approved reference
-bytes, dimensions, and their specific roles. `npm test` detects missing or
-replaced references. It cannot judge visual similarity; the comparison above
-remains required. When Nosh selects a new anchor, record the reason and update
-the catalog version, reference metadata, and related guidance together.
+Run `npm test`. In the browser, verify pointer and keyboard interaction,
+native and small viewport alignment, map navigation, reload persistence,
+pause/reduced motion, the main-menu CRT, the bedroom CRT and steam, the door
+transition, the kitchen, and DesktopOS.

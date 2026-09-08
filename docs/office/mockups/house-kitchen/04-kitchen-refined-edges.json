@@ -1,0 +1,47 @@
+{
+  "assetId": "house-kitchen-04",
+  "purpose": "Correct heavy exterior contours in the approved kitchen",
+  "type": "room mockup edit",
+  "status": "Approved by Nosh and integrated as house-kitchen-v2",
+  "provider": "OpenAI built-in imagegen",
+  "model": "Not reported by provider",
+  "referenceCatalogVersion": 3,
+  "references": [
+    "office/assets/rooms/house-kitchen-v1.png",
+    "office/assets/rooms/founders-bedroom-v1.png",
+    "office/assets/rooms/founders-office-background.png"
+  ],
+  "allowedDelta": "Thin and soften only the exterior room contours",
+  "invariants": [
+    "Keep the full floor thickness visible",
+    "Preserve both doors and all improvised workspaces",
+    "Preserve the camera, room footprint, palette, and lighting",
+    "Match the bedroom's restrained dark-brown exterior edge weight"
+  ],
+  "intendedDisplaySize": "Responsive room view; authored at 1774x887",
+  "prompt": "Use case: precise-object-edit\nAsset type: corrected production room background for Warewolf's point-and-click game\nPrimary request: Edit Image 1 only to correct its exterior edge treatment. The kitchen currently has noticeably thick, nearly black contour bands around parts of the cutaway room—especially the long front floor edge, floor-side/underside boundary, outer wall caps, and vertical cutaway wall ends. Reduce those heavy black bands so they match the thinner, restrained dark-brown one-to-two-pixel edge treatment of Image 2. Keep the floor thickness fully visible and dimensional; this is an outline-weight and color correction, not removal of the floor side.\nInput images: Image 1 is the exact edit target and must retain its scene. Image 2 is the approved bedroom reference for exterior outline thickness, dark-brown edge color, wall-cap treatment, and floor-side treatment. Image 3 is the primary environment style anchor.\nAllowed change: Only soften and thin the exterior perimeter contours of the room painting. Replace heavy near-black perimeter strokes with the bedroom's finer dark walnut-brown pixel outline and natural material shading. Preserve crisp pixel clusters and stepped edges.\nPreserve exactly: 1774x887 canvas; black surrounding void; fixed isometric camera; complete room footprint; both wooden doors and their positions; all walls and wall caps; full floor top and floor underside; kitchen cabinets, sink, window, blinds, plant, kettle, stove, counter laptop and stool, refrigerator and notes, rug, breakfast table, both laptops, papers, mugs, power strip, chairs; every object's position, proportions, colors, lighting, and readable silhouette. Preserve the domestic improvised-workspace story and all hotspot geometry.\nConstraints: Change no interior object outlines unless they touch the exterior room perimeter. Do not crop or flatten the floor thickness. Do not redraw or move any object. No characters, UI, labels, new text, logos, or watermark.\nAvoid: thick black bands, black cartoon outlines, blurred or antialiased edges, smooth vector rendering, altered perspective, changed room dimensions, changed lighting, changed furniture, lost doors, missing floor sides, or style drift.",
+  "output": "docs/office/mockups/house-kitchen/04-kitchen-refined-edges.png",
+  "review": "Approved correction. The long front floor boundary, floor side, wall caps, and cutaway wall ends now use a thinner dark walnut-brown edge treatment closer to the bedroom. The full floor thickness, both doors, kitchen contents, and improvised workspaces remain present. Runtime hotspot and silhouette alignment rechecked after promotion.",
+  "imageMetadata": [
+    {
+      "path": "office/assets/rooms/house-kitchen-v1.png",
+      "sha256": "ceb6c5575d3314617e7e2e7163b6116d48de584c10aeadc8c95527d9a35a5969",
+      "size": [1774, 887]
+    },
+    {
+      "path": "office/assets/rooms/founders-bedroom-v1.png",
+      "sha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc",
+      "size": [1774, 887]
+    },
+    {
+      "path": "office/assets/rooms/founders-office-background.png",
+      "sha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+      "size": [1774, 887]
+    },
+    {
+      "path": "docs/office/mockups/house-kitchen/04-kitchen-refined-edges.png",
+      "sha256": "434dc58a5dcd395cc29825659bcf9625269c5bb03f6f8ac35147aac973430e78",
+      "size": [1774, 887]
+    }
+  ]
+}

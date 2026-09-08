@@ -1,0 +1,47 @@
+{
+  "assetId": "house-kitchen-03",
+  "purpose": "Second-room kitchen with a prepared future exit",
+  "type": "room mockup edit",
+  "status": "Approved by Nosh and integrated as the second room",
+  "provider": "OpenAI built-in imagegen",
+  "model": "Not reported by provider",
+  "referenceCatalogVersion": 2,
+  "references": [
+    "docs/office/mockups/house-kitchen/02-kitchen-improvised-workspaces.png",
+    "office/assets/rooms/founders-office-background.png",
+    "office/assets/rooms/founders-bedroom-v1.png"
+  ],
+  "allowedDelta": "Add a second residential door and required room width",
+  "invariants": [
+    "Keep the kitchen and improvised workspaces intact",
+    "Match the existing residential door design",
+    "Preserve the pixel-painted camera, palette, and lighting",
+    "Show the complete expanded room and floor thickness"
+  ],
+  "intendedDisplaySize": "Responsive room view; authored at 1774x887",
+  "prompt": "Use case: precise-object-edit\nAsset type: revised painted-room mockup for Warewolf's point-and-click game\nPrimary request: Edit Image 1 by adding exactly one additional closed residential wooden door on the far right section of the back/right wall, to the right of the refrigerator. This second door is the future exit to the next room deeper in the house.\nInput images: Image 1 is the exact edit target. Image 2 is the primary rendering-style and camera anchor. Image 3 anchors the house architecture and exact residential door design.\nDoor requirements: Match the existing left door and the bedroom door in wood species, warm walnut color, four recessed panels, trim thickness, human scale, dark ink edge treatment, brass round knob, and isometric perspective. Set it flush into the right wall with a complete visible frame, threshold, and clean open floor landing. The door must have an unobstructed, readable silhouette suitable for a point-and-click hotspot. Place the knob on the logically accessible latch side. It must look like part of the original house construction, not a freestanding portal or decorative cabinet.\nLayout allowance: Modestly extend the right wall and matching floor footprint into the existing black margin if needed. Shift the refrigerator slightly left only if required to create plausible wall spacing, while preserving its design and leaving clearance between refrigerator and door. Keep the authored 1774x887 canvas and fit the entire expanded room silhouette, wall caps, floor edges, and floor underside within it.\nPreserve exactly: the domestic kitchen identity; existing left door; window and blinds; plant; sink; cabinets; countertops; kettle; stove; refrigerator design and fruit bowl; rug; round breakfast table; both dining chairs; two table laptops; papers, mugs and power strip; counter laptop, folders, pencil jar and stool; fridge notes; warm morning lighting; pixel-painted camera, palette, and material treatment.\nConstraints: Add only the second door and the minimum architectural/floor extension or refrigerator repositioning needed to support it. No people, no UI, no labels, no readable text.\nAvoid: redesigning the kitchen, removing either improvised workspace, adding office furniture, adding extra doors beyond the requested second door, open doorways, hallways visible through the door, glowing exit markers, changing camera angle, cropping any room edge, smooth vector rendering, photorealism, logos, captions, or watermarks.",
+  "output": "docs/office/mockups/house-kitchen/03-kitchen-two-doors.png",
+  "review": "Approved by Nosh for runtime integration. A matching four-panel door occupies the far right wall with a clear landing and separation from the refrigerator. The original left door, domestic kitchen identity, table workspace, and counter workspace remain readable. The generator widened and recomposed the room rather than making a pixel-local edit, so unrelated pixels are not identical to the prior candidate.",
+  "imageMetadata": [
+    {
+      "path": "docs/office/mockups/house-kitchen/02-kitchen-improvised-workspaces.png",
+      "sha256": "09a3d81e5e7b16e82ccd95241cf5b3670e8f8121f7400b06efe54500e67fc146",
+      "size": [1774, 887]
+    },
+    {
+      "path": "office/assets/rooms/founders-office-background.png",
+      "sha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+      "size": [1774, 887]
+    },
+    {
+      "path": "office/assets/rooms/founders-bedroom-v1.png",
+      "sha256": "139834102814aa3ef036ef1812b0e0c0ee44c17902d64894b0fba961c776ebbc",
+      "size": [1774, 887]
+    },
+    {
+      "path": "docs/office/mockups/house-kitchen/03-kitchen-two-doors.png",
+      "sha256": "ceb6c5575d3314617e7e2e7163b6116d48de584c10aeadc8c95527d9a35a5969",
+      "size": [1774, 887]
+    }
+  ]
+}

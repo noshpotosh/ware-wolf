@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "source": "../docs/office/mockups/house-kitchen/04-kitchen-refined-edges.png",
+  "sourceSha256": "434dc58a5dcd395cc29825659bcf9625269c5bb03f6f8ac35147aac973430e78",
+  "runtime": "assets/rooms/house-kitchen-v2.png",
+  "runtimeSha256": "434dc58a5dcd395cc29825659bcf9625269c5bb03f6f8ac35147aac973430e78",
+  "size": [
+    1774,
+    887
+  ],
+  "provider": "OpenAI built-in imagegen",
+  "prompt": "Approved refined-edge kitchen copied byte-for-byte; full edit prompt in docs/office/mockups/house-kitchen/04-kitchen-refined-edges.json.",
+  "referenceCatalogVersion": 4,
+  "review": "Approved edge correction. Exterior wall and floor contours now match the bedroom's restrained dark-brown weight while preserving the complete floor side and room contents."
+}

@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 6,
   "pathBase": "repository root",
   "policy": "These references are scoped anchors selected from the accepted direction. Candidates do not become anchors automatically. Change an anchor only after Nosh selects the new direction; increment the catalog version and record why.",
   "references": [
@@ -52,6 +52,26 @@
         887
       ],
       "scope": "Approved starting-room composition and bedroom object identities; original founder-room remains style anchor."
+    },
+    {
+      "id": "house-kitchen",
+      "path": "office/assets/rooms/house-kitchen-v3.png",
+      "sha256": "1d2b27863e7049044253aecf23f1a40056427fd98c1f8af37adabbfc3a523b71",
+      "size": [
+        1774,
+        887
+      ],
+      "scope": "Approved second-room composition, improvised domestic workspaces, and two-door house navigation layout; original founder-room remains style anchor."
+    },
+    {
+      "id": "main-menu",
+      "path": "office/assets/ui/main-menu-command-table.png",
+      "sha256": "4b582eb2dc2f080354c286de014dfe03851ba73ae7c77d526dba9027f5815ac7",
+      "size": [
+        1672,
+        941
+      ],
+      "scope": "Approved complete title-scene composition and command-table object identities; original founder-room remains rendering-style authority."
     }
   ],
   "shellLayout": {
@@ -61,5 +81,5 @@
       "office/css/pointAndClick.css"
     ]
   },
-  "changeReason": "Nosh selected bedroom-exit mockup as starting room; original office remains rendering-style authority."
+  "changeReason": "Nosh restored whole painted scenes as the active authoring model. The approved command-table title painting is now a scoped scene anchor alongside the bedroom and kitchen; the original office remains rendering-style authority."
 }
