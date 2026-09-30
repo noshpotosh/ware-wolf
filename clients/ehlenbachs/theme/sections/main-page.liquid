@@ -1,0 +1,40 @@
+<section class="main-page">
+  {%- if page -%}
+    <h1 class="main-page__title">{{ page.title | escape }}</h1>
+
+    {%- if page.content != blank -%}
+      <div class="main-page__body rte">{{ page.content }}</div>
+    {%- endif -%}
+
+    {%- if page.handle == 'careers' -%}
+      <div class="main-page__form">
+        {%- if page.content == blank -%}
+          <p class="main-page__lead">
+            Interested in working at Ehlenbach's? Tell us a little about
+            yourself. This form lets you express interest; it does not confirm
+            a current opening.
+          </p>
+        {%- endif -%}
+        {% render 'career-form', section_id: section.id %}
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    <h1 class="main-page__title">We couldn't find that page</h1>
+    <p class="main-page__lead">
+      It may have moved, or the link may be out of date.
+    </p>
+    <p class="main-page__links">
+      <a class="button-primary" href="{{ routes.all_products_collection_url }}">
+        Shop the chalet
+      </a>
+      <a href="{{ routes.root_url }}">Back to home</a>
+    </p>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": []
+}
+{% endschema %}

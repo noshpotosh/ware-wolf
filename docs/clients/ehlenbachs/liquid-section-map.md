@@ -327,7 +327,9 @@ Careers uses `page.careers` and `careers-application`, linked as **Work with us*
 in the header. The native contact form collects contact details, interests,
 availability, and work history; a résumé URL is optional. First-time applicants
 are welcome to describe relevant skills. Role interests do not imply vacancies.
-The merchant must create the page and assign the template.
+The merchant must create the page; the header link is hidden until it exists.
+If the page keeps the default template, `main-page` still renders the shared
+`career-form` snippet, so the tab is never empty.
 
 Collection pages show the current collection title and description. A curated
 category menu or selected collections defines the browse order; without that

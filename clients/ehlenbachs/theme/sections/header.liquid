@@ -115,7 +115,7 @@
         {%- liquid
           assign careers_url = section.settings.careers_url
           if careers_url == blank
-            assign careers_url = routes.root_url | append: 'pages/careers'
+            assign careers_url = pages['careers'].url
           endif
           assign careers_in_menu = false
           for link in section.settings.menu.links
@@ -124,11 +124,14 @@
             endif
           endfor
         -%}
-        {%- if section.settings.show_careers_link and careers_in_menu == false -%}
+        {%- if section.settings.show_careers_link
+          and careers_url != blank
+          and careers_in_menu == false
+        -%}
           <li>
             <a
               href="{{ careers_url | escape }}"
-              {% if template.suffix == 'careers' %}
+              {% if page.handle == 'careers' %}
                 aria-current="page"
               {% endif %}
             >
@@ -231,7 +234,7 @@
       "type": "url",
       "id": "careers_url",
       "label": "Careers page",
-      "info": "Defaults to /pages/careers when left blank."
+      "info": "Defaults to the page with the handle careers. The link is hidden until that page exists."
     }
   ]
 }
