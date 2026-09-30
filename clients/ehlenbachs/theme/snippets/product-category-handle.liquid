@@ -1,0 +1,36 @@
+{%- comment -%}
+  Outputs the handle of a product's category collection, so product pages
+  can link to it. Prefers the collection the shopper came from, then the
+  collection named after the product type, then any collection but "all".
+
+  Usage:
+  {%- capture category_handle -%}
+    {%- render 'product-category-handle', product: product, current_collection: collection -%}
+  {%- endcapture -%}
+{%- endcomment -%}
+{%- liquid
+  assign category = current_collection
+  if category.handle == 'all'
+    assign category = nil
+  endif
+
+  if category == blank
+    for product_collection in product.collections
+      if product_collection.title == product.type
+        assign category = product_collection
+        break
+      endif
+    endfor
+  endif
+
+  if category == blank
+    for product_collection in product.collections
+      if product_collection.handle != 'all'
+        assign category = product_collection
+        break
+      endif
+    endfor
+  endif
+
+  echo category.handle
+-%}

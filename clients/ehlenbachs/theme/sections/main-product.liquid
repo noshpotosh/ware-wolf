@@ -5,12 +5,20 @@
     assign primary_image = product.featured_image
   endif
 -%}
+{%- capture category_handle -%}
+  {%- render 'product-category-handle', product: product, current_collection: collection -%}
+{%- endcapture -%}
+{%- assign category = collections[category_handle] -%}
 
 <section class="product-detail">
   <div class="product-detail__inner">
     <nav class="product-detail__breadcrumb" aria-label="Breadcrumb">
       <a href="{{ routes.all_products_collection_url }}">Shop</a>
       <span aria-hidden="true">/</span>
+      {%- if category != blank -%}
+        <a href="{{ category.url }}">{{ category.title | escape }}</a>
+        <span aria-hidden="true">/</span>
+      {%- endif -%}
       <span>{{ product.title | escape }}</span>
     </nav>
 
@@ -74,6 +82,25 @@
           </span>
         </div>
 
+        <dl class="product-facts">
+          {%- if category != blank -%}
+            <div>
+              <dt>Category</dt>
+              <dd><a href="{{ category.url }}">{{ category.title | escape }}</a></dd>
+            </div>
+          {%- endif -%}
+          <div {% if selected_variant.weight == 0 %}hidden{% endif %}>
+            <dt>Shipping weight</dt>
+            <dd data-product-weight>
+              {{- selected_variant.weight | weight_with_unit -}}
+            </dd>
+          </div>
+          <div {% if selected_variant.sku == blank %}hidden{% endif %}>
+            <dt>SKU</dt>
+            <dd data-product-sku>{{ selected_variant.sku | escape }}</dd>
+          </div>
+        </dl>
+
         {%- form 'product', product, class: 'product-form' -%}
           {%- if product.has_only_default_variant -%}
             <input type="hidden" name="id" value="{{ selected_variant.id }}">
@@ -98,6 +125,12 @@
                     "
                     data-on-sale="{{ variant_on_sale }}"
                     data-available="{{ variant.available }}"
+                    data-sku="{{ variant.sku | escape }}"
+                    data-weight="
+                      {%- if variant.weight > 0 -%}
+                        {{- variant.weight | weight_with_unit | escape -}}
+                      {%- endif -%}
+                    "
                     {% if variant == selected_variant %}selected{% endif %}
                     {% unless variant.available %}disabled{% endunless %}
                   >
@@ -174,19 +207,33 @@
             {%- endif -%}
           </div>
         </div>
-      </div>
-    </div>
 
-    {%- if section.blocks.size > 0 -%}
-      <div class="product-promises" aria-label="Why shop with us">
         {%- for block in section.blocks -%}
-          <article class="product-promise" {{ block.shopify_attributes }}>
-            <h2>{{ block.settings.heading | escape }}</h2>
-            <p>{{ block.settings.text | escape }}</p>
-          </article>
+          {%- liquid
+            assign show_detail = true
+            if block.settings.product_types != blank
+              assign show_detail = false
+              assign detail_types = block.settings.product_types | newline_to_br | split: '<br />'
+              for detail_type in detail_types
+                assign detail_type = detail_type | strip
+                if detail_type == product.type
+                  assign show_detail = true
+                  break
+                endif
+              endfor
+            endif
+          -%}
+          {%- if show_detail -%}
+            <details class="product-detail-row" {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.heading | escape }}</summary>
+              <div class="product-detail-row__body rte">
+                {{ block.settings.content }}
+              </div>
+            </details>
+          {%- endif -%}
         {%- endfor -%}
       </div>
-    {%- endif -%}
+    </div>
   </div>
 </section>
 
@@ -217,20 +264,26 @@
   "blocks": [
     {
       "type": "detail",
-      "name": "Shop detail",
-      "limit": 3,
+      "name": "Detail row",
+      "limit": 4,
       "settings": [
         {
           "type": "text",
           "id": "heading",
           "label": "Heading",
-          "default": "Packed with care"
+          "default": "Shipping & ordering"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Questions before ordering? Contact the chalet.</p>"
         },
         {
           "type": "textarea",
-          "id": "text",
-          "label": "Text",
-          "default": "Prepared by the folks behind the chalet counter."
+          "id": "product_types",
+          "label": "Only show for these product types",
+          "info": "One product type per line. Leave blank to show on every product."
         }
       ]
     }

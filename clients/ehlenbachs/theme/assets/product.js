@@ -7,6 +7,15 @@
     '[data-product-compare-price]'
   );
   const submitButton = document.querySelector('.product-form__submit');
+  const sku = document.querySelector('[data-product-sku]');
+  const weight = document.querySelector('[data-product-weight]');
+
+  function showFact(fact, value) {
+    if (!fact) return;
+
+    fact.textContent = value;
+    fact.parentElement.hidden = !value;
+  }
 
   function updateSelectedVariant() {
     if (!variantSelect || !currentPrice || !submitButton) return;
@@ -20,6 +29,9 @@
       ? 'Add to cart'
       : 'Sold out';
 
+    showFact(sku, selectedOption.dataset.sku);
+    showFact(weight, selectedOption.dataset.weight);
+
     if (!comparePrice) return;
 
     comparePrice.textContent = selectedOption.dataset.comparePrice;
@@ -29,7 +41,7 @@
   variantSelect?.addEventListener('change', updateSelectedVariant);
 
   const sections = document.querySelectorAll(
-    '[data-product-recommendations]'
+    '[data-product-recommendations][data-url]'
   );
 
   function loadRecommendations(section) {

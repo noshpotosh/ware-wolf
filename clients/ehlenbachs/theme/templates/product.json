@@ -3,32 +3,26 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "questions": {
+        "shipping": {
           "type": "detail",
           "settings": {
-            "heading": "Make it your own",
-            "text": "Choose an available option and quantity above to suit your order."
+            "heading": "Shipping & ordering",
+            "content": "<p>Questions before ordering? Call the chalet at 608-846-4791.</p>",
+            "product_types": ""
           }
         },
-        "details": {
+        "storing": {
           "type": "detail",
           "settings": {
-            "heading": "A little more detail",
-            "text": "For ingredients, allergens, or product questions, contact the chalet before ordering."
-          }
-        },
-        "visit": {
-          "type": "detail",
-          "settings": {
-            "heading": "Visit the chalet",
-            "text": "Prefer to browse in person? Come see us in DeForest."
+            "heading": "Storing & serving",
+            "content": "<p>Keep cheese wrapped and refrigerated. For the fullest flavor, let it sit out for a little while before serving.</p>",
+            "product_types": "Cheddars\nColby, Jacks, & Goudas\nSmoked Cheeses\nBlue Cheese\nCheese Curds\nSwiss\nBricks and Havarti\nItalian Cheeses\nString Cheese\nCheese Spreads\nHOT, HOT, HOT!\nCheddar Cheese Wax"
           }
         }
       },
       "block_order": [
-        "questions",
-        "details",
-        "visit"
+        "shipping",
+        "storing"
       ],
       "settings": {
         "eyebrow": "From the chalet counter",
@@ -36,16 +30,68 @@
         "fallback_description": "Questions about this product? Contact the chalet before ordering."
       }
     },
+    "category_products": {
+      "type": "product-recommendations",
+      "settings": {
+        "source": "category",
+        "heading": "More [category]",
+        "products_to_show": 4
+      }
+    },
     "recommendations": {
       "type": "product-recommendations",
       "settings": {
+        "source": "related",
         "heading": "You might also like",
         "products_to_show": 4
       }
+    },
+    "visit_details": {
+      "type": "visit-hours-strip",
+      "blocks": {
+        "hours": {
+          "type": "hours",
+          "settings": {
+            "label": "Hours",
+            "lines": "Mon–Thu 8–7\nFri–Sun 8–8"
+          }
+        },
+        "address": {
+          "type": "address",
+          "settings": {
+            "label": "Address",
+            "street": "4879 County Road V",
+            "city": "DeForest, WI"
+          }
+        },
+        "phone": {
+          "type": "phone",
+          "settings": {
+            "label": "Phone",
+            "number": "608-846-4791"
+          }
+        },
+        "tagline": {
+          "type": "tagline",
+          "settings": {
+            "label": "Made here",
+            "text": "Specialty blues and smoked cheeses made on site."
+          }
+        }
+      },
+      "block_order": [
+        "hours",
+        "address",
+        "phone",
+        "tagline"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "recommendations"
+    "category_products",
+    "recommendations",
+    "visit_details"
   ]
 }

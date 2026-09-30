@@ -317,11 +317,16 @@ first-viewport ban-list check.
 
 ## Product, careers, and browse completion
 
-Product detail uses `main-product` followed by `product-recommendations`.
-Keep real catalog descriptions next to the purchase controls; neutral fallback
-copy must not invent ingredients or flavor notes. Related products use Shopify
-recommendations with a collection fallback and exclude the current product.
-Keep additional product photos from pushing purchase controls down on mobile.
+Product detail uses `main-product`, two `product-recommendations` rails
+(**More [category]** from the product's category collection, then Shopify
+**related** recommendations), and the shared `visit-hours-strip`. Keep real
+catalog descriptions next to the purchase controls; neutral fallback copy must
+not invent ingredients or flavor notes. The breadcrumb and facts list show the
+category (the collection named after the product type), shipping weight, and
+SKU only when the catalog has them. Collapsible detail rows are merchant copy
+and can be limited to product types (for example cheese-only storage notes).
+Rails exclude the current product. Keep additional product photos from pushing
+purchase controls down on mobile.
 
 Careers uses `page.careers` and `careers-application`, linked as **Work with us**
 in the header. The native contact form collects contact details, interests,

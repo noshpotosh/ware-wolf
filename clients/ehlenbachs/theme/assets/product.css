@@ -10,6 +10,7 @@
 
 .product-detail__breadcrumb {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.55rem;
   margin-bottom: 2rem;
   font-family: var(--font-ui);
@@ -83,8 +84,34 @@
 .product-summary__price {
   display: flex;
   gap: 0.75rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.25rem;
   font-size: 1.35rem;
+}
+
+.product-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.75rem;
+  margin: 0 0 1.75rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+}
+
+.product-facts dt {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.product-facts dd {
+  margin: 0.15rem 0 0;
+}
+
+.product-facts a {
+  text-decoration-color: var(--color-cheddar-gold);
+  text-underline-offset: 0.25em;
 }
 
 .product-summary__price s {
@@ -176,31 +203,49 @@
   margin-bottom: 0;
 }
 
-.product-promises {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: clamp(3rem, 6vw, 6rem);
-  background: var(--color-wood-light);
+.product-detail-row {
+  border-bottom: 1px solid rgba(74, 52, 40, 0.25);
 }
 
-.product-promise {
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  border-left: 1px solid rgba(74, 52, 40, 0.25);
+.product-description + .product-detail-row {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(74, 52, 40, 0.25);
 }
 
-.product-promise:first-child {
-  border-left: 0;
-}
-
-.product-promise h2 {
-  margin: 0 0 0.5rem;
+.product-detail-row summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 0;
   font-family: var(--font-display);
-  font-size: 1.45rem;
-  font-weight: 500;
+  font-size: 1.25rem;
+  cursor: pointer;
+  list-style: none;
 }
 
-.product-promise p {
-  margin: 0;
+.product-detail-row summary::-webkit-details-marker {
+  display: none;
+}
+
+.product-detail-row summary::after {
+  content: '+';
+  font-family: var(--font-ui);
+}
+
+.product-detail-row[open] summary::after {
+  content: '−';
+}
+
+.product-detail-row__body {
+  padding-bottom: 1.25rem;
+}
+
+.product-detail-row__body > :first-child {
+  margin-top: 0;
+}
+
+.product-detail-row__body > :last-child {
+  margin-bottom: 0;
 }
 
 .product-recommendations {
@@ -262,20 +307,6 @@
     position: static;
     order: 1;
     width: 100%;
-  }
-
-  .product-promises {
-    grid-template-columns: 1fr;
-  }
-
-  .product-promise,
-  .product-promise:first-child {
-    border-left: 0;
-    border-top: 1px solid rgba(74, 52, 40, 0.25);
-  }
-
-  .product-promise:first-child {
-    border-top: 0;
   }
 }
 
