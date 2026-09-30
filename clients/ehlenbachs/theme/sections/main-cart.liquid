@@ -1,0 +1,115 @@
+<section class="main-cart">
+  <div class="main-cart__inner">
+    <h1 class="main-cart__title">{{ 'cart.title' | t }}</h1>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="main-cart__empty">
+        <p>{{ 'cart.empty' | t }}</p>
+        <a class="button-primary" href="{{ routes.all_products_collection_url }}">
+          {{ section.settings.empty_button_label | escape }}
+        </a>
+      </div>
+    {%- else -%}
+      <form
+        class="main-cart__form"
+        action="{{ routes.cart_url }}"
+        method="post"
+        novalidate
+      >
+        <ul class="cart-items">
+          {%- for item in cart.items -%}
+            <li class="cart-item">
+              <a class="cart-item__media" href="{{ item.url }}" tabindex="-1">
+                {%- if item.image != blank -%}
+                  {{
+                    item.image
+                    | image_url: width: 300
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '150, 300',
+                      sizes: '8rem',
+                      alt: item.product.title
+                  }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag }}
+                {%- endif -%}
+              </a>
+
+              <div class="cart-item__details">
+                <a class="cart-item__title" href="{{ item.url }}">
+                  {{ item.product.title | escape }}
+                </a>
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="cart-item__variant">{{ item.variant.title | escape }}</p>
+                {%- endunless -%}
+                <p class="cart-item__price">{{ item.final_price | money }} each</p>
+              </div>
+
+              <div class="cart-item__quantity">
+                <label for="CartQuantity-{{ forloop.index }}">Quantity</label>
+                <input
+                  id="CartQuantity-{{ forloop.index }}"
+                  type="number"
+                  name="updates[]"
+                  value="{{ item.quantity }}"
+                  min="0"
+                  inputmode="numeric"
+                >
+                <a class="cart-item__remove" href="{{ item.url_to_remove }}">
+                  Remove
+                  <span class="visually-hidden">{{ item.product.title | escape }}</span>
+                </a>
+              </div>
+
+              <p class="cart-item__total">{{ item.final_line_price | money }}</p>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        <div class="main-cart__footer">
+          <div class="main-cart__note">
+            <label for="CartNote">{{ section.settings.note_label | escape }}</label>
+            <textarea id="CartNote" name="note" rows="3">{{ cart.note }}</textarea>
+          </div>
+
+          <div class="main-cart__summary">
+            <p class="main-cart__subtotal">
+              <span>Subtotal</span>
+              <span>{{ cart.total_price | money }}</span>
+            </p>
+            <p class="main-cart__taxes">{{ 'cart.shipping_note' | t }}</p>
+            <button class="main-cart__update" type="submit" name="update">
+              Update cart
+            </button>
+            <button class="main-cart__checkout" type="submit" name="checkout">
+              {{ 'cart.checkout' | t }}
+            </button>
+            <a class="main-cart__continue" href="{{ routes.all_products_collection_url }}">
+              Continue shopping
+            </a>
+          </div>
+        </div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    {
+      "type": "text",
+      "id": "note_label",
+      "label": "Order note label",
+      "default": "Order note (optional)"
+    },
+    {
+      "type": "text",
+      "id": "empty_button_label",
+      "label": "Empty cart button label",
+      "default": "Shop the chalet"
+    }
+  ]
+}
+{% endschema %}

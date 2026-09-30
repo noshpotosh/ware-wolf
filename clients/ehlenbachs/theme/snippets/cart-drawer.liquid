@@ -1,6 +1,6 @@
 {%- comment -%}
-  Minimal cart drawer. Heat / ice-pack notes may live here later —
-  never in the homepage hero.
+  Cart drawer opened from the header. Quantity changes happen on the
+  cart page; the drawer lists items and links onward.
 {%- endcomment -%}
 
 <div
@@ -38,28 +38,51 @@
     {%- else -%}
       <ul class="cart-drawer__items">
         {%- for item in cart.items -%}
-          <li>
-            {{ item.product.title | escape }}
-            × {{ item.quantity }}
-            — {{ item.final_line_price | money }}
+          <li class="cart-drawer__item">
+            <div class="cart-drawer__media">
+              {%- if item.image != blank -%}
+                {{
+                  item.image
+                  | image_url: width: 160
+                  | image_tag: loading: 'lazy', alt: item.product.title
+                }}
+              {%- endif -%}
+            </div>
+            <div>
+              <a class="cart-drawer__item-title" href="{{ item.url }}">
+                {{ item.product.title | escape }}
+              </a>
+              <p class="cart-drawer__item-meta">
+                {%- unless item.product.has_only_default_variant -%}
+                  {{ item.variant.title | escape }} ·
+                {%- endunless %}
+                Qty {{ item.quantity }} · {{ item.final_line_price | money }}
+              </p>
+              <a class="cart-drawer__remove" href="{{ item.url_to_remove }}">
+                {{ 'cart.remove' | t }}
+                <span class="visually-hidden">{{ item.product.title | escape }}</span>
+              </a>
+            </div>
           </li>
         {%- endfor -%}
       </ul>
+
+      <p class="cart-drawer__subtotal">
+        <span>Subtotal</span>
+        <span>{{ cart.total_price | money }}</span>
+      </p>
 
       <p class="cart-drawer__note">
         {{ 'cart.shipping_note' | t }}
       </p>
 
-      <p>
-        <strong>Subtotal:</strong>
-        {{ cart.total_price | money }}
-      </p>
-
-      <a
-        class="cart-drawer__checkout"
-        href="{{ routes.cart_url }}"
-      >
-        {{ 'cart.checkout' | t }}
+      <form action="{{ routes.cart_url }}" method="post">
+        <button class="cart-drawer__checkout" type="submit" name="checkout">
+          {{ 'cart.checkout' | t }}
+        </button>
+      </form>
+      <a class="cart-drawer__view-cart" href="{{ routes.cart_url }}">
+        {{ 'cart.view_cart' | t }}
       </a>
     {%- endif -%}
   </aside>

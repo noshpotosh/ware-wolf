@@ -33,6 +33,9 @@
     {{ 'home.css' | asset_url | stylesheet_tag }}
     {{ 'shop.css' | asset_url | stylesheet_tag }}
     {{ 'visit.css' | asset_url | stylesheet_tag }}
+    {%- if template.name == 'cart' -%}
+      {{ 'cart.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
     {%- if template.name == 'product' -%}
       {{ 'product.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
