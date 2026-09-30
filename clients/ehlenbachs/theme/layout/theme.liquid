@@ -33,6 +33,12 @@
     {{ 'home.css' | asset_url | stylesheet_tag }}
     {{ 'shop.css' | asset_url | stylesheet_tag }}
     {{ 'visit.css' | asset_url | stylesheet_tag }}
+    {%- if template.name == 'product' -%}
+      {{ 'product.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {%- if template.name == 'page' and template.suffix == 'careers' -%}
+      {{ 'careers.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
 
     {{ content_for_header }}
 
@@ -67,5 +73,8 @@
     {% render 'cart-drawer' %}
 
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
+    {%- if template.name == 'product' -%}
+      <script src="{{ 'product.js' | asset_url }}" defer></script>
+    {%- endif -%}
   </body>
 </html>

@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "main": {
+      "type": "careers-application",
+      "blocks": {
+        "people": {
+          "type": "work_note",
+          "settings": {
+            "heading": "Tell us about yourself",
+            "text": "Share the experience and interests you would bring to the chalet."
+          }
+        },
+        "learn": {
+          "type": "work_note",
+          "settings": {
+            "heading": "First job? Start here.",
+            "text": "School, volunteering, and everyday skills count as part of your story."
+          }
+        },
+        "hands_on": {
+          "type": "work_note",
+          "settings": {
+            "heading": "No r\u00e9sum\u00e9? No problem.",
+            "text": "Fill out your experience below. A r\u00e9sum\u00e9 link is optional."
+          }
+        }
+      },
+      "block_order": [
+        "people",
+        "learn",
+        "hands_on"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

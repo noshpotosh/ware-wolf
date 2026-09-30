@@ -1,0 +1,108 @@
+{%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+<form class="collection-controls" action="{{ collection.url }}" method="get">
+  <div class="collection-controls__row">
+    <p class="collection-controls__count">
+      {{ collection.products_count }}
+      {{ collection.products_count | pluralize: 'product', 'products' }}
+    </p>
+
+    {%- for filter in collection.filters -%}
+      <details class="collection-filter">
+        <summary>
+          {{ filter.label | escape }}
+          {%- if filter.active_values.size > 0 %}
+            ({{ filter.active_values.size }})
+          {%- endif -%}
+        </summary>
+        <fieldset class="collection-filter__values">
+          <legend class="visually-hidden">{{ filter.label | escape }}</legend>
+          {%- if filter.type == 'price_range' -%}
+            <p>Price in {{ cart.currency.iso_code }}</p>
+            <label>
+              Minimum
+              <input
+                type="number"
+                name="{{ filter.min_value.param_name }}"
+                min="0"
+                max="{{ filter.range_max | divided_by: 100.0 }}"
+                step="0.01"
+                placeholder="0"
+                {% if filter.min_value.value != nil %}
+                  value="{{ filter.min_value.value | divided_by: 100.0 }}"
+                {% endif %}
+              >
+            </label>
+            <label>
+              Maximum
+              <input
+                type="number"
+                name="{{ filter.max_value.param_name }}"
+                min="0"
+                max="{{ filter.range_max | divided_by: 100.0 }}"
+                step="0.01"
+                placeholder="{{ filter.range_max | divided_by: 100.0 }}"
+                {% if filter.max_value.value != nil %}
+                  value="{{ filter.max_value.value | divided_by: 100.0 }}"
+                {% endif %}
+              >
+            </label>
+          {%- else -%}
+            {%- for value in filter.values -%}
+              <label class="collection-filter__choice">
+                <input
+                  type="checkbox"
+                  name="{{ value.param_name }}"
+                  value="{{ value.value | escape }}"
+                  {% if value.active %}checked{% endif %}
+                  {% if value.count == 0 and value.active == false %}
+                    disabled
+                  {% endif %}
+                >
+                {{ value.label | escape }} ({{ value.count }})
+              </label>
+            {%- endfor -%}
+          {%- endif -%}
+        </fieldset>
+      </details>
+    {%- endfor -%}
+
+    <label class="collection-controls__sort">
+      Sort by
+      <select name="sort_by">
+        {%- for option in collection.sort_options -%}
+          <option
+            value="{{ option.value | escape }}"
+            {% if option.value == sort_by %}selected{% endif %}
+          >
+            {{ option.name | escape }}
+          </option>
+        {%- endfor -%}
+      </select>
+    </label>
+    <button type="submit" class="product-card__add">Apply</button>
+  </div>
+
+  <div class="collection-controls__active">
+    {%- for filter in collection.filters -%}
+      {%- for value in filter.active_values -%}
+        <a href="{{ value.url_to_remove }}">
+          {{ filter.label | escape }}: {{ value.label | escape }}
+          <span aria-hidden="true">×</span>
+          <span class="visually-hidden">(remove filter)</span>
+        </a>
+      {%- endfor -%}
+      {%- if filter.type == 'price_range' -%}
+        {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+          <a href="{{ filter.url_to_remove }}">
+            Clear price range <span aria-hidden="true">×</span>
+          </a>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if collection.products_count != collection.all_products_count -%}
+      <a href="{{ collection.url }}?sort_by={{ sort_by | url_encode }}">
+        Clear all filters
+      </a>
+    {%- endif -%}
+  </div>
+</form>

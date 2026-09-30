@@ -1,0 +1,239 @@
+{%- liquid
+  assign selected_variant = product.selected_or_first_available_variant
+  assign primary_image = selected_variant.featured_image
+  if primary_image == blank
+    assign primary_image = product.featured_image
+  endif
+-%}
+
+<section class="product-detail">
+  <div class="product-detail__inner">
+    <nav class="product-detail__breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      <span aria-hidden="true">/</span>
+      <span>{{ product.title | escape }}</span>
+    </nav>
+
+    <div class="product-detail__layout">
+      <div class="product-gallery" aria-label="Product images">
+        {%- if product.images.size > 0 -%}
+          {%- for image in product.images -%}
+            {%- liquid
+              assign image_loading = 'lazy'
+              if forloop.first
+                assign image_loading = 'eager'
+              endif
+            -%}
+            <div
+              class="product-gallery__item
+                {%- if image == primary_image %}
+                  product-gallery__item--primary
+                {%- endif -%}"
+            >
+              {{
+                image
+                | image_url: width: 1400
+                | image_tag:
+                  loading: image_loading,
+                  sizes: '(min-width: 900px) 55vw, 100vw',
+                  widths: '480, 720, 960, 1200, 1400',
+                  alt: image.alt
+              }}
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {{
+            'product-1'
+            | placeholder_svg_tag: 'product-gallery__placeholder'
+          }}
+        {%- endif -%}
+      </div>
+
+      <div class="product-summary">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="product-summary__eyebrow">
+            {{ section.settings.eyebrow | escape }}
+          </p>
+        {%- endif -%}
+
+        <h1 class="product-summary__title">{{ product.title | escape }}</h1>
+
+        <div class="product-summary__price">
+          <s
+            data-product-compare-price
+            {% unless selected_variant.compare_at_price
+              > selected_variant.price
+            %}
+              hidden
+            {% endunless %}
+          >
+            {{- selected_variant.compare_at_price | money -}}
+          </s>
+          <span data-product-current-price>
+            {{- selected_variant.price | money -}}
+          </span>
+        </div>
+
+        {%- form 'product', product, class: 'product-form' -%}
+          {%- if product.has_only_default_variant -%}
+            <input type="hidden" name="id" value="{{ selected_variant.id }}">
+          {%- else -%}
+            <div class="product-form__field">
+              <label for="ProductVariant-{{ section.id }}">
+                Choose an option
+              </label>
+              <select id="ProductVariant-{{ section.id }}" name="id">
+                {%- for variant in product.variants -%}
+                  {%- liquid
+                    assign variant_on_sale = false
+                    if variant.compare_at_price > variant.price
+                      assign variant_on_sale = true
+                    endif
+                  -%}
+                  <option
+                    value="{{ variant.id }}"
+                    data-price="{{ variant.price | money | escape }}"
+                    data-compare-price="
+                      {{- variant.compare_at_price | money | escape -}}
+                    "
+                    data-on-sale="{{ variant_on_sale }}"
+                    data-available="{{ variant.available }}"
+                    {% if variant == selected_variant %}selected{% endif %}
+                    {% unless variant.available %}disabled{% endunless %}
+                  >
+                    {{ variant.title | escape }}
+                    {%- unless variant.available %} — Sold out{% endunless %}
+                    — {{ variant.price | money }}
+                  </option>
+                {%- endfor -%}
+              </select>
+              {%- if product.available and selected_variant.available == false -%}
+                <noscript>
+                  <p>This option is sold out. Choose an available option:</p>
+                  <ul>
+                    {%- for variant in product.variants -%}
+                      {%- if variant.available -%}
+                        <li>
+                          <a href="{{ product.url }}?variant={{ variant.id }}">
+                            {{ variant.title | escape }}
+                            — {{ variant.price | money }}
+                          </a>
+                        </li>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </ul>
+                </noscript>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          <div class="product-form__actions">
+            <div class="product-form__quantity">
+              <label for="ProductQuantity-{{ section.id }}">Quantity</label>
+              <input
+                id="ProductQuantity-{{ section.id }}"
+                type="number"
+                name="quantity"
+                value="1"
+                min="1"
+                inputmode="numeric"
+              >
+            </div>
+
+            <button
+              type="submit"
+              class="product-form__submit"
+              {% unless selected_variant.available %}disabled{% endunless %}
+            >
+              {%- if selected_variant.available -%}
+                Add to cart
+              {%- else -%}
+                Sold out
+              {%- endif -%}
+            </button>
+          </div>
+        {%- endform -%}
+
+        <p class="product-summary__shipping">
+          {%- if shop.shipping_policy.body != blank -%}
+            <a href="{{ shop.shipping_policy.url }}">Shipping information</a>
+          {%- else -%}
+            Questions before ordering?
+            <a href="{{ routes.root_url }}pages/visit">Get in touch.</a>
+          {%- endif -%}
+        </p>
+
+        <div class="product-description">
+          <h2>{{ section.settings.description_heading | escape }}</h2>
+          <div class="product-description__body rte">
+            {%- assign description_text = product.description | strip_html | strip -%}
+            {%- if description_text != blank -%}
+              {{ product.description }}
+            {%- else -%}
+              <p>{{ section.settings.fallback_description | escape }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="product-promises" aria-label="Why shop with us">
+        {%- for block in section.blocks -%}
+          <article class="product-promise" {{ block.shopify_attributes }}>
+            <h2>{{ block.settings.heading | escape }}</h2>
+            <p>{{ block.settings.text | escape }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product details",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "From the chalet counter"
+    },
+    {
+      "type": "text",
+      "id": "description_heading",
+      "label": "Description heading",
+      "default": "About this product"
+    },
+    {
+      "type": "textarea",
+      "id": "fallback_description",
+      "label": "Fallback description",
+      "info": "Shown only when a product has no description.",
+      "default": "Questions about this product? Contact the chalet before ordering."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Shop detail",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Packed with care"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Prepared by the folks behind the chalet counter."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

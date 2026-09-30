@@ -1,6 +1,7 @@
 <section class="product-grid-section" aria-label="Products">
   <div class="product-grid-section__inner">
     {%- paginate collection.products by section.settings.products_per_page -%}
+      {% render 'collection-controls', collection: collection %}
       {%- if collection.products_count > 0 -%}
         <div class="product-grid">
           {%- for product in collection.products -%}
@@ -8,10 +9,22 @@
           {%- endfor -%}
         </div>
 
-        {{ paginate | default_pagination }}
+        {%- if paginate.pages > 1 -%}
+          <nav class="collection-pagination" aria-label="Product pages">
+            {{ paginate | default_pagination }}
+          </nav>
+        {%- endif -%}
       {%- else -%}
         <p class="product-grid__empty">
-          This collection is getting stocked. Check back soon.
+          {%- if collection.all_products_count > 0 -%}
+            No products match those filters.
+            <a href="{{ collection.url }}">Clear filters</a>
+          {%- else -%}
+            This collection is getting stocked.
+            <a href="{{ routes.all_products_collection_url }}">
+              Browse all products
+            </a>
+          {%- endif -%}
         </p>
       {%- endif -%}
     {%- endpaginate -%}

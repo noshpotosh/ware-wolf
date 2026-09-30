@@ -1,0 +1,244 @@
+<section class="careers">
+  <div class="careers__hero">
+    <div class="careers__hero-inner">
+      <p class="careers__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h1>{{ section.settings.heading | escape }}</h1>
+      <p>{{ section.settings.introduction | escape }}</p>
+      <a class="button-primary" href="#CareerApplication">
+        {{ section.settings.button_label | escape }}
+      </a>
+    </div>
+  </div>
+
+  <div class="careers__content">
+    {%- if section.blocks.size > 0 -%}
+      <div class="careers__notes">
+        {%- for block in section.blocks -%}
+          <article class="careers-note" {{ block.shopify_attributes }}>
+            <h2>{{ block.settings.heading | escape }}</h2>
+            <p>{{ block.settings.text | escape }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <div class="career-application" id="CareerApplication">
+      <div class="career-application__intro">
+        <p class="careers__eyebrow">Start a conversation</p>
+        <h2>{{ section.settings.form_heading | escape }}</h2>
+        <p>{{ section.settings.form_introduction | escape }}</p>
+      </div>
+
+      {%- form 'contact', class: 'career-form' -%}
+        <input
+          type="hidden"
+          name="contact[application_type]"
+          value="Job application"
+        >
+
+        {%- if form.posted_successfully? -%}
+          <p class="career-form__success" role="status" tabindex="-1">
+            Thanks for introducing yourself. Your application has been sent
+            to the chalet.
+          </p>
+        {%- endif -%}
+
+        {%- if form.errors -%}
+          <div class="career-form__errors" role="alert">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+
+        <p>Fields marked * are required. No résumé file is needed.</p>
+        <div class="career-form__grid">
+          <div class="career-form__field">
+            <label for="CareerName-{{ section.id }}">Name *</label>
+            <input
+              id="CareerName-{{ section.id }}"
+              type="text"
+              name="contact[name]"
+              value="{{ form.name | escape }}"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div class="career-form__field">
+            <label for="CareerEmail-{{ section.id }}">Email *</label>
+            <input
+              id="CareerEmail-{{ section.id }}"
+              type="email"
+              name="contact[email]"
+              value="{{ form.email | escape }}"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="career-form__field">
+            <label for="CareerPhone-{{ section.id }}">Phone</label>
+            <input
+              id="CareerPhone-{{ section.id }}"
+              type="tel"
+              name="contact[phone]"
+              value="{{ form.phone | escape }}"
+              autocomplete="tel"
+            >
+          </div>
+
+          <div class="career-form__field">
+            <label for="CareerRole-{{ section.id }}">
+              Work you are interested in (optional)
+            </label>
+            <input
+              id="CareerRole-{{ section.id }}"
+              type="text"
+              name="contact[role_of_interest]"
+              value="{{ form.role_of_interest | escape }}"
+              placeholder="Tell us what kind of work interests you"
+            >
+          </div>
+
+          <div class="career-form__field career-form__field--wide">
+            <label for="CareerAvailability-{{ section.id }}">
+              Availability *
+            </label>
+            <input
+              id="CareerAvailability-{{ section.id }}"
+              type="text"
+              name="contact[availability]"
+              value="{{ form.availability | escape }}"
+              placeholder="Days, evenings, weekends, and preferred hours"
+              required
+            >
+          </div>
+
+          <div class="career-form__field career-form__field--wide">
+            <label for="CareerExperience-{{ section.id }}">
+              Experience and skills *
+            </label>
+            <textarea
+              id="CareerExperience-{{ section.id }}"
+              name="contact[experience]"
+              rows="6"
+              aria-describedby="CareerExperienceHelp-{{ section.id }}"
+              required
+            >{{ form.experience | escape }}</textarea>
+            <small id="CareerExperienceHelp-{{ section.id }}">
+              Tell us about work, school, volunteering, or skills you bring.
+              Applying for your first job? Tell us what you want to learn.
+            </small>
+          </div>
+
+          <div class="career-form__field career-form__field--wide">
+            <label for="CareerResume-{{ section.id }}">
+              Résumé or work-history link
+            </label>
+            <input
+              id="CareerResume-{{ section.id }}"
+              type="url"
+              name="contact[resume_link]"
+              value="{{ form.resume_link | escape }}"
+              aria-describedby="CareerResumeHelp-{{ section.id }}"
+              placeholder="https://"
+            >
+            <small id="CareerResumeHelp-{{ section.id }}">
+              Optional. Share a viewable résumé or portfolio link, or simply
+              fill out your experience above.
+            </small>
+          </div>
+
+          <div class="career-form__field career-form__field--wide">
+            <label for="CareerMessage-{{ section.id }}">
+              Anything else? (optional)
+            </label>
+            <textarea
+              id="CareerMessage-{{ section.id }}"
+              name="contact[body]"
+              rows="5"
+              placeholder="A short note is plenty."
+            >{{ form.body | escape }}</textarea>
+          </div>
+        </div>
+
+        <p class="career-form__privacy">
+          Your application is sent to the shop. Please leave out sensitive
+          information such as identification numbers or bank details.
+        </p>
+        <button class="career-form__submit" type="submit">
+          Submit application
+        </button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Careers application",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Join the chalet crew"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Good people make a good cheese shop."
+    },
+    {
+      "type": "textarea",
+      "id": "introduction",
+      "label": "Introduction",
+      "default": "Interested in working at Ehlenbach's? Tell us a little about yourself."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Apply now"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "Tell us about yourself"
+    },
+    {
+      "type": "textarea",
+      "id": "form_introduction",
+      "label": "Form introduction",
+      "default": "Share your experience and availability. This form lets you express interest; it does not confirm a current opening."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "work_note",
+      "name": "Work note",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Neighbors serving neighbors"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Bring a helpful attitude and a willingness to learn."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Careers application"
+    }
+  ]
+}
+{% endschema %}
