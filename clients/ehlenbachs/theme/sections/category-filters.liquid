@@ -1,16 +1,23 @@
+{%- liquid
+  assign active_department = nil
+  assign active_index = nil
+  for block in section.blocks
+    if block.settings.collection != blank and block.settings.collection.id == collection.id
+      assign active_department = block
+      assign active_index = forloop.index
+    endif
+    for subcategory in block.settings.subcategories
+      if subcategory.id == collection.id
+        assign active_department = block
+        assign active_index = forloop.parentloop.index
+      endif
+    endfor
+  endfor
+-%}
+
 <nav class="category-filters" aria-label="Shop categories">
-  <div class="category-filters__scroller">
-    {%- if section.settings.menu != blank -%}
-      {%- for link in section.settings.menu.links -%}
-        <a
-          class="category-filters__link"
-          href="{{ link.url }}"
-          {% if link.active %}aria-current="page"{% endif %}
-        >
-          {{ link.title | escape }}
-        </a>
-      {%- endfor -%}
-    {%- else -%}
+  {%- if section.blocks.size > 0 -%}
+    <div class="category-filters__scroller">
       <a
         class="category-filters__link"
         href="{{ routes.all_products_collection_url }}"
@@ -18,26 +25,96 @@
       >
         All products
       </a>
-      {%- liquid
-        assign browse_collections = section.settings.collections
-        if browse_collections == blank
-          assign browse_collections = collections
-        endif
-      -%}
-      {%- for category in browse_collections -%}
-        {%- if category.handle == 'all' or category.all_products_count == 0 -%}
-          {%- continue -%}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign department_url = block.settings.collection.url
+          if department_url == blank
+            assign department_url = block.settings.subcategories.first.url
+          endif
+        -%}
+        {%- if department_url != blank -%}
+          <a
+            class="category-filters__link"
+            href="{{ department_url }}"
+            {% if forloop.index == active_index %}
+              aria-current="{% if block.settings.collection.id == collection.id %}page{% else %}true{% endif %}"
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.title | escape }}
+          </a>
         {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if active_department != blank -%}
+      <div class="category-filters__scroller category-filters__scroller--sub">
+        {%- if active_department.settings.collection != blank -%}
+          <a
+            class="category-filters__chip"
+            href="{{ active_department.settings.collection.url }}"
+            {% if active_department.settings.collection.id == collection.id %}
+              aria-current="page"
+            {% endif %}
+          >
+            All {{ active_department.settings.title | escape }}
+          </a>
+        {%- endif -%}
+        {%- for subcategory in active_department.settings.subcategories -%}
+          {%- if subcategory.all_products_count == 0 -%}
+            {%- continue -%}
+          {%- endif -%}
+          <a
+            class="category-filters__chip"
+            href="{{ subcategory.url }}"
+            {% if subcategory.id == collection.id %}aria-current="page"{% endif %}
+          >
+            {{ subcategory.title | escape }}
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    <div class="category-filters__scroller">
+      {%- if section.settings.menu != blank -%}
+        {%- for link in section.settings.menu.links -%}
+          <a
+            class="category-filters__link"
+            href="{{ link.url }}"
+            {% if link.active %}aria-current="page"{% endif %}
+          >
+            {{ link.title | escape }}
+          </a>
+        {%- endfor -%}
+      {%- else -%}
         <a
           class="category-filters__link"
-          href="{{ category.url }}"
-          {% if collection.id == category.id %}aria-current="page"{% endif %}
+          href="{{ routes.all_products_collection_url }}"
+          {% if collection.handle == 'all' %}aria-current="page"{% endif %}
         >
-          {{ category.title | escape }}
+          All products
         </a>
-      {%- endfor -%}
-    {%- endif -%}
-  </div>
+        {%- liquid
+          assign browse_collections = section.settings.collections
+          if browse_collections == blank
+            assign browse_collections = collections
+          endif
+        -%}
+        {%- for category in browse_collections -%}
+          {%- if category.handle == 'all' or category.all_products_count == 0 -%}
+            {%- continue -%}
+          {%- endif -%}
+          <a
+            class="category-filters__link"
+            href="{{ category.url }}"
+            {% if collection.id == category.id %}aria-current="page"{% endif %}
+          >
+            {{ category.title | escape }}
+          </a>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 </nav>
 
 {% schema %}
@@ -56,6 +133,37 @@
       "label": "Featured categories",
       "limit": 8,
       "info": "Used without a menu. Defaults to your store collections."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "department",
+      "name": "Department",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Adding departments replaces the menu and featured categories with department tabs and subcategory chips."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Cheese"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Department collection",
+          "info": "Optional. Without it, the tab opens the first subcategory."
+        },
+        {
+          "type": "collection_list",
+          "id": "subcategories",
+          "label": "Subcategories",
+          "limit": 16
+        }
+      ]
     }
   ],
   "presets": [

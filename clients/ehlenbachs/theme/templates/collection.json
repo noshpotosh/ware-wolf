@@ -9,6 +9,68 @@
     },
     "category_filters": {
       "type": "category-filters",
+      "blocks": {
+        "cheese": {
+          "type": "department",
+          "settings": {
+            "title": "Cheese",
+            "collection": "cheese",
+            "subcategories": [
+              "cheddars",
+              "colby-jacks-goudas",
+              "smoked-cheeses",
+              "blue-cheese",
+              "cheese-curds",
+              "swiss",
+              "bricks-and-havarti",
+              "italian-cheeses",
+              "string-cheese",
+              "cheese-spreads",
+              "hot-hot-hot",
+              "cheddar-cheese-wax"
+            ]
+          }
+        },
+        "sausage_snacks": {
+          "type": "department",
+          "settings": {
+            "title": "Sausage & Snacks",
+            "collection": "sausage-snacks",
+            "subcategories": [
+              "sausage-salami",
+              "snack-sticks-beef-jerky"
+            ]
+          }
+        },
+        "pantry_sweets": {
+          "type": "department",
+          "settings": {
+            "title": "Pantry & Sweets",
+            "collection": "pantry-sweets",
+            "subcategories": [
+              "gourmet",
+              "candy"
+            ]
+          }
+        },
+        "gifts_souvenirs": {
+          "type": "department",
+          "settings": {
+            "title": "Gifts & Souvenirs",
+            "collection": "gifts-souvenirs",
+            "subcategories": [
+              "gift-baskets-and-boxes",
+              "souvenirs"
+            ]
+          }
+        }
+      },
+      "block_order": [
+        "cheese",
+        "sausage_snacks",
+        "pantry_sweets",
+        "gifts_souvenirs"
+      ],
       "settings": {}
     },
     "product_grid": {
