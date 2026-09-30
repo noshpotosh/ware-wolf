@@ -397,6 +397,38 @@ a {
   margin: 0 0 0.75rem;
 }
 
+.main-page {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 6rem) 1.25rem;
+}
+
+.main-page__title {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.main-page__lead {
+  max-width: 40rem;
+  margin: 0 0 2rem;
+  font-size: 1.15rem;
+}
+
+.main-page__body {
+  margin-bottom: 2.5rem;
+}
+
+.main-page__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 @media (max-width: 700px) {
   .site-header__inner {
     min-height: 5rem;

@@ -1,0 +1,147 @@
+{%- comment -%}
+  Job application sent through Shopify's native contact form.
+  Used by the careers template and by the default page template when the
+  page handle is "careers", so the page works either way.
+
+  Usage: {% render 'career-form', section_id: section.id %}
+{%- endcomment -%}
+{%- form 'contact', class: 'career-form' -%}
+  <input
+    type="hidden"
+    name="contact[application_type]"
+    value="Job application"
+  >
+
+  {%- if form.posted_successfully? -%}
+    <p class="career-form__success" role="status" tabindex="-1">
+      Thanks for introducing yourself. Your application has been sent
+      to the chalet.
+    </p>
+  {%- endif -%}
+
+  {%- if form.errors -%}
+    <div class="career-form__errors" role="alert">
+      {{ form.errors | default_errors }}
+    </div>
+  {%- endif -%}
+
+  <p>Fields marked * are required. No résumé file is needed.</p>
+  <div class="career-form__grid">
+    <div class="career-form__field">
+      <label for="CareerName-{{ section_id }}">Name *</label>
+      <input
+        id="CareerName-{{ section_id }}"
+        type="text"
+        name="contact[name]"
+        value="{{ form.name | escape }}"
+        autocomplete="name"
+        required
+      >
+    </div>
+
+    <div class="career-form__field">
+      <label for="CareerEmail-{{ section_id }}">Email *</label>
+      <input
+        id="CareerEmail-{{ section_id }}"
+        type="email"
+        name="contact[email]"
+        value="{{ form.email | escape }}"
+        autocomplete="email"
+        required
+      >
+    </div>
+
+    <div class="career-form__field">
+      <label for="CareerPhone-{{ section_id }}">Phone</label>
+      <input
+        id="CareerPhone-{{ section_id }}"
+        type="tel"
+        name="contact[phone]"
+        value="{{ form.phone | escape }}"
+        autocomplete="tel"
+      >
+    </div>
+
+    <div class="career-form__field">
+      <label for="CareerRole-{{ section_id }}">
+        Work you are interested in (optional)
+      </label>
+      <input
+        id="CareerRole-{{ section_id }}"
+        type="text"
+        name="contact[role_of_interest]"
+        value="{{ form.role_of_interest | escape }}"
+        placeholder="Tell us what kind of work interests you"
+      >
+    </div>
+
+    <div class="career-form__field career-form__field--wide">
+      <label for="CareerAvailability-{{ section_id }}">
+        Availability *
+      </label>
+      <input
+        id="CareerAvailability-{{ section_id }}"
+        type="text"
+        name="contact[availability]"
+        value="{{ form.availability | escape }}"
+        placeholder="Days, evenings, weekends, and preferred hours"
+        required
+      >
+    </div>
+
+    <div class="career-form__field career-form__field--wide">
+      <label for="CareerExperience-{{ section_id }}">
+        Experience and skills *
+      </label>
+      <textarea
+        id="CareerExperience-{{ section_id }}"
+        name="contact[experience]"
+        rows="6"
+        aria-describedby="CareerExperienceHelp-{{ section_id }}"
+        required
+      >{{ form.experience | escape }}</textarea>
+      <small id="CareerExperienceHelp-{{ section_id }}">
+        Tell us about work, school, volunteering, or skills you bring.
+        Applying for your first job? Tell us what you want to learn.
+      </small>
+    </div>
+
+    <div class="career-form__field career-form__field--wide">
+      <label for="CareerResume-{{ section_id }}">
+        Résumé or work-history link
+      </label>
+      <input
+        id="CareerResume-{{ section_id }}"
+        type="url"
+        name="contact[resume_link]"
+        value="{{ form.resume_link | escape }}"
+        aria-describedby="CareerResumeHelp-{{ section_id }}"
+        placeholder="https://"
+      >
+      <small id="CareerResumeHelp-{{ section_id }}">
+        Optional. Share a viewable résumé or portfolio link, or simply
+        fill out your experience above.
+      </small>
+    </div>
+
+    <div class="career-form__field career-form__field--wide">
+      <label for="CareerMessage-{{ section_id }}">
+        Anything else? (optional)
+      </label>
+      <textarea
+        id="CareerMessage-{{ section_id }}"
+        name="contact[body]"
+        rows="5"
+        placeholder="A short note is plenty."
+      >{{ form.body | escape }}</textarea>
+    </div>
+  </div>
+
+  <p class="career-form__privacy">
+    Your application is sent to the shop. Please leave out sensitive
+    information such as identification numbers or bank details.
+  </p>
+  <button class="career-form__submit" type="submit">
+    Submit application
+  </button>
+{%- endform -%}

@@ -36,7 +36,7 @@
     {%- if template.name == 'product' -%}
       {{ 'product.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
-    {%- if template.name == 'page' and template.suffix == 'careers' -%}
+    {%- if template.suffix == 'careers' or page.handle == 'careers' -%}
       {{ 'careers.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
 

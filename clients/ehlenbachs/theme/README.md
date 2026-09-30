@@ -19,7 +19,7 @@
 | Product | Gallery, variants, description, shop details, related products |
 | Visit | Landmark hero + hours, address, phone, and tagline strip |
 | Careers | Header link + resume-style native contact application |
-| Install shape | Thin generic page, cart, and 404 via `page-stub` |
+| Pages | `main-page` for generic pages and a real 404; cart stays on `page-stub` |
 
 CSS tokens: `--color-wood`, `--color-dairy-cream`,
 `--color-cheddar-gold`, `--color-barn-red`, `--color-ink`, fonts.
@@ -76,12 +76,15 @@ Notes:
    shop later), main menu link list
 3. Announcement banner → leave disabled unless seasonal
 4. Upload real photography into Home, Shop Intro, and Visit sections
-5. Create a page with the handle `careers` and assign the `careers` template
-6. Confirm the Header careers link points to that page
+5. Online Store → Pages → Add page titled **Careers** (handle `careers`).
+   Assign the `careers` template for the full hero and notes. On the default
+   page template the application form still appears below any page content.
+   The header **Work with us** link stays hidden until this page exists.
 
-The application uses Shopify's native contact form. Applicants can enter
-their work history and share a viewable résumé link; file uploads require a
-separate form service or app and are intentionally not part of this theme.
+The application uses Shopify's native contact form, so submissions arrive at
+the store's contact email. Applicants can enter their work history and share a
+viewable résumé link; file uploads require a separate form service or app and
+are intentionally not part of this theme.
 
 ---
 
