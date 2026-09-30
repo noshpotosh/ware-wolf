@@ -112,6 +112,31 @@
           </li>
         {%- endif -%}
 
+        {%- liquid
+          assign careers_url = section.settings.careers_url
+          if careers_url == blank
+            assign careers_url = routes.root_url | append: 'pages/careers'
+          endif
+          assign careers_in_menu = false
+          for link in section.settings.menu.links
+            if link.url == careers_url
+              assign careers_in_menu = true
+            endif
+          endfor
+        -%}
+        {%- if section.settings.show_careers_link and careers_in_menu == false -%}
+          <li>
+            <a
+              href="{{ careers_url | escape }}"
+              {% if template.suffix == 'careers' %}
+                aria-current="page"
+              {% endif %}
+            >
+              {{ section.settings.careers_label | escape }}
+            </a>
+          </li>
+        {%- endif -%}
+
         {%- if section.settings.show_cart_icon -%}
           <li class="site-header__cart-item">
             <button
@@ -185,6 +210,28 @@
       "id": "show_cart_icon",
       "label": "Show cart control",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Careers link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_careers_link",
+      "label": "Show careers link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "careers_label",
+      "label": "Careers link label",
+      "default": "Work with us"
+    },
+    {
+      "type": "url",
+      "id": "careers_url",
+      "label": "Careers page",
+      "info": "Defaults to /pages/careers when left blank."
     }
   ]
 }

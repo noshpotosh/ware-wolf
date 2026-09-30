@@ -2,7 +2,7 @@
 
 **Path:** `clients/ehlenbachs/theme/`
 **Platform:** Shopify Online Store 2.0 (Liquid) — ADR 011 / 012
-**Slice:** V2 responsive Home, Shop, and Visit implementation
+**Slice:** V2 responsive Home, Shop, Product, Visit, and Careers
 **Not this PR:** Catalog import, production photography, apps, Hydrogen
 
 ---
@@ -16,8 +16,10 @@
 | Chrome | `header`, `footer`, `announcement-banner` (off), cart drawer |
 | Home | Responsive `home-hero` + editorial `meet-us-story` |
 | Shop | Intro, swipeable category row, responsive product grid |
+| Product | Gallery, variants, description, shop details, related products |
 | Visit | Landmark hero + hours, address, phone, and tagline strip |
-| Install shape | Thin product, page, cart, and 404 via `page-stub` |
+| Careers | Header link + resume-style native contact application |
+| Install shape | Thin generic page, cart, and 404 via `page-stub` |
 
 CSS tokens: `--color-wood`, `--color-dairy-cream`,
 `--color-cheddar-gold`, `--color-barn-red`, `--color-ink`, fonts.
@@ -74,6 +76,12 @@ Notes:
    shop later), main menu link list
 3. Announcement banner → leave disabled unless seasonal
 4. Upload real photography into Home, Shop Intro, and Visit sections
+5. Create a page with the handle `careers` and assign the `careers` template
+6. Confirm the Header careers link points to that page
+
+The application uses Shopify's native contact form. Applicants can enter
+their work history and share a viewable résumé link; file uploads require a
+separate form service or app and are intentionally not part of this theme.
 
 ---
 

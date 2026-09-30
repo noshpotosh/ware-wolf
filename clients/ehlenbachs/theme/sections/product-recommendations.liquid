@@ -1,0 +1,99 @@
+{%- liquid
+  assign fallback_collection = section.settings.fallback_collection
+  if fallback_collection == blank
+    assign fallback_collection = collection
+  endif
+  if fallback_collection == blank
+    assign fallback_collection = product.collections.first
+  endif
+  if fallback_collection == blank
+    assign fallback_collection = collections.all
+  endif
+
+  assign related_products = fallback_collection.products
+  if recommendations.performed? and recommendations.products_count > 0
+    assign related_products = recommendations.products
+  endif
+
+  assign has_related_product = false
+  for related_product in related_products
+    if related_product.id != product.id
+      assign has_related_product = true
+      break
+    endif
+  endfor
+  unless has_related_product
+    assign related_products = collections.all.products
+  endunless
+-%}
+
+{%- capture recommendation_cards -%}
+  {%- assign rendered_count = 0 -%}
+  {%- for related_product in related_products -%}
+    {%- if related_product.id == product.id -%}
+      {%- continue -%}
+    {%- endif -%}
+    {% render 'product-card', product: related_product %}
+    {%- assign rendered_count = rendered_count | plus: 1 -%}
+    {%- if rendered_count >= section.settings.products_to_show -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture recommendation_url -%}
+  {{ routes.product_recommendations_url }}
+  ?section_id={{ section.id }}
+  &product_id={{ product.id }}
+  &limit={{ section.settings.products_to_show }}
+  &intent=related
+{%- endcapture -%}
+
+<section
+  class="product-recommendations"
+  data-product-recommendations
+  data-url="{{ recommendation_url | strip_newlines | remove: ' ' }}"
+  {% if recommendation_cards == blank %}hidden{% endif %}
+>
+  {%- if recommendation_cards != blank -%}
+    <div class="product-recommendations__inner">
+      <div class="product-recommendations__heading-row">
+        <h2>{{ section.settings.heading | escape }}</h2>
+        <a href="{{ routes.all_products_collection_url }}">Shop all</a>
+      </div>
+
+      <div class="product-grid">
+        {{ recommendation_cards }}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Product recommendations",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "More from the cheese counter"
+    },
+    {
+      "type": "collection",
+      "id": "fallback_collection",
+      "label": "Fallback collection",
+      "info": "Used until recommendations load, or when none are available."
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    }
+  ]
+}
+{% endschema %}

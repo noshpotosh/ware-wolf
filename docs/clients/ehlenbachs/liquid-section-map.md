@@ -313,3 +313,30 @@ Optional later: gentle parallax on Meet Us Story image.
 
 Maeve signs off preview vs mocks before catalog slog. Cal owns
 first-viewport ban-list check.
+
+
+## Product, careers, and browse completion
+
+Product detail uses `main-product` followed by `product-recommendations`.
+Keep real catalog descriptions next to the purchase controls; neutral fallback
+copy must not invent ingredients or flavor notes. Related products use Shopify
+recommendations with a collection fallback and exclude the current product.
+Keep additional product photos from pushing purchase controls down on mobile.
+
+Careers uses `page.careers` and `careers-application`, linked as **Work with us**
+in the header. The native contact form collects contact details, interests,
+availability, and work history; a résumé URL is optional. First-time applicants
+are welcome to describe relevant skills. Role interests do not imply vacancies.
+The merchant must create the page and assign the template.
+
+Collection pages show the current collection title and description. A curated
+category menu or selected collections defines the browse order; without that
+setup, list real store collections instead of invented collection URLs.
+Use compact native filters, sort order, result count, and clear-filter links.
+Products with variants link to **Choose options** instead of adding a default.
+
+Suggested department menu for merchant review: **Cheese · Sausage & Meats ·
+Gifts · Pantry & Sweets**. Cheese varieties remain secondary choices. This is
+a proposed navigation structure, not a change to the imported catalog's
+provisional product types. Configure Product type, Availability, and Price in
+Shopify Search & Discovery when ready; the theme renders enabled filters.

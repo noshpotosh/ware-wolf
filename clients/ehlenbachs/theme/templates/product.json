@@ -1,9 +1,51 @@
 {
   "sections": {
     "main": {
-      "type": "page-stub",
-      "settings": {}
+      "type": "main-product",
+      "blocks": {
+        "questions": {
+          "type": "detail",
+          "settings": {
+            "heading": "Make it your own",
+            "text": "Choose an available option and quantity above to suit your order."
+          }
+        },
+        "details": {
+          "type": "detail",
+          "settings": {
+            "heading": "A little more detail",
+            "text": "For ingredients, allergens, or product questions, contact the chalet before ordering."
+          }
+        },
+        "visit": {
+          "type": "detail",
+          "settings": {
+            "heading": "Visit the chalet",
+            "text": "Prefer to browse in person? Come see us in DeForest."
+          }
+        }
+      },
+      "block_order": [
+        "questions",
+        "details",
+        "visit"
+      ],
+      "settings": {
+        "eyebrow": "From the chalet counter",
+        "description_heading": "About this product",
+        "fallback_description": "Questions about this product? Contact the chalet before ordering."
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "You might also like",
+        "products_to_show": 4
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "recommendations"
+  ]
 }

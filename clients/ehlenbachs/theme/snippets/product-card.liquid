@@ -29,6 +29,11 @@
 
   {%- assign selected_variant = product.selected_or_first_available_variant -%}
 
+  {%- unless product.has_only_default_variant -%}
+    <a class="product-card__add" href="{{ product.url }}">
+      Choose options
+    </a>
+  {%- else -%}
   {%- form 'product', product, class: 'product-card__form' -%}
     <input type="hidden" name="id" value="{{ selected_variant.id }}">
     <input type="hidden" name="quantity" value="1">
@@ -44,4 +49,5 @@
       {%- endif -%}
     </button>
   {%- endform -%}
+  {%- endunless -%}
 </article>

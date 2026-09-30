@@ -14,40 +14,28 @@
       <a
         class="category-filters__link"
         href="{{ routes.all_products_collection_url }}"
-        aria-current="page"
+        {% if collection.handle == 'all' %}aria-current="page"{% endif %}
       >
-        All
+        All products
       </a>
-      <a
-        class="category-filters__link"
-        href="{{ routes.collections_url }}/cheddar"
-      >
-        Cheddar
-      </a>
-      <a
-        class="category-filters__link"
-        href="{{ routes.collections_url }}/curds"
-      >
-        Curds
-      </a>
-      <a
-        class="category-filters__link"
-        href="{{ routes.collections_url }}/smoked"
-      >
-        Smoked
-      </a>
-      <a
-        class="category-filters__link"
-        href="{{ routes.collections_url }}/blue"
-      >
-        Blue
-      </a>
-      <a
-        class="category-filters__link"
-        href="{{ routes.collections_url }}/gift-baskets"
-      >
-        Gift Baskets
-      </a>
+      {%- liquid
+        assign browse_collections = section.settings.collections
+        if browse_collections == blank
+          assign browse_collections = collections
+        endif
+      -%}
+      {%- for category in browse_collections -%}
+        {%- if category.handle == 'all' or category.all_products_count == 0 -%}
+          {%- continue -%}
+        {%- endif -%}
+        <a
+          class="category-filters__link"
+          href="{{ category.url }}"
+          {% if collection.id == category.id %}aria-current="page"{% endif %}
+        >
+          {{ category.title | escape }}
+        </a>
+      {%- endfor -%}
     {%- endif -%}
   </div>
 </nav>
@@ -61,6 +49,13 @@
       "id": "menu",
       "label": "Filter menu",
       "info": "Use direct collection links in display order."
+    },
+    {
+      "type": "collection_list",
+      "id": "collections",
+      "label": "Featured categories",
+      "limit": 8,
+      "info": "Used without a menu. Defaults to your store collections."
     }
   ],
   "presets": [

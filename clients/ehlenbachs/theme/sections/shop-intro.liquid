@@ -1,11 +1,21 @@
+{%- liquid
+  assign heading = collection.title
+  if collection.handle == 'all'
+    assign heading = section.settings.heading
+  endif
+-%}
 <section class="shop-intro">
   <div class="shop-intro__inner">
     <div class="shop-intro__copy">
       <h1 class="shop-intro__heading">
-        {{ section.settings.heading | escape }}
+        {{ heading | escape }}
       </h1>
 
-      {%- if section.settings.supporting_sentence != blank -%}
+      {%- if collection.description != blank -%}
+        <div class="shop-intro__support rte">
+          {{ collection.description }}
+        </div>
+      {%- elsif collection.handle == 'all' -%}
         <p class="shop-intro__support">
           {{ section.settings.supporting_sentence | escape }}
         </p>
@@ -21,7 +31,7 @@
             loading: 'eager',
             sizes: '(min-width: 900px) 65vw, 100vw',
             widths: '600, 900, 1400, 2000',
-            alt: section.settings.heading
+            alt: heading
         }}
       {%- else -%}
         <div class="shop-intro__placeholder" aria-hidden="true"></div>
