@@ -335,8 +335,13 @@ setup, list real store collections instead of invented collection URLs.
 Use compact native filters, sort order, result count, and clear-filter links.
 Products with variants link to **Choose options** instead of adding a default.
 
-Suggested department menu for merchant review: **Cheese · Sausage & Meats ·
-Gifts · Pantry & Sweets**. Cheese varieties remain secondary choices. This is
-a proposed navigation structure, not a change to the imported catalog's
-provisional product types. Configure Product type, Availability, and Price in
-Shopify Search & Discovery when ready; the theme renders enabled filters.
+Category Filters browses in two tiers when it has **Department** blocks:
+department tabs (**Cheese · Sausage & Snacks · Pantry & Sweets · Gifts &
+Souvenirs**), then subcategory chips for the active department. Chips are the
+product-type collections from the catalog import; the row is hidden on All
+products. A department tab opens its department collection, or its first
+subcategory until that collection exists. Without blocks, the section falls
+back to the menu or collection list. This is navigation only, not a change to
+the imported catalog's provisional product types. Configure Product type,
+Availability, and Price in Shopify Search & Discovery when ready; the theme
+renders enabled filters.

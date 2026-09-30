@@ -85,6 +85,23 @@ separate form service or app and are intentionally not part of this theme.
 
 ---
 
+## Shop departments setup
+
+Products → Collections → create four **automated** department collections,
+each matching *Product type is equal to* any of its types:
+
+- `cheese`: Cheddars; Colby, Jacks, & Goudas; Smoked Cheeses; Blue Cheese;
+  Cheese Curds; Swiss; Bricks and Havarti; Italian Cheeses; String Cheese;
+  Cheese Spreads; HOT, HOT, HOT!; Cheddar Cheese Wax
+- `sausage-snacks`: Sausage & Salami; Snack Sticks & Beef Jerky
+- `pantry-sweets`: Gourmet; Candy
+- `gifts-souvenirs`: Gift Baskets and Boxes; Souvenirs
+
+Then confirm the subcategory chips under Theme → Collection → Category
+Filters, and give the 12 `needs-category-review` products a type.
+
+---
+
 ## Next bets (do not stuff this PR)
 
 1. Connect the final menus and Visit page links
