@@ -9,8 +9,10 @@
   "cart": {
     "title": "Your cart",
     "empty": "Your cart is empty.",
-    "checkout": "Checkout",
-    "shipping_note": "Heat-season shipping notes live here — never in the hero."
+    "checkout": "Check out",
+    "view_cart": "View cart",
+    "remove": "Remove",
+    "shipping_note": "Taxes and shipping are calculated at checkout."
   },
   "sections": {
     "header": {
