@@ -25,6 +25,29 @@ function movePoint(touch, deltaX, deltaY, sceneSize) {
   };
 }
 
+export function resizePointSquare(
+  touch,
+  size,
+  deltaX,
+  deltaY,
+  sceneSize,
+  cornerIndex,
+  limits = [2, 64]
+) {
+  const directions = [[-1, -1], [1, -1], [1, 1], [-1, 1]];
+  const [directionX, directionY] = directions[cornerIndex];
+  const [x, y] = touch.position;
+  const sceneLimit = 2 * Math.min(
+    x,
+    sceneSize[0] - x,
+    y,
+    sceneSize[1] - y
+  );
+  const maximum = Math.max(limits[0], Math.min(limits[1], sceneLimit));
+  const change = (directionX * deltaX + directionY * deltaY) / 2;
+  return Math.round(clamp(size + change, limits[0], maximum));
+}
+
 function moveSurfaceCorner(
   touch,
   deltaX,

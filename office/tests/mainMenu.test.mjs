@@ -36,6 +36,10 @@ test("title art and effects share one image coordinate space", async () => {
     new Set(leds.map(binding => binding.parameters.color)),
     new Set(["green", "amber"])
   );
+  assert.ok(leds.every(binding => (
+    Number.isFinite(binding.parameters.size)
+      && binding.parameters.size >= 2
+  )));
   assert.match(effects, /anchored-led/);
 });
 

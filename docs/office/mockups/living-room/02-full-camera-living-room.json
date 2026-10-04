@@ -1,0 +1,17 @@
+{
+  "status": "Exploration only; not integrated or promoted to style anchor",
+  "provider": "OpenAI built-in imagegen",
+  "referenceCatalogVersion": 6,
+  "editTarget": "docs/office/mockups/living-room/01-full-camera-living-room.png",
+  "styleReference": "office/assets/rooms/founders-office-background.png",
+  "prompt": "Use case: precise-object-edit\nAsset type: revised full-camera game environment mockup\nInput images: Image 1 is the exact edit target and living-room design to preserve. Image 2 is the rendering-style authority only.\nPrimary request: Reframe and extend Image 1 so the living-room interior occupies the entire 1774x887 camera viewport, like an immersive fixed-room point-and-click/social-game view rather than a floating dollhouse on a black background.\nAllowed change: camera framing and the surrounding room crop only. Zoom the room substantially and extend the painted walls and floor to every canvas edge. Remove every visible strip, wedge, or corner of black void. The back-wall top caps may meet or crop against the top corners. The open front floor must continue beyond the entire bottom edge and may crop naturally at both lower corners, so the viewer feels inside the room. Keep the elevated isometric/cutaway viewpoint and ensure the important living-room furniture stays fully readable.\nPreserve: exact living-room identity and layout from Image 1—the walnut door, window and blinds, CRT and media console, plant, brass floor lamp, sage sofa and pillows, framed landscape, armchair, coffee table, mug and book, rug; same object proportions, materials, pixel density, warm lighting, shadows, palette, and crisp deliberate pixel clusters. Do not redesign or move furniture except the minimal proportional repositioning forced by the tighter crop.\nComposition/framing: true edge-to-edge 1774x887 interior plate. Zero black background pixels visible anywhere. Fill all four corners with room wall or floor. Keep the sofa, television, seating group, and navigation door legible and uncropped; cropping only the outer architecture/floor perimeter is expected.\nConstraints: change only framing and background completion; no new objects, no removed furniture, no characters, no penguins, no UI, no text, no labels, no logos, no watermark. Retain detailed pixel-painted art; no smooth vector, no 3D clay, no painterly restyle, no blur.",
+  "output": "docs/office/mockups/living-room/02-full-camera-living-room.png",
+  "review": "Native 1774x887 render inspected. The room fills all four canvas corners with wall or floor; no black void remains. Living-room furniture and navigation door remain readable. Mockup only; runtime alignment and interactions were not tested.",
+  "editTargetSha256": "edd7ff9fe1d3c0bd6fc26110f49a1ac7ef0542847f415783eedb245a5d3d7509",
+  "styleReferenceSha256": "1a9654e87497c7402f383005c3972dd4ec7237faaa2f2643d6da0c962418e569",
+  "outputSha256": "6d85a84ecc15ae139c0df273eb0402526e7611d54a4561eca6df1cd16bc57af9",
+  "outputSize": [
+    1774,
+    887
+  ]
+}

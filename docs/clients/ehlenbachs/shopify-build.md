@@ -118,6 +118,58 @@ Plus, headless.
 
 ---
 
+## Initial design-store product import
+
+Import file:
+[`shopify-initial-products.csv`](../../../clients/ehlenbachs/imports/shopify-initial-products.csv).
+Prepared from both sheets in `products_2025-10-28_13_49_22.xlsx` and
+the category names in `categoryinventory 10-28-25.xlsx`, preserved under
+`clients/ehlenbachs/source-assets/catalog/`.
+
+In the development store, use **Products → Import** and select the CSV.
+Leave **Overwrite products with matching handles** unchecked for the first
+import. Review the preview before confirming. The store currency should be
+USD, matching the source prices.
+
+- 306 products, active and published to the online store at Nosh's request.
+- 370 nonblank source rows become 321 unique product URLs after normalizing
+  the legacy `prod` query value; 49 duplicate rows are combined.
+- The first sheet takes precedence for populated fields, including SKUs and
+  shipping weights. The second fills gaps. Duplicate prices agree.
+- Each legacy product URL remains a separate product with a default variant.
+  Size and flavor listings are not automatically regrouped into variants.
+- Prices and descriptions come from the October 2025 snapshot. These are
+  design data, not a refreshed launch catalog.
+- Inventory tracking is off because neither source gives stock quantities.
+  The two source out-of-stock products retain a `source-out-of-stock` tag.
+- All products carry `design-batch-2025-10-28` for bulk selection later.
+- Category names populate Type and Collection. Existing source types are
+  retained where they match the category workbook. For 128 products without
+  a matching type, names suggest provisional categories, marked with
+  `category-inferred`. Twelve remain tagged `needs-category-review`.
+- 291 products include direct legacy image URLs. Fifteen have no usable
+  direct URL; Google image-proxy URLs and malformed links were omitted.
+  Remote image availability has not been verified. The seven local PNGs
+  require uploading and assigning in Shopify separately.
+- Available shipping weights are converted to whole grams. Four missing
+  weights remain blank. Tax settings and standardized product categories
+  are omitted and use Shopify defaults; review these before selling.
+- UTF-8 CSV syntax, field counts, unique handles/SKUs, required values,
+  source prices, and row reconciliation were checked locally. A Shopify
+  import has not been run.
+
+Excluded: the signature-delivery and ice-pack add-ons, the gift card, and
+these 12 listings without prices: Peach, Apricot, Cherry, and Blueberry
+Fruit Butters; Vegetable Jack; Udderfingers; Moo Chews; Baked Bread Cheese;
+Baked Cheese With Jalapeño Peppers; Baked Bread Cheese Italiano;
+Wisconsin Breakfast Specialty Cheese Spread; and Jalapeno Cheddar Curds.
+Configure the gift card through Shopify's native gift-card setup.
+
+Format reference:
+[Shopify product CSV documentation](https://help.shopify.com/en/manual/products/import-export/using-csv).
+
+---
+
 ## Open client questions (scaffold-safe)
 
 1. Real photography vs stand-ins  

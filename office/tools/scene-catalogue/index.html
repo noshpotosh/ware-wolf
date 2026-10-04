@@ -77,13 +77,18 @@
         </div>
         <div id="point-fields" hidden>
           <div class="field-grid">
-            <label>X<input id="point-x" type="number" min="0" /></label>
-            <label>Y<input id="point-y" type="number" min="0" /></label>
+            <label>X<input id="point-x" type="number" min="0"
+              step="any" /></label>
+            <label>Y<input id="point-y" type="number" min="0"
+              step="any" /></label>
           </div>
           <label>Effect<select id="point-effect">
             <option value="">None</option><option value="steam">Steam</option>
             <option value="glow">Glow</option>
             <option value="led">LED</option></select></label>
+          <label id="led-size-field" hidden>LED size (scene pixels)
+            <input id="led-size" type="number" min="2" max="64"
+              step="1" value="8" required /></label>
         </div>
         <div class="form-actions">
           <button id="cancel-touch" type="button">Cancel</button>
@@ -92,7 +97,9 @@
       </form>
       <p class="hint">Select a touch, then drag it on the painting. Surface
         corners have their own handles. Save Touch writes the new position.
-        Masks highlight objects; points anchor steam, light, or LEDs.</p>
+        Masks highlight objects; points anchor steam, light, or LEDs. LED
+        size previews live. Select an LED to resize it from any corner, then
+        Save Touch.</p>
     </aside>
   </main>
   <script type="module" src="/tools/scene-catalogue/catalogue.js"></script>

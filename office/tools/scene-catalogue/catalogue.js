@@ -1,4 +1,4 @@
-import { moveTouch } from "./touchDrag.js";
+import { moveTouch, resizePointSquare } from "./touchDrag.js";
 
 const sceneList = document.getElementById("scene-list");
 const touchList = document.getElementById("touch-list");
@@ -84,6 +84,7 @@ function renderOverlay() {
   overlay.replaceChildren();
 
   for (const [id, touch] of Object.entries(sceneAnnotations())) {
+    const binding = effectBinding(id);
     let shape;
     if (touch.kind === "object") {
       const [x, y, objectWidth, objectHeight] = touch.bounds;
@@ -97,14 +98,30 @@ function renderOverlay() {
         points,
         class: "touch-shape touch-surface",
       });
-    } else if (effectBinding(id)?.preset === "led") {
-      shape = svgElement("rect", {
+    } else if (binding?.preset === "led") {
+      const draftSize = id === selectedTouchId && !touchForm.hidden
+        ? Number(field("led-size").value)
+        : binding.parameters?.size;
+      const size = Number.isFinite(draftSize) ? draftSize : 8;
+      shape = svgElement("g", {
+        class: "touch-shape touch-led",
+      });
+      const hitArea = svgElement("rect", {
         x: touch.position[0] - 10,
         y: touch.position[1] - 10,
         width: 20,
         height: 20,
-        class: "touch-shape touch-point touch-led",
+        class: "touch-led-hit",
       });
+      const preview = svgElement("rect", {
+        x: touch.position[0] - size / 2,
+        y: touch.position[1] - size / 2,
+        width: size,
+        height: size,
+        class: "touch-led-preview",
+      });
+      preview.dataset.color = binding.parameters?.color ?? "green";
+      shape.append(hitArea, preview);
     } else {
       shape = svgElement("circle", {
         cx: touch.position[0], cy: touch.position[1], r: 10,
@@ -122,6 +139,27 @@ function renderOverlay() {
           cy: y,
           r: 9,
           class: "touch-handle",
+        });
+        handle.dataset.touch = id;
+        handle.dataset.handle = index;
+        overlay.append(handle);
+      });
+    } else if (id === selectedTouchId && binding?.preset === "led") {
+      const size = Number(field("led-size").value);
+      const half = size / 2;
+      const [x, y] = touch.position;
+      const corners = [
+        [x - half, y - half],
+        [x + half, y - half],
+        [x + half, y + half],
+        [x - half, y + half],
+      ];
+      corners.forEach(([cornerX, cornerY], index) => {
+        const handle = svgElement("circle", {
+          cx: cornerX,
+          cy: cornerY,
+          r: 3,
+          class: "touch-handle touch-led-handle",
         });
         handle.dataset.touch = id;
         handle.dataset.handle = index;
@@ -167,6 +205,7 @@ function startTouchDrag(event) {
     cornerIndex: handle === undefined ? null : Number(handle),
     start: scenePoint(event),
     touch: structuredClone(sceneAnnotations()[id]),
+    ledSize: Number(field("led-size").value),
   };
   event.preventDefault();
 }
@@ -176,6 +215,20 @@ function dragTouch(event) {
   const current = scenePoint(event);
   const deltaX = Math.round(current[0] - dragState.start[0]);
   const deltaY = Math.round(current[1] - dragState.start[1]);
+  const binding = effectBinding(dragState.id);
+  if (binding?.preset === "led" && dragState.cornerIndex !== null) {
+    field("led-size").value = resizePointSquare(
+      dragState.touch,
+      dragState.ledSize,
+      deltaX,
+      deltaY,
+      selectedScene.entry.dimensions,
+      dragState.cornerIndex
+    );
+    saveState.textContent = "Unsaved resize";
+    renderOverlay();
+    return;
+  }
   const touch = moveTouch(
     dragState.touch,
     deltaX,
@@ -243,11 +296,14 @@ function showKindFields() {
   field("object-fields").hidden = kind !== "object";
   field("surface-fields").hidden = kind !== "surface";
   field("point-fields").hidden = kind !== "point";
+  field("led-size-field").hidden = kind !== "point"
+    || field("point-effect").value !== "led";
 }
 
 function clearForm() {
   touchForm.reset();
   field("surface-corners").value = "[[0,0],[100,0],[100,100],[0,100]]";
+  field("led-size").value = 8;
   showKindFields();
 }
 
@@ -273,6 +329,7 @@ function editTouch(id) {
     field("point-x").value = touch.position[0];
     field("point-y").value = touch.position[1];
     field("point-effect").value = binding?.preset ?? "";
+    field("led-size").value = binding?.parameters?.size ?? 8;
   }
   syncTouchForm(touch);
   showKindFields();
@@ -281,7 +338,7 @@ function editTouch(id) {
   renderOverlay();
 }
 
-function setEffect(id, kind, preset) {
+function setEffect(id, kind, preset, parameterChanges = {}) {
   const bindings = selectedScene.definition.effectBindings ?? [];
   const current = bindings.find(binding => binding.annotation === id);
   selectedScene.definition.effectBindings = bindings.filter(
@@ -302,9 +359,12 @@ function setEffect(id, kind, preset) {
     preset,
     kind,
     annotation: id,
-    parameters: current?.preset === preset
-      ? current.parameters
-      : (defaults[preset] ?? {}),
+    parameters: {
+      ...(current?.preset === preset
+        ? current.parameters
+        : (defaults[preset] ?? {})),
+      ...parameterChanges,
+    },
   });
 }
 
@@ -361,7 +421,11 @@ async function saveTouch(event) {
         kind,
         position: [number("point-x"), number("point-y")],
       };
-      setEffect(id, kind, field("point-effect").value);
+      const preset = field("point-effect").value;
+      const parameters = preset === "led"
+        ? { size: number("led-size") }
+        : {};
+      setEffect(id, kind, preset, parameters);
       await saveDefinition();
     }
     selectedTouchId = id;
@@ -385,6 +449,14 @@ field("cancel-touch").addEventListener("click", () => {
   touchForm.hidden = true;
 });
 touchKind.addEventListener("change", showKindFields);
+field("point-effect").addEventListener("change", () => {
+  showKindFields();
+  renderOverlay();
+});
+field("led-size").addEventListener("input", () => {
+  saveState.textContent = "Unsaved size";
+  renderOverlay();
+});
 touchForm.addEventListener("submit", saveTouch);
 field("touch-overlay").addEventListener("pointerdown", startTouchDrag);
 field("zoom-out").addEventListener("click", () => {

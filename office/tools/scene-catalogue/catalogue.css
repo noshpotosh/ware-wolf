@@ -119,7 +119,14 @@ h1, h2, p { margin-top: 0; }
 .touch-object { fill: #e2a83b55; stroke: #ffd783; stroke-width: 3; }
 .touch-surface { fill: #79c4a344; stroke: #9ff1cd; stroke-width: 3; }
 .touch-point { fill: #ef7e66; stroke: #fff2d0; stroke-width: 3; }
-.touch-led { rx: 1px; ry: 1px; }
+.touch-led-hit {
+  fill: transparent;
+  stroke: #fff2d0;
+  stroke-dasharray: 3 3;
+  stroke-width: 2;
+}
+.touch-led-preview { fill: #b8ef63; pointer-events: none; }
+.touch-led-preview[data-color="amber"] { fill: #f0bd54; }
 .touch-handle {
   cursor: grab;
   fill: #fff2d0;
@@ -127,6 +134,11 @@ h1, h2, p { margin-top: 0; }
   stroke: #2d7f67;
   stroke-width: 3;
   vector-effect: non-scaling-stroke;
+}
+.touch-led-handle {
+  fill: #f4cb71;
+  stroke: #33240d;
+  stroke-width: 1.5;
 }
 .touch-shape:not([data-selected="true"]) { opacity: .45; }
 .path { color: #8e9483; font: 12px monospace; margin-top: 10px; }

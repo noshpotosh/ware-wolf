@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { moveTouch } from "../tools/scene-catalogue/touchDrag.js";
+import {
+  moveTouch, resizePointSquare,
+} from "../tools/scene-catalogue/touchDrag.js";
 
 const sceneSize = [200, 100];
 
@@ -34,4 +36,14 @@ test("surface corner handles move only their own corner", () => {
   };
   assert.deepEqual(moveTouch(surface, 5, 7, sceneSize, 2).corners,
     [[10, 10], [40, 10], [45, 37], [10, 30]]);
+});
+
+test("LED corner handles resize a square within its limits", () => {
+  const led = { kind: "point", position: [50, 50] };
+  assert.equal(resizePointSquare(led, 8, 6, 6, sceneSize, 2), 14);
+  assert.equal(resizePointSquare(led, 8, 20, 20, sceneSize, 0), 2);
+  assert.equal(resizePointSquare(led, 60, 20, 20, sceneSize, 2), 64);
+
+  const edgeLed = { kind: "point", position: [3, 50] };
+  assert.equal(resizePointSquare(edgeLed, 4, 20, 20, sceneSize, 2), 6);
 });
